@@ -1,5 +1,6 @@
-# Created by https://www.toptal.com/developers/gitignore/api/django,python,windows
-# Edit at https://www.toptal.com/developers/gitignore?templates=django,python,windows
+# created by virtualenv automatically
+# Created by https://www.toptal.com/developers/gitignore/api/python,django,windows
+# Edit at https://www.toptal.com/developers/gitignore?templates=python,django,windows
 
 ### Django ###
 *.log
@@ -135,11 +136,10 @@ celerybeat.pid
 .env
 .venv
 env/
-venv/
+project_venv/
 ENV/
 env.bak/
 venv.bak/
-project_venv
 
 # Spyder project settings
 .spyderproject
@@ -285,6 +285,6 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/django,python,windows
+# End of https://www.toptal.com/developers/gitignore/api/python,django,windows
 
 secret.json
