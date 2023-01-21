@@ -14,7 +14,7 @@ class BaseModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="등록날짜")
     modified_at = models.DateTimeField(auto_now=True, verbose_name="수정날짜")
     tags = TaggableManager(verbose_name="태그")
-    location_tags = TaggableManager(verbose_name="지역태그")
+    location_tags = models.CharField(verbose_name="지역태그", max_length=128)
     content = models.TextField(default="", verbose_name="내용")
     title = models.CharField(max_length="256", verbose_name="제목")
 
@@ -26,8 +26,8 @@ class Event(BaseModel):
     deadline = models.DateTimeField(verbose_name="마감날짜")
     participants_limit = models.SmallAutoField(verbose_name="참여인원 제한 수")
     participants_cnt = models.SmallIntegerField(verbose_name="참여인원 수")
-    start_event = models.DateTimeField(verbose_name="이벤트 시작일")
-    end_event = models.DateTimeField(verbose_name="이벤트 종료일")
+    start_event = models.CharField(verbose_name="이벤트 시작일", max_length=40)
+    end_event = models.CharField(verbose_name="이벤트 종료일", max_length=40)
 
 
     class Meta:
@@ -48,3 +48,6 @@ class EventImage(models.Model):
     class Meta:
         constraints = [UniqueConstraint(name='unique_together', fields=['event','order'])]
         ordering = ['order']
+
+class Schedul(models.Model):
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)

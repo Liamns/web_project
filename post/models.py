@@ -15,9 +15,12 @@ class Post(BaseModel):
         ordering = ['-created_at']
 
 class Comment(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="댓글")
-    post_id = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name="댓글")
-    content = models.TextField()
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    post_id = models.ForeignKey(Post, on_delete=models.CASCADE)
+    content = models.TextField(verbose_name="내용")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="등록날짜")
+    modified_at = models.DateTimeField(auto_now=True, verbose_name="수정날짜")
+    parent_comment_id = models.ForeignKey('self', on_delete=models.CASCADE, null=True)
 
 class PostImage(models.Model):
     UPLOAD_PATH = "post-upload"
