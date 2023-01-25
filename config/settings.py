@@ -22,7 +22,7 @@ secret_file = os.path.join(BASE_DIR, 'secret.json')
 with open(secret_file) as f:
     secrets = json.loads(f.read())
 
-def get_secret(setting):
+def get_secret(setting, secrets=secrets):
     try:
         return secrets[setting]
     except KeyError:
@@ -92,7 +92,19 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = get_secret("DATABASES")
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql', # engine: mysql
+#         'NAME' : 'project1', # DB Name
+#         'USER' : 'admin', # DB User
+#         'PASSWORD' : 'admin', # Password
+#         'HOST': 'database-1.cxt3fywlrrjs.us-east-1.rds.amazonaws.com', # 생성한 데이터베이스 엔드포인트
+#         'PORT': '3306', # 데이터베이스 포트
+#         'OPTIONS':{
+#             'init_command' : "SET sql_mode='STRICT_TRANS_TABLES'"
+#         }
+#     }
+# }
 
 
 # Password validation
