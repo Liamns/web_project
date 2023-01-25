@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from user.models import User
-from user.serializers import UserSerializer
+from message.serializers import UserSerializer
 from rest_framework.decorators import APIView
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
