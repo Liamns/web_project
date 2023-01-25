@@ -85,7 +85,6 @@ class Profile(models.Model):
     participations_cnt = models.SmallIntegerField(verbose_name="참여횟수")
     post_cnt = models.SmallIntegerField(verbose_name="게시글 수")
     comment_cnt = models.SmallIntegerField(verbose_name="댓글 수")
-    ranking = models.SmallIntegerField(verbose_name="랭킹")
 
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):

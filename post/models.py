@@ -15,11 +15,11 @@ class Post(BaseModel):
         ordering = ['-created_at']
 
 class Comment(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    post_id = models.ForeignKey(Post, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
     content = models.TextField(verbose_name="내용")
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name="등록날짜")
-    modified_at = models.DateTimeField(auto_now=True, verbose_name="수정날짜")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="등록일자")
+    modified_at = models.DateTimeField(auto_now=True, verbose_name="수정일자")
     parent_comment_id = models.ForeignKey('self', on_delete=models.CASCADE, null=True)
 
 class PostImage(models.Model):
@@ -30,6 +30,5 @@ class PostImage(models.Model):
     order = models.SmallIntegerField()
 
     class Meta:
-        constraints = [UniqueConstraint(name='unique_together', fields=['post','order'])]
         ordering = ['order']
 
