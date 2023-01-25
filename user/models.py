@@ -82,9 +82,9 @@ class Profile(models.Model):
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="회원")
     profile_img = models.ImageField(upload_to="profile/", default="profile/default.png", verbose_name="프로필이미지")
-    participations_cnt = models.SmallIntegerField(verbose_name="참여횟수")
-    post_cnt = models.SmallIntegerField(verbose_name="게시글 수")
-    comment_cnt = models.SmallIntegerField(verbose_name="댓글 수")
+    participations_cnt = models.SmallIntegerField(verbose_name="참여횟수", default=0)
+    post_cnt = models.SmallIntegerField(verbose_name="게시글 수", default=0)
+    comment_cnt = models.SmallIntegerField(verbose_name="댓글 수", default=0)
 
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
