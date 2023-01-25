@@ -55,7 +55,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     """
 
     # null = True 지정하지 않으면 not null + unique ==> pk 속성
-    email = models.EmailField(verbose_name="이메일", max_length=255, primary_key=True)
+    email = models.EmailField(verbose_name="이메일", max_length=255, unique=True)
     password = models.CharField(verbose_name="비밀번호", max_length=128)
     name = models.CharField(verbose_name="이름", max_length=64)
     nickname = models.CharField(verbose_name="닉네임", max_length=50)
