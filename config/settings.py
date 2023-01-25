@@ -13,6 +13,10 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import os, json
 from django.core.exceptions import ImproperlyConfigured
+from datetime import timedelta
+import pymysql
+
+pymysql.install_as_MySQLdb()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -57,6 +61,16 @@ INSTALLED_APPS = [
     'rest_framework',
     'djongo',
 ]
+
+INSTALLED_APPS += [    
+    'rest_framework.authtoken',
+    'dj_rest_auth',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth.registration',
+    ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
