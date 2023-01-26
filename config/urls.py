@@ -28,6 +28,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("", HomeView.as_view(), name="home"),
     path('user/', include('user.urls')),
+    path('post/', include('post.urls')),
     path('api/token/', TokenObtainSlidingView.as_view(), name='token_obtain'),
     path('api/token/refresh/', TokenRefreshSlidingView.as_view(), name='token_refresh'),
     path('schedule/', TemplateView.as_view(template_name = "schedule.html"), name='schedule'),
