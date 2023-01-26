@@ -10,9 +10,8 @@ urlpatterns = [
     path('rest_auth/register/', include('dj_rest_auth.registration.urls')),
     path('allauth/', include('allauth.urls')),
     path("register/", TemplateView.as_view(template_name="user/register.html"), name="register"),
-    path('login/', TemplateView.as_view(template_name="user/login.html"), name="login")
-    path("register/", TemplateView.as_view(template_name="register.html"), name="register"),
-    path('login/', LoginApi.as_view(), name='login'),
-    path('logout/', LogoutApi.as_view(), name='logout'),
-    path('registers/', RegisterView.as_view(), name='registers'),
+    path('login/', TemplateView.as_view(template_name="user/login.html"), name="login"),
+    path('jwt/login/', LoginApi.as_view()),
+    path('jwt/logout/', LogoutApi.as_view()),
+    path('jwt/register/', RegisterView.as_view()),
 ]
