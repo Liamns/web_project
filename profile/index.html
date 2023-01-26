@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile</title>
+  </head>
+  <style>
+    * {
+      margin: 0px;
+      padding: 0px;
+    }
+    .container {
+      display: grid;
+      background-color: antiquewhite;
+      width: 500px;
+      height: 1000px;
+      grid-template-columns: 100px 100px;
+      grid-template-rows: 50px repeat(4, 1fr);
+      grid-template-areas:
+        "blank-top blank-top"
+        "profile-img header"
+        "nav main"
+        "sidebar sidebar"
+        "footer footer";
+      /* grid-gap: 50px; */
+    }
+
+    .blank .top {
+      grid-area: blank-top;
+    }
+
+    .header {
+      grid-area: header;
+      /* margin: 50px; */
+    }
+
+    .header + img {
+      grid-area: profile-img;
+      /* margin: 50px; */
+    }
+
+    .nav {
+      grid-area: nav;
+    }
+
+    .main {
+      grid-area: main;
+    }
+
+    .sidebar {
+      grid-area: sidebar;
+    }
+
+    .footer {
+      grid-area: footer;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <div class="blank top"></div>
+      <div class="header">자기소개 텍스트</div>
+      <img src="./img/gan_woman1.jfif" alt="gan-woman" width="100px" />
+      <div class="nav">Navigation</div>
+      <div class="main">Main Content</div>
+      <div class="sidebar">Sidebar</div>
+      <div class="footer">Footer</div>
+    </div>
+  </body>
+</html>
