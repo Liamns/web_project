@@ -11,11 +11,17 @@
       margin: 0px;
       padding: 0px;
     }
+
+    body {
+      width: 700px;
+      color: #fbeaeb;
+    }
+
     .container {
       margin: 50px;
       /* padding: 50px; */
       display: grid;
-      background-color: antiquewhite;
+      background-color: #2e3c7e;
       /* width: 500px; */
       /* height: 1000px; */
       grid-template-columns: 200px 300px;
@@ -24,7 +30,7 @@
         "profile-img header"
         "activity main"
         "sidebar sidebar"
-        "footer footer";
+        "logout footer";
       grid-gap: 50px;
     }
 
@@ -53,6 +59,10 @@
 
     .sidebar {
       grid-area: sidebar;
+    }
+
+    button.logout {
+      grid-area: logout;
     }
 
     .footer {
@@ -84,4 +94,6 @@
       </div>
     </div>
   </body>
+  <button class="logout" type="button">로그아웃</button>
+  <footer></footer>
 </html>
