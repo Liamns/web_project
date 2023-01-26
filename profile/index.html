@@ -22,7 +22,7 @@
       grid-template-rows: repeat(4, 1fr);
       grid-template-areas:
         "profile-img header"
-        "nav main"
+        "activity main"
         "sidebar sidebar"
         "footer footer";
       grid-gap: 50px;
@@ -43,8 +43,8 @@
       /* margin: 50px; */
     }
 
-    .nav {
-      grid-area: nav;
+    .activity {
+      grid-area: activity;
     }
 
     .main {
@@ -65,9 +65,19 @@
         <div class="header">
           <div class="personal name">나유리</div>
           <div class="personal nickname">(나글라스)</div>
+          <div class="personal birthday">1980.1.1</div>
+          <div class="personal edit">
+            <br /><br /><br /><br /><br />*프로필 수정*
+          </div>
         </div>
         <img src="./img/gan_woman1.jfif" alt="gan-woman" width="200px" />
-        <div class="nav">Navigation</div>
+        <div class="activity">
+          <div class="manner">매너점수:89.19점</div>
+          <div class="rank">랭킹: 34729위</div>
+          <div class="event">참여한 이벤트:</div>
+          <div class="article">작성한 글</div>
+          <div class="comment">작성한 댓글</div>
+        </div>
         <div class="main">Main Content</div>
         <div class="sidebar">Sidebar</div>
         <div class="footer">Footer</div>
