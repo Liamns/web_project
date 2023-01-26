@@ -8,4 +8,4 @@ ERD v1.0.2 업데이트 <br>
 JWT login 기능 ~로그인 <br>
 
 # 230126
-chat 코딩률 35% <br>
+chat 코딩률 35% ys <br>
