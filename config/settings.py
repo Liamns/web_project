@@ -26,7 +26,7 @@ secret_file = os.path.join(BASE_DIR, 'secret.json')
 with open(secret_file) as f:
     secrets = json.loads(f.read())
 
-def get_secret(setting):
+def get_secret(setting, secrets=secrets):
     try:
         return secrets[setting]
     except KeyError:
@@ -64,27 +64,21 @@ INSTALLED_APPS = [
     'jazzmin',
     'corsheaders', # <- 추가
     'chat',
-    'message',
-    
-    
+    'message',    
 ]
 
 INSTALLED_APPS += [    
-    'rest_framework.authtoken',
-    'dj_rest_auth',
     'rest_framework_simplejwt',
     "rest_framework_simplejwt.token_blacklist",
     'rest_framework.authtoken',
     'dj_rest_auth',
     'dj_rest_auth.registration',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
     'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-
-    'dj_rest_auth.registration',
-    ]
-
     ]
 
 SITE_ID = 1
@@ -123,15 +117,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
 DATABASES = get_secret("DATABASES")
-
-
-# Password validation
-# https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
