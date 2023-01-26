@@ -1,4 +1,4 @@
-
+from . import views
 from django.urls import path
 from django.views.generic import TemplateView
 from django.urls import path, include
@@ -15,3 +15,4 @@ urlpatterns = [
     path('jwt/logout/', LogoutApi.as_view()),
     path('jwt/register/', RegisterView.as_view()),
 ]
+
