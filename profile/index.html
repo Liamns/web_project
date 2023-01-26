@@ -12,23 +12,25 @@
       padding: 0px;
     }
     .container {
+      margin: 50px;
+      /* padding: 50px; */
       display: grid;
       background-color: antiquewhite;
-      width: 500px;
-      height: 1000px;
-      grid-template-columns: 100px 100px;
-      grid-template-rows: 50px repeat(4, 1fr);
+      /* width: 500px; */
+      /* height: 1000px; */
+      grid-template-columns: 200px 300px;
+      grid-template-rows: repeat(4, 1fr);
       grid-template-areas:
-        "blank-top blank-top"
         "profile-img header"
         "nav main"
         "sidebar sidebar"
         "footer footer";
-      /* grid-gap: 50px; */
+      grid-gap: 50px;
     }
 
-    .blank .top {
-      grid-area: blank-top;
+    .wrapper {
+      border: 1px solid red;
+      margin: 50px;
     }
 
     .header {
@@ -58,14 +60,18 @@
     }
   </style>
   <body>
-    <div class="container">
-      <div class="blank top"></div>
-      <div class="header">자기소개 텍스트</div>
-      <img src="./img/gan_woman1.jfif" alt="gan-woman" width="100px" />
-      <div class="nav">Navigation</div>
-      <div class="main">Main Content</div>
-      <div class="sidebar">Sidebar</div>
-      <div class="footer">Footer</div>
+    <div class="wrapper">
+      <div class="container">
+        <div class="header">
+          <div class="personal name">나유리</div>
+          <div class="personal nickname">(나글라스)</div>
+        </div>
+        <img src="./img/gan_woman1.jfif" alt="gan-woman" width="200px" />
+        <div class="nav">Navigation</div>
+        <div class="main">Main Content</div>
+        <div class="sidebar">Sidebar</div>
+        <div class="footer">Footer</div>
+      </div>
     </div>
   </body>
 </html>
