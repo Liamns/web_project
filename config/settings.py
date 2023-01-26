@@ -170,7 +170,7 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
-        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+        'apis.views.SafeJWTAuthentication',
     ),
 }
 
