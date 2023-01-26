@@ -1,12 +1,12 @@
 from rest_framework import serializers
 from .models import User, Profile
-from message_control.serializers import GenericFileUploadSerializer
+from message.serializers import GenericFileUploadSerializer
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = "__all__"
+        exclude = ("password",)
         
         
 class ProfileSerializer(serializers.ModelSerializer):
@@ -27,7 +27,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         except Exception as e:
             user_id = None
 
-        from message_control.models import Message
+        from message.models import Message
         message = Message.objects.filter(sender_id=obj.user.id, receiver_id=user_id, is_read=False).distinct()
 
         return message.count()

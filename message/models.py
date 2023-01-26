@@ -13,9 +13,9 @@ class GenericFileUpload(models.Model):
 
 class Message(models.Model):
     sender = models.ForeignKey(
-        'user_control.User', related_name='message_sender', on_delete=models.CASCADE)
+        'user.User', related_name='message_sender', on_delete=models.CASCADE)
     receiver = models.ForeignKey(
-        'user_control.User', related_name='message_receiver', on_delete=models.CASCADE)
+        'user.User', related_name='message_receiver', on_delete=models.CASCADE)
     message = models.TextField(blank=True, null=True)
     is_read = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
