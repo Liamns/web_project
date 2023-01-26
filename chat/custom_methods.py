@@ -22,7 +22,7 @@ class IsAuthenticatedCustom(BasePermission):
 
 
 class IsAuthenticatedOrReadCustom(BasePermission):
-    def has_permission(self, request, view):
+    def has_permission(self, request, view): 
         if request.method in SAFE_METHODS:
             return True
 

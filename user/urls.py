@@ -2,7 +2,19 @@
 from django.urls import path
 from django.views.generic import TemplateView
 from django.urls import path, include
+
+
+# ys
+from apis.views import UserProfileView
 from rest_framework import routers
+from rest_framework.routers import DefaultRouter
+
+
+router = DefaultRouter(trailing_slash=False)
+
+router.register("profile", UserProfileView)
+
+
 
 
 urlpatterns = [

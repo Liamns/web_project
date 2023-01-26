@@ -51,7 +51,7 @@ class TestMessage(APITestCase):
         from user.models import User, Profile
 
         payload = {
-            "username": "sender",
+            "name": "sender",
             "password": "sender123",
             "email": "adefemigreat@yahoo.com"
         }

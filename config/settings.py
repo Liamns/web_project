@@ -15,6 +15,7 @@ import os, json
 from django.core.exceptions import ImproperlyConfigured
 from datetime import timedelta
 import pymysql
+from decouple import config
 
 pymysql.install_as_MySQLdb()
 
@@ -44,6 +45,8 @@ SECRET_KEY = get_secret("SECRET_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+AUTH_USER_MODEL = 'user.User' # <-- ys
 
 
 # Application definition
@@ -116,6 +119,23 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = get_secret("DATABASES")
+
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_HEADERS = (
+    'x-requested-with',
+    'content-type',
+    'accept',
+    'origin',
+    'authorization',
+    'accept-encoding',
+    'x-csrftoken',
+    'access-control-allow-origin',
+    'content-disposition'
+)
+CORS_ALLOW_CREDENTIALS = False
+CORS_ALLOW_METHODS = ('GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS')
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -190,3 +210,7 @@ SIMPLE_JWT = {
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': True,
 }
+
+
+
+SOCKET_SERVER = config("SOCKET_SERVER")
