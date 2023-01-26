@@ -33,16 +33,16 @@
                         <a class="nav-link" href="#about">회사소개</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#portfolio">이용방법</a>
+                        <a class="nav-link" href="#howuse">이용방법</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#blog">후원</a>
+                        <a class="nav-link" href="#donation">후원</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#contact">컨택트</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="ml-4 nav-link btn btn-primary btn-sm rounded">회원가입</a>
+                        <a href="{% url 'login' %}" aria-current="page" class="ml-4 nav-link active btn btn-primary btn-sm rounded">로그인</a>
                     </li>
                 </ul>
             </div>
@@ -136,7 +136,7 @@
     <!-- End OF About Section -->
 
     <!-- Portfolio Section -->
-    <section id="portfolio" class="section portfolio-section">
+    <section id="howuse" class="section portfolio-section">
         <div class="container">
             <h6 class="section-title text-center">간단 이용 순서</h6>
             <h6 class="section-subtitle mb-5 text-center">New stunning projects for our amazing clients</h6>
@@ -319,9 +319,9 @@
     <!-- End of portfolio section -->
 
     <!-- Blog Section -->
-    <section class="section" id="blog">
+    <section class="section" id="donation">
         <div class="container">
-            <h6 class="section-title mb-0 text-center">만남 전 체크 Tip</h6>
+            <h6 class="section-title mb-0 text-center">후원</h6>
             <h6 class="section-subtitle mb-5 text-center">Architecto provident deserunt eveniet libero</h6>
 
             <div class="row">
