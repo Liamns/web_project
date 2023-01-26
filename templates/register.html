@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+  <link rel="stylesheet" href="{% static 'css/register.css' %}">
+{% endblock style %}
+
+{% block contents %}
+  <div class="header">
+    <div class="wrapper">
+      <div class="content">
+        <div>
+          <h3>
+            <label for="id">아이디</label>
+          </h3>
+          <span class="box int_id">
+            <input type="email" id="id" class="int" maxlength="20">
+          </span>
+          <span class="error_next_box"></span>
+        </div>
+        <div>
+          <h3>
+            <label for="password1">비밀번호</label>
+          </h3>
+          <span class="box int_password">
+            <input type="password" id="password" class="int" maxlength="20">
+          </span>
+          <span class="error_next_box"></span>
+        </div>
+        <div>
+          <h3>
+            <label for="password">비밀번호 확인</label>
+          </h3>
+          <span class="box int_password_check">
+            <input type="password" id="password_check" class="int" maxlength="20">
+          </span>
+          <span class="error_next_box"></span>
+        </div>
+        <div>
+          <h3>
+            <label for="username">이름</label>
+          </h3>
+          <span class="box int_name">
+            <input type="text" id="username" class="int" maxlength="20">
+          </span>
+          <span class="error_next_box"></span>
+        </div>
+        <div>
+          <h3>
+            <label for="nickname">닉네임</label>
+          </h3>
+          <span class="box int_nickname">
+            <input type="text" id="nickname" class="int" maxlength="20">
+          </span>
+          <span class="error_next_box"></span>
+        </div>
+
+      </div>
+      <!--Birth-->
+      <div>
+        <h3>
+          <label for="yy">생년월일</label>
+        </h3>
+        <div class="bir_wrap">
+          <span class="box">
+            <input type="text" id="yy" class="int" maxlength="4" placeholder="년(4자)">
+          </span>
+        </div>
+
+        <!--Birth_month-->
+        <div class="bir_mm">
+          <span class="box">
+            <select id="mm">
+              <option>월</option>
+              <option value="01">01</option>
+              <option value="02">02</option>
+              <option value="03">03</option>
+              <option value="04">04</option>
+              <option value="05">05</option>
+              <option value="06">06</option>
+              <option value="07">07</option>
+              <option value="08">08</option>
+              <option value="09">09</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+            </select>
+          </span>
+        </div>
+
+        <!--Birth_DD-->
+        <div class="bir_dd">
+          <span class="box">
+            <input type="text" id="dd" class="int" maxlength="2" placeholder="일">
+          </span>
+        </div>
+      </div>
+      <span class="error_next_box"></span>
+    </div>
+  </div>
+
+  <div class="btn_area">
+    <button type="button">
+      <span>가입하기</span>
+    </button>
+  </div>
+{% endblock contents %}
