@@ -19,26 +19,16 @@ from rest_framework_simplejwt.views import (
     TokenObtainSlidingView,
     TokenRefreshSlidingView,
 )
-<<<<<<< HEAD
 from django.conf import settings
 from django.conf.urls.static import static
-=======
 from django.views.generic import TemplateView
-
->>>>>>> Song
-
 from post.views import HomeView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-<<<<<<< HEAD
     path("", HomeView.as_view(), name="home"),
-    path('user/', include("user.urls")),
-    path('api/token/', TokenObtainSlidingView.as_view(), name='token_obtain'),
-    path('api/token/refresh/', TokenRefreshSlidingView.as_view(), name='token_refresh'),
-=======
     path('user/', include('user.urls')),
     path('api/token/', TokenObtainSlidingView.as_view(), name='token_obtain'),
     path('api/token/refresh/', TokenRefreshSlidingView.as_view(), name='token_refresh'),
     path('schedule/', TemplateView.as_view(template_name = "schedule.html"), name='schedule'),
->>>>>>> Song
 ]
