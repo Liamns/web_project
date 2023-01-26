@@ -19,12 +19,13 @@ from rest_framework_simplejwt.views import (
     TokenObtainSlidingView,
     TokenRefreshSlidingView,
 )
+from django.conf import settings
+from django.conf.urls.static import static
 
-
+from post.views import HomeView
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include("templates.home")),
-    path('user/', include("user.urls")),
+    path("", HomeView.as_view(), name="home"),
     path('user/', include("user.urls")),
     path('api/token/', TokenObtainSlidingView.as_view(), name='token_obtain'),
     path('api/token/refresh/', TokenRefreshSlidingView.as_view(), name='token_refresh'),
