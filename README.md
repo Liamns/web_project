@@ -1,5 +1,16 @@
 # web_project
  alphaco2
+파스텔 핑파 코드
+#FFDFDE
+#6A7BA2
+
+형광 핑파 색 코드
+#2E3C7E
+#FBEAEB
+
+파스텔 흰파 코드
+#FEFEFE
+#8AAAE5
 
 # 230125
 ERD v1.0.0 작성완료 <br>
