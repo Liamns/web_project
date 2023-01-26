@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+<link rel="stylesheet" href="{% static 'css/register.css' %}"/>
+
+<div class="wrap modal hidden">
+  <div class="bg"></div>
+  <div class="content modalBox">
+    <div class="modal-close-box">
+      <div class="modal-close">
+        <a href="#" class="close">X</a>
+      </div>
+    </div>
+    <div class="box_pw">
+      <div class="psw_box">
+        <h3 class="join_title">
+          <label for="id">아이디</label>
+        </h3>
+        <span class="box_span int_pass">
+          <input type="email" id="email" class="text" maxlength="20" placeholder="아이디"/>
+        </span>
+      </div>
+    </div>
+
+    <!-- PW1 -->
+    <div class="box_pw">
+      <div class="psw_box">
+        <h3 class="join_title">
+          <label for="pswd1">비밀번호</label>
+        </h3>
+        <span class="box_span int_pass">
+          <input type="text" id="pswd1" class="text" maxlength="20" placeholder="비밀번호"/>
+          <img src="{% static 'imgs/m_icon_pass.png' %}" id="pswd1_img1" class="pswdImg"/>
+        </span>
+      </div>
+    </div>
+
+    <div class="register_area">
+      <button type="button" id="btnlogin">
+        <span>로그인</span>
+      </button>
+    </div>
+    <div class="register_area">
+      <button type="button" id="btnRegister">
+        <span>회원가입</span>
+      </button>
+    </div>
+    <div class="find_password">
+      <a href="#" class="lost_pw">아이디 또는 비밀번호를 잊으셨나요?</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const open = () => {
+    document
+      .querySelector(".modal")
+      .classList
+      .remove("hidden");
+  };
+
+  const close = () => {
+    document
+      .querySelector(".modal")
+      .classList
+      .add("hidden");
+  };
+
+  document
+    .querySelector(".btn-sm")
+    .addEventListener("click", open);
+  document
+    .querySelector(".close")
+    .addEventListener("click", close);
+</script>
