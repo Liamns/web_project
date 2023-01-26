@@ -11818,7 +11818,7 @@ textarea.form-control {
   position: relative;
   height: 100vh;
   min-height: 500px;
-  background: url(static\imgs\header.jpg) no-repeat center center fixed;
+  background: url(../imgs/header.jpg) no-repeat center center fixed;
   background-size: cover;
   overflow: hidden;
 }
