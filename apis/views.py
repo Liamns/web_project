@@ -3,7 +3,7 @@ from user.models import User, Profile
 from user.serializers import UserSerializer, ProfileSerializer
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
-from rest_framework.renderers import TemplateHTMLRenderer
+
 import jwt,datetime
 
 from rest_framework import status
@@ -101,8 +101,6 @@ class UserProfileView(ModelViewSet):
 
 #회원가입
 class RegisterView(APIView) :
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name='register.html'
 
     def post(self, req):
         serializer = UserSerializer(data=req.data)

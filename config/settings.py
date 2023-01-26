@@ -188,9 +188,3 @@ REST_USE_JWT = True
 
 REFRESH_TOKEN_SECRET = get_secret("REFRESH_TOKEN_SECRET")
 
-REST_FRAMEWORK = {
-    'DEFAULT_RENDERER_CLASSES': [
-        'rest_framework.renderers.JSONRenderer',
-        'rest_framework.renderers.BrowsableAPIRenderer',
-    ]
-}
