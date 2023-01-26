@@ -4,11 +4,15 @@ from django.contrib.auth.models import AbstractBaseUser, AbstractUser, BaseUserM
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 
+from message.models import GenericFileUpload
+from django.utils import timezone
+
+
 # AbstracUser
 # AbstractBaseUser 상속
 
 # 프로젝트에 필요한 user
-# email 필드 == id 개념 == username
+# email 필드 == id 개념 == username 
 # nickname, birth, address 추가
 
 class UserManager(BaseUserManager):
@@ -93,3 +97,15 @@ class Profile(models.Model):
 
     def __str__(self) -> str:
         return "<%s>" % (self.user)
+    
+
+class Favorite(models.Model):
+    user = models.OneToOneField(User, related_name="user_favorites", on_delete=models.CASCADE)
+    favorite = models.ManyToManyField(User, related_name="user_favoured")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username}"
+
+    class Meta:
+        ordering = ("created_at",)

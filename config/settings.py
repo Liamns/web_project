@@ -61,6 +61,12 @@ INSTALLED_APPS = [
     'rest_framework',
     "taggit",
     "apis",
+    'jazzmin',
+    'corsheaders', # <- 추가
+    'chat',
+    'message',
+    
+    
 ]
 
 INSTALLED_APPS += [    
@@ -84,6 +90,10 @@ INSTALLED_APPS += [
 SITE_ID = 1
 
 MIDDLEWARE = [
+    
+    'corsheaders.middleware.CorsMiddleware',     # <- 추가
+    'django.middleware.common.CommonMiddleware', # <- 추가
+    
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
