@@ -6,7 +6,7 @@ from message.serializers import GenericFileUploadSerializer
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        exclude = ("password",)
+        fields = "__all__"
         
         
 class ProfileSerializer(serializers.ModelSerializer):

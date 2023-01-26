@@ -2,18 +2,14 @@ from django.shortcuts import render
 from user.models import User, Profile
 from user.serializers import UserSerializer, ProfileSerializer
 from rest_framework.decorators import APIView
-from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
-from rest_framework.exceptions import AuthenticationFailed
 import jwt,datetime
 
 from rest_framework import status
-from rest_framework import exceptions
-from rest_framework.authentication import BaseAuthentication, CSRFCheck
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
-from django.contrib.auth.decorators import method_decorator
+from django.utils.decorators import method_decorator
 
 #ys
 from chat.custom_methods import IsAuthenticatedCustom
@@ -206,7 +202,7 @@ def generate_access_token(user):
     access_token = jwt.encode(
         access_token_payload,
         settings.SECRET_KEY, algorithm='HS256'
-    ).decode('utf-8')
+    )
     
     return access_token
     
@@ -221,7 +217,7 @@ def generate_refresh_token(user):
     refresh_token = jwt.encode(
         refresh_token_payload,
         settings.REFRESH_TOKEN_SECRET, algorithm='HS256'
-    ).decode('utf-8')
+    )
     
     return refresh_token
 

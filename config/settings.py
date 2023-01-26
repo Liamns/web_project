@@ -184,3 +184,6 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 REST_USE_JWT = True
+
+
+REFRESH_TOKEN_SECRET = get_secret("REFRESH_TOKEN_SECRET")
