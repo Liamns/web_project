@@ -1,5 +1,7 @@
 # web_project
  alphaco2
+ 흰 : #FEFEFE
+ 파 : #8AAAE5
 
 # 230125
 ERD v1.0.0 작성완료 <br>
