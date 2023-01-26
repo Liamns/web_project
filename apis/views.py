@@ -110,55 +110,7 @@ class RegisterView(APIView) :
     serializer.save()
     return Response(serializer.data)
 
-class SafeJWTAuthentication(BaseAuthentication):
-    """
-    JWT Authentication
-    헤더의 jwt 값을 디코딩해 얻은 user_id 값을 통해서 유저 인증 여부를 판단한다.
-    """
-    
-    def authenticate(self, request):
-        authorization_header = request.headers.get('Authorization')
-        
-        if not authorization_header:
-            return None
-            
-        try:
-            prefix = authorization_header.split(' ')[0]
-            if prefix.lower() != 'jwt':
-                raise exceptions.AuthenticationFailed('Token is not jwt')
-
-            access_token = authorization_header.split(' ')[1]
-            payload = jwt.decode(
-                access_token, settings.SECRET_KEY, algorithms=['HS256']
-            )
-        except jwt.ExpiredSignatureError:
-            raise exceptions.AuthenticationFailed('access_token expired')
-        except IndexError:
-            raise exceptions.AuthenticationFailed('Token prefix missing')
-        
-        return self.authenticate_credentials(request, payload['user_id'])
-    
-    def authenticate_credentials(self, request, key):
-        user = User.objects.filter(id=key).first()
-        
-        if user is None:
-            raise exceptions.AuthenticationFailed('User not found')
-        
-        if not user.is_active:
-            raise exceptions.AuthenticationFailed('User is inactive')
-        
-        self.enforce_csrf(request)
-        return (user, None)
-
-    def enforce_csrf(self, request):
-        check = CSRFCheck()
-        
-        check.process_request(request)
-        reason = check.process_view(request, None, (), {})
-        if reason:
-            raise exceptions.PermissionDenied(f'CSRF Failed: {reason}')
-
-users = get_user_model()
+User = get_user_model()
 
 @method_decorator(ensure_csrf_cookie, name="dispatch")
 class LoginApi(APIView):
@@ -167,16 +119,16 @@ class LoginApi(APIView):
         email 과 password를 가지고 login 시도
         key값 : email, password
         """
-        user = users
+        user = User
         email = request.data.get('email')
         password = request.data.get('password')
         
         if (email is None) or (password is None):
             return Response({
-                "message": "username/password required"
+                "message": "email/password required"
             }, status=status.HTTP_400_BAD_REQUEST)
         
-        user = users.objects.filter(email=email).first()
+        user = User.objects.filter(email=email).first()
         if user is None:
             return Response({
                 "message": "유저를 찾을 수 없습니다"
@@ -209,7 +161,7 @@ class RefreshJWTtoken(APIView):
                 "message": "expired refresh token, please login again."
             }, status=status.HTTP_403_FORBIDDEN)
         
-        user = users.objects.filter(id=payload['user_id']).first()
+        user = User.objects.filter(id=payload['nkn']).first()
         
         if user is None:
             return Response({
@@ -244,7 +196,7 @@ class LogoutApi(APIView):
 
 def generate_access_token(user):
     access_token_payload = {
-        'user_id': user.id,
+        'nkn': user.nickname,
         'exp': datetime.datetime.utcnow() + datetime.timedelta(
             days=0, minutes=30
         ),
@@ -261,7 +213,7 @@ def generate_access_token(user):
     
 def generate_refresh_token(user):
     refresh_token_payload = {
-        'user_id': user.id,
+        'nkn': user.nickname,
         'exp': datetime.datetime.utcnow() + datetime.timedelta(days=7),
         'iat': datetime.datetime.utcnow(),
     }
