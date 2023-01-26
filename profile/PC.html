@@ -10,6 +10,7 @@
     * {
       margin: 0px;
       padding: 0px;
+      font-size: 50px;
     }
     .container {
       margin: 50px;
@@ -21,8 +22,8 @@
       grid-template-columns: 500px 500px 500px;
       grid-template-rows: repeat(3, 1fr);
       grid-template-areas:
-        "profile-img activity calendar"
-        "personal main main"
+        "profile-img main calendar"
+        "personal activity activity"
         "footer footer footer";
       grid-gap: 50px;
     }
@@ -86,7 +87,7 @@
           width="400px"
         />
         <div class="main">Main Content</div>
-        <div class="sidebar">Sidebar</div>
+        <!-- <div class="sidebar">Sidebar</div> -->
         <div class="footer">Footer</div>
       </div>
     </div>
