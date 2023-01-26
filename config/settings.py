@@ -64,19 +64,30 @@ INSTALLED_APPS = [
 ]
 
 INSTALLED_APPS += [    
+<<<<<<< HEAD
     'rest_framework_simplejwt',
     "rest_framework_simplejwt.token_blacklist",
     'rest_framework.authtoken',
     'dj_rest_auth',
     'dj_rest_auth.registration',
+=======
+    'rest_framework.authtoken',
+    'dj_rest_auth',
+>>>>>>> Song
     'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+<<<<<<< HEAD
     ]
 
 SITE_ID = 1
 
+=======
+    'dj_rest_auth.registration',
+    ]
+
+>>>>>>> Song
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
