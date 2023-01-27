@@ -23,7 +23,7 @@ JWT login 기능 ~로그인 <br>
 
 # 230126
 chat 코딩률 (35%) <br>
-프로필 프론트 윤곽 설정 완료(90%)<br>
+프로필 프론트 윤곽 설정 완료<br>
 JWT login 기능완료<br>
 Login 화면 구성(모달창)<br>
 Register 회원가입 화면 완료<br>
