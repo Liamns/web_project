@@ -247,4 +247,5 @@ def jwt_login(response, user):
     
     response.data = data
     response.set_cookie(key="refreshtoken", value=refresh_token, httponly=True)
+
     return response
