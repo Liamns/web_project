@@ -12335,7 +12335,7 @@ textarea.form-control {
 }
 
 .portfolio-section .filters {
-  border: 2px solid #dee2e6;
+  border: 2px solid #2e3c7e;
   border-radius: 100px;
   padding: 2px;
   margin: 0 auto 20px;
@@ -12378,7 +12378,7 @@ textarea.form-control {
 .portfolio-section .filters a.active {
   opacity: 1;
   border-radius: 100px;
-  background: #ff6e42;
+  background: #6a7ba2;
   color: #fff;
 }
 
@@ -12441,4 +12441,8 @@ textarea.form-control {
   left: 50%;
   opacity: 1;
   visibility: visible;
+}
+
+.kt-1 {
+  color: #f5f8fc;
 }
