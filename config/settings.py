@@ -16,6 +16,7 @@ from django.core.exceptions import ImproperlyConfigured
 from datetime import timedelta
 import pymysql
 
+
 pymysql.install_as_MySQLdb()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -165,12 +166,13 @@ MEDIA_URL = '/media/'
 
 # simple jwt 공식문서
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
-        'apis.authenticate.SafeJWTAuthentication',
-    ),
     'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
         'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        # 'rest_framework.authentication.SessionAuthentication',
+        'apis.authenticate.SafeJWTAuthentication',
     ),
 }
 
