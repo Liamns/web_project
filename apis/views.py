@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from user.models import User, Profile
 from user.serializers import UserSerializer, ProfileSerializer
 from rest_framework.decorators import APIView
@@ -6,18 +6,27 @@ from rest_framework.response import Response
 
 import jwt,datetime
 
+
 from rest_framework import status
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 from django.utils.decorators import method_decorator
+from rest_framework.decorators import APIView, permission_classes
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 #ys
 from chat.custom_methods import IsAuthenticatedCustom
 from rest_framework.viewsets import ModelViewSet
 from django.db.models import Q, Count, Subquery, OuterRef
 import re
-  
+
+
+#수정사항
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.decorators import APIView, permission_classes
+from django.http import HttpResponseRedirect
+
 # 프로필 View
 class UserProfileView(ModelViewSet):
     queryset = Profile.objects.all()
@@ -110,6 +119,7 @@ class RegisterView(APIView) :
 
 User = get_user_model()
 
+@permission_classes([AllowAny])
 @method_decorator(ensure_csrf_cookie, name="dispatch")
 class LoginApi(APIView):
     def post(self, request, *args, **kwargs):
@@ -117,6 +127,7 @@ class LoginApi(APIView):
         email 과 password를 가지고 login 시도
         key값 : email, password
         """
+
         user = User
         email = request.data.get('email')
         password = request.data.get('password')
@@ -234,5 +245,5 @@ def jwt_login(response, user):
     
     response.data = data
     response.set_cookie(key="refreshtoken", value=refresh_token, httponly=True)
-    
+    response.header.Authentication = access_token
     return response

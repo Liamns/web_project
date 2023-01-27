@@ -16,7 +16,7 @@ class SafeJWTAuthentication(BaseAuthentication):
     """
     
     def authenticate(self, request):
-        authorization_header = request.headers.get('Authorization')
+        authorization_header = request.headers.get('Authentication')
         
         if not authorization_header:
             return None
@@ -35,7 +35,7 @@ class SafeJWTAuthentication(BaseAuthentication):
         except IndexError:
             raise exceptions.AuthenticationFailed('Token prefix missing')
         
-        return self.authenticate_credentials(request, payload['user_id'])
+        return self.authenticate_credentials(request, payload['nkn'])
     
     def authenticate_credentials(self, request, key):
         user = User.objects.filter(id=key).first()
