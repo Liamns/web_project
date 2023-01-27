@@ -44,7 +44,7 @@
               <a class="nav-link" href="#contact">컨택트</a>
             </li>
             <li class="nav-item">
-              <a href="#" aria-current="page" class="ml-4 nav-link active btn btn-primary btn-sm rounded">로그인</a>
+              <a href="#" aria-current="page" class="ml-4 nav-link active btn btn-primary btn-sm rounded" id="login">로그인</a>
             </li>
           </ul>
         </div>
@@ -487,6 +487,25 @@
 
               <!-- LeadMark js -->
               <script src="{% static 'js/leadmark.js' %}"></script>
+              <script>
+                const login_btn = document.getElementById("#login");
+                login_btn.innerHTML = "프로필";
+
+                if (window.localStorage.getItem("aceess-token") === null) {
+                  const login_btn = document.getElementById("login");
+                  login_btn.innerText = "프로필";
+                  login_btn
+                    .classList
+                    .remove("btn-sm");
+                } else {
+                  const login_btn = document.getElementById("login");
+                  login_btn.innerText = "프로필";
+                }
+
+                document
+                  .getElementsByClassName("btn-sm")
+                  .innerText = "프로필";
+              </script>
 
             </body>
 

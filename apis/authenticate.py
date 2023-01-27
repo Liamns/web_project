@@ -25,7 +25,6 @@ class SafeJWTAuthentication(BaseAuthentication):
             prefix = authorization_header.split(' ')[0]
             if prefix.lower() != 'jwt':
                 raise exceptions.AuthenticationFailed('Token is not jwt')
-
             access_token = authorization_header.split(' ')[1]
             payload = jwt.decode(
                 access_token, settings.SECRET_KEY, algorithms=['HS256']
