@@ -28,7 +28,7 @@
           <label for="pswd1">비밀번호</label>
         </h3>
         <span class="box_span int_pass">
-          <input type="text" id="pswd1" class="text" maxlength="20" placeholder="비밀번호"/>
+          <input type="password" id="pswd1" class="text" maxlength="20" placeholder="비밀번호"/>
           <img src="{% static 'imgs/m_icon_pass.png' %}" id="pswd1_img1" class="pswdImg"/>
         </span>
       </div>
@@ -73,5 +73,38 @@
     .addEventListener("click", close);
   document
     .querySelector(".bg")
-    .addEventListener("click", close)
+    .addEventListener("click", close);
+
+  const email = document.getElementById("email");
+  const password = document.getElementById("pswd1");
+  const login_btn = document.getElementById("btnlogin");
+
+  login_btn.addEventListener("click", () => {
+    const login_object = {
+      "email": email.value,
+      "password": password.value
+    }
+
+    console.log(login_object)
+
+    fetch("http://127.0.0.1:8000/user/jwt/login/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(login_object),
+      redirect: "follow"
+    })
+      .then((res) => {
+        res.json()
+        console.log(res)
+        if (res.ok == true) {
+          //myReq.setRequestHeader("Authentication", res.)
+          window.location.href = "http://127.0.0.1:8000/"
+        } else {
+          alert("아이디 혹은 비밀번호를 확인해 주세요")
+        }
+      })
+      .then((data) => console.log(data));
+  });
 </script>

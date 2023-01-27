@@ -16,7 +16,7 @@ class SafeJWTAuthentication(BaseAuthentication):
     """
     
     def authenticate(self, request):
-        authorization_header = request.headers.get('Authorization')
+        authorization_header = request.headers.get('Authentication')
         
         if not authorization_header:
             return None
