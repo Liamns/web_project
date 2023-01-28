@@ -91,8 +91,8 @@ class TestMessage(APITestCase):
         # assertions
         self.assertEqual(response.status_code, 201)
         self.assertEqual(result["message"], "test message")
-        self.assertEqual(result["sender"]["user"]["username"], "sender")
-        self.assertEqual(result["receiver"]["user"]["username"], "receiver")
+        self.assertEqual(result["sender"]["user"]["name"], "sender")
+        self.assertEqual(result["receiver"]["user"]["name"], "receiver")
 
     def test_post_with_file(self):
 
