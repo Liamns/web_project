@@ -10,4 +10,6 @@ urlpatterns = [
     
     # 컨텐츠 홈    
     path("", views.PostView.as_view(), name="post"),
+    # 이벤트 리스트 
+    path("events/", views.PostEventView.as_view(), name="event_list"),
 ]

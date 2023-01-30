@@ -11,6 +11,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import APIView, permission_classes
 from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 from django.utils.decorators import method_decorator
+from post.serializers import PostSerializer
 
 @permission_classes([AllowAny])
 @method_decorator(ensure_csrf_cookie, name="dispatch")
@@ -36,3 +37,12 @@ class HomeView(APIView):
 
 class PostView(TemplateView):
     template_name = "post/main.html"
+
+
+class PostEventView(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = "post/event_list.html"
+
+    def get(self, req):
+        post_serializer = PostSerializer()
+        return Response({"post" : post_serializer})
