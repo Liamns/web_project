@@ -49,6 +49,8 @@ ALLOWED_HOSTS = []
 AUTH_USER_MODEL = 'user.User' # <-- ys
 
 
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -65,9 +67,9 @@ INSTALLED_APPS = [
     "taggit",
     "apis",
     'jazzmin',
-    'corsheaders', # <- 추가
-    'chat',
-    'message',    
+    'corsheaders', # <- ys
+    'chat', # <- ys
+    'channels', # <- ys
 ]
 
 INSTALLED_APPS += [    
@@ -117,6 +119,16 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
+ASGI_APPLICATION = "config.asgi.application"                    # <== ys
+ 
+CHANNEL_LAYERS = {                                              # <== ys
+    "default": { 
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
 
 DATABASES = get_secret("DATABASES")
 
@@ -213,4 +225,3 @@ SIMPLE_JWT = {
 
 
 
-SOCKET_SERVER = config("SOCKET_SERVER")
