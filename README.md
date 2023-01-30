@@ -37,3 +37,4 @@ JWT login 프론트 연결 작업 중<br>
 allauth social login google, kakao 연동 <br>
 chat 작업 (30%)  <br>
 Home.html 로그인프로필변경 오류 찾는 작업중,js 코드문제인듯.<br>
+이메일 인증 작업 중<br>
