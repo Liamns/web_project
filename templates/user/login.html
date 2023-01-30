@@ -116,7 +116,8 @@
       //    window.location.href = "http://127.0.0.1:8000/"
       // } else {
       //   alert("아이디 혹은 비밀번호를 확인해 주세요")
-      // })
+      // }
+      )
       .then((data) => {
         if (data.access_token != NaN) {
           window.localStorage.setItem("aceess-token", data.access_token);
