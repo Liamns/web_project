@@ -13,6 +13,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import APIView, permission_classes
 from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 from django.utils.decorators import method_decorator
+from post.serializers import PostSerializer
 
 @permission_classes([AllowAny])
 @method_decorator(ensure_csrf_cookie, name="dispatch")
@@ -103,3 +104,12 @@ def comment_create(request,post_id):
         form = CommentForm()
 
     return render(request,"post/post_detail.html",{"form":form,"post":post})
+
+
+class PostEventView(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = "post/event_list.html"
+
+    def get(self, req):
+        post_serializer = PostSerializer()
+        return Response({"post" : post_serializer})

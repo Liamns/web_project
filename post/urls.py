@@ -8,4 +8,6 @@ urlpatterns = [
     path("create/", views.post_create, name="post_create"),
     path("<int:pk>/", views.detail, name="detail"),
 
+    # 이벤트 리스트 
+    path("events/", views.PostEventView.as_view(), name="event_list"),
 ]
