@@ -35,3 +35,4 @@ JWT login 프론트 연결 작업 중<br>
 
 # 230130
 allauth social login google, kakao 연동 <br>
+chat 작업 (30%)  <br>
