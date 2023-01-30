@@ -3,6 +3,7 @@ from user.models import User, Profile
 from user.serializers import UserSerializer, ProfileSerializer
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
+from django.views.decorators.csrf import csrf_exempt
 
 import jwt,datetime
 
@@ -14,6 +15,7 @@ from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 from django.utils.decorators import method_decorator
 from rest_framework.decorators import APIView, permission_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.renderers import TemplateHTMLRenderer
 
 #ys
 from chat.custom_methods import IsAuthenticatedCustom
@@ -113,11 +115,18 @@ class UserProfileView(ModelViewSet):
 @method_decorator(ensure_csrf_cookie, name="dispatch")
 class RegisterView(APIView) :
 
+    renderer_classes = [TemplateHTMLRenderer]
+
     def post(self, req):
         serializer = UserSerializer(data=req.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
+    
+    def get(self, req):
+        user = UserSerializer()
+        return Response({"user" : user}, template_name="user/register.html")
+
 
 User = get_user_model()
 
