@@ -2,217 +2,196 @@
 {% load static %}
 {% load rest_framework %}
 {% block style %}
-  <link rel="stylesheet" href="{% static 'css/register.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/register.css' %}" />
 {% endblock style %}
 {% block contents %}
-  <div class="title_container">
-    <h2 class="lovesolo_title">LoveSolo 회원가입</h2>
-  </div>
-  <!-- wrapper -->
-  <div id="wrapper">
-    <!-- content-->
-    <div id="content">
-      <!-- ID -->
-      <div>
-        <h3 class="join_title">
-          <label for="id">아이디</label>
-        </h3>
-        <span class="box int_id">
-          <input type="text" id="id" class="int" maxlength="20"/>
-        </span>
-        <span class="error_next_box">필수정보 입니다.</span>
-      </div>
-
-      <!-- PW1 -->
-      <div>
-        <h3 class="join_title">
-          <label for="pswd1">비밀번호</label>
-        </h3>
-        <span class="box int_pass">
-          <input type="password" id="pswd1" class="int" maxlength="20"/>
-          <span id="alertTxt">사용불가</span>
-          <img src="{% static 'imgs/m_icon_pass.png' %}" id="pswd1_img1" class="pswdImg"/>
-        </span>
-        <span class="error_next_box">필수정보 입니다.</span>
-      </div>
-
-      <!-- PW2 -->
-      <div>
-        <h3 class="join_title">
-          <label for="pswd2">비밀번호 재확인</label>
-        </h3>
-        <span class="box int_pass_check">
-          <input type="password" id="pswd2" class="int" maxlength="20"/>
-          <img src="{% static 'imgs/m_icon_check_disable.png' %}" id="pswd2_img1" class="pswdImg"/>
-        </span>
-        <span class="error_next_box">비밀번호가 일치하지 않습니다.</span>
-      </div>
-
-      <!-- NAME -->
-      <div>
-        <h3 class="join_title">
-          <label for="name">이름</label>
-        </h3>
-        <span class="box int_name">
-          <input type="text" id="name" class="int" maxlength="20"/>
-        </span>
-        <span class="error_next_box"></span>
-      </div>
-
-      <!-- BIRTH -->
-      <div>
-        <h3 class="join_title">
-          <label for="yy">생년월일</label>
-        </h3>
-
-        <div id="bir_wrap">
-          <!-- BIRTH_YY -->
-          <div id="bir_yy">
-            <span class="box">
-              <input type="text" id="yy" class="int" maxlength="4" placeholder="년(4자)"/>
-            </span>
-          </div>
-
-          <!-- BIRTH_MM -->
-          <div id="bir_mm">
-            <span class="box">
-              <input type="text" id="mm" class="int" maxlength="2" placeholder="월"/>
-            </span>
-          </div>
-
-          <!-- BIRTH_DD -->
-          <div id="bir_dd">
-            <span class="box">
-              <input type="text" id="dd" class="int" maxlength="2" placeholder="일"/>
-            </span>
-          </div>
-        </div>
-        <span class="error_next_box"></span>
-      </div>
-
-      <!-- GENDER -->
-      <div>
-        <h3 class="join_title">
-          <label for="nickname">닉네임</label>
-        </h3>
-        <span class="box gender_code">
-          <input type="text" id="nickname" class="int" maxlength="20" placeholder="닉네임"/>
-        </span>
-        <span class="error_next_box">필수 정보입니다.</span>
-      </div>
-      <!--Address-->
-      <div>
-        <h3 class="join_title">
-          <label for="address">우편주소</label>
-        </h3>
-
-        <input type="text" class="address" id="sample6_postcode" placeholder="우편번호">
-        <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
-
-        <span class="box gender_code addr">
-          <input type="text" class="int" id="sample6_address" placeholder="주소">
-        </span>
-        <span class="box gender_code">
-          <input type="text" class="int" id="sample6_detailAddress" placeholder="상세주소">
-        </span>
-        <span class="error_next_box">필수 정보입니다.</span>
-      </div>
-
-      <!-- EMAIL -->
-      <!-- <div> <h3 class="join_title"> <label for="email">본인확인 이메일<span class="optional">(선택)</span></label> </h3> <span class="box int_email"> <input type="text" id="email" class="int" maxlength="100" placeholder="선택입력"> </span> <span class="error_next_box">이메일 주소를 다시 확인해주세요.</span> </div> -->
-
-      <!-- MOBILE -->
-      <!-- <div> <h3 class="join_title"> <label for="phoneNo">휴대전화</label> </h3> <span class="box int_mobile"> <input type="tel" id="mobile" class="int" maxlength="16" placeholder="전화번호 입력"> </span> <span class="error_next_box"></span> </div> -->
-
-      <!-- JOIN BTN-->
-      <div class="btn_area">
-        <button type="submit" id="btnJoin">
-          <span>가입하기</span>
-        </button>
-      </div>
+<div class="title_container">
+  <h2 class="lovesolo_title">LoveSolo 회원가입</h2>
+</div>
+<!-- wrapper -->
+<div id="wrapper">
+  <!-- content-->
+  <div id="content">
+    <!-- ID -->
+    <div>
+      <h3 class="join_title">
+        <label for="id">아이디</label>
+      </h3>
+      <span class="box int_id">
+        <input type="text" id="id" class="int" maxlength="20" />
+      </span>
+      <span class="error_next_box">필수정보 입니다.</span>
     </div>
-    <!-- content-->
-  </div>
-  <!-- wrapper -->
-  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-  <script>
-    function sample6_execDaumPostcode() {
-      new daum
-        .Postcode({
-          oncomplete: function (data) {
-            document
-              .getElementById("sample6_postcode")
-              .value = data
-              .zonecode
-              document
-              .getElementById("sample6_address")
-              .value = data.address
 
-          }
-        })
-        .open();
+    <!-- PW1 -->
+    <div>
+      <h3 class="join_title">
+        <label for="pswd1">비밀번호</label>
+      </h3>
+      <span class="box int_pass">
+        <input type="password" id="pswd1" class="int" maxlength="20" />
+        <span id="alertTxt">사용불가</span>
+        <img src="{% static 'imgs/m_icon_pass.png' %}" id="pswd1_img1" class="pswdImg" />
+      </span>
+      <span class="error_next_box">필수정보 입니다.</span>
+    </div>
+
+    <!-- PW2 -->
+    <div>
+      <h3 class="join_title">
+        <label for="pswd2">비밀번호 재확인</label>
+      </h3>
+      <span class="box int_pass_check">
+        <input type="password" id="pswd2" class="int" maxlength="20" />
+        <img src="{% static 'imgs/m_icon_check_disable.png' %}" id="pswd2_img1" class="pswdImg" />
+      </span>
+      <span class="error_next_box">비밀번호가 일치하지 않습니다.</span>
+    </div>
+
+    <!-- NAME -->
+    <div>
+      <h3 class="join_title">
+        <label for="name">이름</label>
+      </h3>
+      <span class="box int_name">
+        <input type="text" id="name" class="int" maxlength="20" />
+      </span>
+      <span class="error_next_box"></span>
+    </div>
+
+    <!-- BIRTH -->
+    <div>
+      <h3 class="join_title">
+        <label for="yy">생년월일</label>
+      </h3>
+
+      <div id="bir_wrap">
+        <!-- BIRTH_YY -->
+        <div id="bir_yy">
+          <span class="box">
+            <input type="text" id="yy" class="int" maxlength="4" placeholder="년(4자)" />
+          </span>
+        </div>
+
+        <!-- BIRTH_MM -->
+        <div id="bir_mm">
+          <span class="box">
+            <input type="text" id="mm" class="int" maxlength="2" placeholder="월" />
+          </span>
+        </div>
+
+        <!-- BIRTH_DD -->
+        <div id="bir_dd">
+          <span class="box">
+            <input type="text" id="dd" class="int" maxlength="2" placeholder="일" />
+          </span>
+        </div>
+      </div>
+      <span class="error_next_box"></span>
+    </div>
+
+    <!-- GENDER -->
+    <div>
+      <h3 class="join_title">
+        <label for="nickname">닉네임</label>
+      </h3>
+      <span class="box gender_code">
+        <input type="text" id="nickname" class="int" maxlength="20" placeholder="닉네임" />
+      </span>
+      <span class="error_next_box">필수 정보입니다.</span>
+    </div>
+    <!--Address-->
+    <div>
+      <h3 class="join_title">
+        <label for="address">우편주소</label>
+      </h3>
+
+      <input type="text" class="address" id="sample6_postcode" placeholder="우편번호">
+      <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
+
+      <span class="box gender_code addr">
+        <input type="text" class="int" id="sample6_address" placeholder="주소">
+      </span>
+      <span class="box gender_code">
+        <input type="text" class="int" id="sample6_detailAddress" placeholder="상세주소">
+      </span>
+      <span class="error_next_box">필수 정보입니다.</span>
+    </div>
+
+    <!-- EMAIL -->
+    <!-- <div> <h3 class="join_title"> <label for="email">본인확인 이메일<span class="optional">(선택)</span></label> </h3> <span class="box int_email"> <input type="text" id="email" class="int" maxlength="100" placeholder="선택입력"> </span> <span class="error_next_box">이메일 주소를 다시 확인해주세요.</span> </div> -->
+
+    <!-- MOBILE -->
+    <!-- <div> <h3 class="join_title"> <label for="phoneNo">휴대전화</label> </h3> <span class="box int_mobile"> <input type="tel" id="mobile" class="int" maxlength="16" placeholder="전화번호 입력"> </span> <span class="error_next_box"></span> </div> -->
+
+    <!-- JOIN BTN-->
+    <div class="btn_area">
+      <button type="submit" id="btnJoin">
+        <span>가입하기</span>
+      </button>
+    </div>
+  </div>
+  <!-- content-->
+</div>
+<!-- wrapper -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+  function sample6_execDaumPostcode() {
+    new daum
+      .Postcode({
+        oncomplete: function (data) {
+          document
+            .getElementById("sample6_postcode")
+            .value = data
+              .zonecode
+          document
+            .getElementById("sample6_address")
+            .value = data.address
+
+        }
+      })
+      .open();
+  }
+
+  const register_btn = document.getElementById("btnJoin")
+  const psw_check = document.getElementById("pswd2")
+
+  register_btn.addEventListener("click", () => {
+
+    const id = document.getElementById("id").value
+    const password = document.getElementById("pswd1").value
+    const name = document.getElementById("name").value
+    const nickname = document.getElementById("nickname").value
+    const birth = document.getElementById("yy").value + "." + document.getElementById("mm").value + "." + document.getElementById("dd").value
+    const zipcode = document.getElementById("sample6_postcode").value + " " + document.getElementById("sample6_address").value + " " + document.getElementById("sample6_detailAddress").value
+
+    const error_box = document.querySelector(".error_next_box")
+
+    const register_object = {
+      "email": id,
+      "password": password,
+      "name": name,
+      "nickname": nickname,
+      "birth": birth,
+      "address": zipcode
     }
 
-    const register_btn = document.getElementById("btnJoin")
-    const psw_check = document.getElementById("pswd2")
-
-    register_btn.addEventListener("click", () => {
-
-      const id = document
-        .getElementById("id")
-        .value
-      const password = document
-        .getElementById("pswd1")
-        .value
-      const name = document
-        .getElementById("name")
-        .value
-      const nickname = document
-        .getElementById("nickname")
-        .value
-      const birth = document
-        .getElementById("yy")
-        .value + "." + document
-        .getElementById("mm")
-        .value + "." + document
-        .getElementById("dd")
-        .value
-      const zipcode = document
-        .getElementById("sample6_postcode")
-        .value + " " + document
-        .getElementById("sample6_address")
-        .value + " " + document
-        .getElementById("sample6_detailAddress")
-        .value
-
-      const error_box = document.querySelector(".error_next_box")
-
-      const register_object = {
-        "email": id,
-        "password": password,
-        "name": name,
-        "nickname": nickname,
-        "birth": birth,
-        "address": zipcode
-      }
-
-      fetch("http://127.0.0.1:8000/user/jwt/register/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRFToken": "{{csrf_token}}"
-        },
-        body: JSON.stringify(register_object)
-      })
-        .then((response) => response.json())
-        .then((error) => {
-          if (error.email = "이 필드는 blank일 수 없습니다.") {
-            error_box.style.display = "block"
-          } else {
-            window.location.href = "http://127.0.0.1:8000/"
-          }
-          console.log(error)
-        })
+    fetch("http://127.0.0.1:8000/user/jwt/register/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(register_object)
     })
-  </script>
+      .then((response) => response.json())
+      .then((error) => {
+        if (error.email == "이 필드는 blank일 수 없습니다.") {
+          error_box.style.display = "block"
+        } else {
+          // window.location.href = "http://127.0.0.1:8000/"
+        }
+        console.log(error)
+      })
+  })
+</script>
 {% endblock contents %}
