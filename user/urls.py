@@ -3,6 +3,15 @@ from django.views.generic import TemplateView
 from django.urls import path, include, re_path
 from apis.views import LoginApi, LogoutApi, RegisterView, ConfirmEmailView
 from dj_rest_auth.registration.views import VerifyEmailView
+from rest_framework import routers
+from rest_framework.routers import DefaultRouter
+
+
+router = DefaultRouter(trailing_slash=False)
+
+
+
+
 
 
 urlpatterns = [
