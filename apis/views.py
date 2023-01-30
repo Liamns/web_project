@@ -3,6 +3,7 @@ from user.models import User, Profile
 from user.serializers import UserSerializer, ProfileSerializer
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
+from django.views.decorators.csrf import csrf_exempt
 
 import jwt,datetime
 
@@ -14,6 +15,7 @@ from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 from django.utils.decorators import method_decorator
 from rest_framework.decorators import APIView, permission_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.renderers import TemplateHTMLRenderer
 
 #ys
 from chat.custom_methods import IsAuthenticatedCustom
@@ -119,8 +121,9 @@ class UserProfileView(ModelViewSet):
       return [normspace(' ', (t[0] or t[1]).strip()) for t in findterms(query_string)]
 
 #회원가입
-@permission_classes([AllowAny])
 class RegisterView(APIView) :
+
+    renderer_classes = [TemplateHTMLRenderer]
 
     def post(self, req):
         serializer = UserSerializer(data=req.data)
@@ -148,6 +151,10 @@ class RegisterView(APIView) :
             return JsonResponse({"message" : "INVALID_TYPE"}, status=400)
         except ValidationError:
             return JsonResponse({"message" : "VALIDATION_ERROR"}, status=400)
+            
+    def get(self, req):
+        user = UserSerializer()
+        return Response({"user" : user}, template_name="user/register.html")
 
 class Activate(APIView):
     def get(self, req, uidb64, token):
@@ -240,8 +247,8 @@ class RefreshJWTtoken(APIView):
             }
         )
         
-        
-@method_decorator(csrf_protect, name='dispatch')
+@permission_classes([AllowAny])
+@method_decorator(ensure_csrf_cookie, name="dispatch")
 class LogoutApi(APIView):
     def post(self, request):
         """

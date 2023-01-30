@@ -13,6 +13,6 @@ urlpatterns = [
     path('login/', TemplateView.as_view(template_name="user/login.html"), name="login"),
     path('jwt/login/', LoginApi.as_view(),name='jwt_login'),
     path('jwt/logout/', LogoutApi.as_view(),name='jwt_logout'),
-    path('jwt/register/', RegisterView.as_view(),name='jwt_register'),
+    path('jwt/register/', RegisterView.as_view(), name='jwt_register'),
 ]
 
