@@ -25,7 +25,17 @@ import re
 #수정사항
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import APIView, permission_classes
-from django.http import HttpResponseRedirect
+from django.http import JsonResponse
+
+#회원가입 관련
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
+from django.core.mail import EmailMessage
+from django.utils.encoding import force_bytes, force_text
+from .register_token import account_activation_token
+from .text import message
 
 # 프로필 View
 class UserProfileView(ModelViewSet):
@@ -109,13 +119,54 @@ class UserProfileView(ModelViewSet):
       return [normspace(' ', (t[0] or t[1]).strip()) for t in findterms(query_string)]
 
 #회원가입
+@permission_classes([AllowAny])
 class RegisterView(APIView) :
 
     def post(self, req):
         serializer = UserSerializer(data=req.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
+        try: 
+            validate_email(serializer["email"])
+            if User.objects.filter(email=serializer["email"]).exists():
+                return JsonResponse({"message" : "EXISTS_EMAIL"}, status=400)
+
+            current_site = get_current_site(req) 
+            domain       = current_site.domain
+            uidb64       = urlsafe_base64_encode(force_bytes(serializer.pk))
+            token        = account_activation_token.make_token(serializer)
+            message_data = message(domain, uidb64, token)
+
+            mail_title = "이메일 인증을 완료해주세요"
+            mail_to    = serializer['email']
+            email      = EmailMessage(mail_title, message_data, to=[mail_to])
+            email.send()
+            
+            return JsonResponse({"message" : "메일 인증을 진행해주세요."}, status=200)
+
+        except KeyError:
+            return JsonResponse({"message" : "INVALID_KEY"}, status=400)
+        except TypeError:
+            return JsonResponse({"message" : "INVALID_TYPE"}, status=400)
+        except ValidationError:
+            return JsonResponse({"message" : "VALIDATION_ERROR"}, status=400)
+
+class Activate(APIView):
+    def get(self, req, uidb64, token):
+        try:
+            uid  = force_text(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(pk=uid)
+            
+            if account_activation_token.check_token(user, token):
+                user.is_active = True
+                user.save()
+
+                return redirect({"REDIRECT_PAGE": "#"})
+        
+            return JsonResponse({"message" : "AUTH FAIL"}, status=400)
+
+        except ValidationError:
+            return JsonResponse({"message" : "TYPE_ERROR"}, status=400)
+        except KeyError:
+            return JsonResponse({"message" : "INVALID_KEY"}, status=400)
 
 User = get_user_model()
 
