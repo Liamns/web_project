@@ -1,6 +1,6 @@
 {% load static %}
-
-<link rel="stylesheet" href="{% static 'css/register.css' %}" />
+{% load socialaccount %}
+<link rel="stylesheet" href="{% static 'css/register.css' %}"  />
 
 <div class="wrap modal hidden">
   <div class="bg"></div>
@@ -63,6 +63,18 @@
     <div class="find_password">
       <a href="#" class="lost_pw">아이디 또는 비밀번호를 잊으셨나요?</a>
     </div>
+    <div class="social-btn mt-4 text-center">
+      <a href="{% provider_login_url "kakao" %}"
+        ><img
+          src="{% static 'img/login/kakao_login_medium_narrow.png' %}"
+          alt=""
+      /></a>
+      <a href="{% provider_login_url "google" %}"
+        ><img
+          src="{% static 'img/login/btn_google_signin_dark_normal_web.png' %}"
+          alt=""
+      /></a>
+    </div>
   </div>
 </div>
 
@@ -98,15 +110,13 @@
       },
       body: JSON.stringify(login_object),
     })
-      .then(
-        (res) => res.json()
-        // if (res.ok == true) {
-        //   myReq.setRequestHeader("Authentication", res.)
-        //    window.location.href = "http://127.0.0.1:8000/"
-        // } else {
-        //   alert("아이디 혹은 비밀번호를 확인해 주세요")
-        // }
-      )
+      .then((res) => res.json()
+      // if (res.ok == true) {
+      //   myReq.setRequestHeader("Authentication", res.)
+      //    window.location.href = "http://127.0.0.1:8000/"
+      // } else {
+      //   alert("아이디 혹은 비밀번호를 확인해 주세요")
+      // })
       .then((data) => {
         if (data.access_token != NaN) {
           window.localStorage.setItem("aceess-token", data.access_token);
