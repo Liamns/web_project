@@ -2,7 +2,7 @@ from . import views
 from django.urls import path
 from django.views.generic import TemplateView
 from django.urls import path, include
-from apis.views import LoginApi, LogoutApi, RegisterView
+from apis.views import LoginApi, LogoutApi, RegisterView, Activate
 
 
 urlpatterns = [
@@ -10,6 +10,7 @@ urlpatterns = [
     path('rest_auth/register/', include('dj_rest_auth.registration.urls')),
     path('allauth/', include('allauth.urls')),
     path("register/", TemplateView.as_view(template_name="user/register.html"), name="register"),
+    path('/activate/<str:uidb64>/<str:token>', Activate.as_view()),
     path('login/', TemplateView.as_view(template_name="user/login.html"), name="login"),
     path('jwt/login/', LoginApi.as_view(),name='jwt_login'),
     path('jwt/logout/', LogoutApi.as_view(),name='jwt_logout'),
