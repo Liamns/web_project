@@ -32,3 +32,4 @@ Register 회원가입 화면 완료<br>
 # 230127
 chat 코딩률 (50%) 디자인 작업<br>
 JWT login 프론트 연결 작업 중<br>
+allauth social login google, kakao 연동 <br>
