@@ -15,7 +15,7 @@ import os, json
 from django.core.exceptions import ImproperlyConfigured
 from datetime import timedelta
 import pymysql
-from decouple import config
+# from decouple import config
 
 
 pymysql.install_as_MySQLdb()
@@ -224,18 +224,18 @@ REST_USE_JWT = True
 
 REFRESH_TOKEN_SECRET = get_secret("REFRESH_TOKEN_SECRET")
 
-EMAIL_BACKEND       = get_secret('EMAIL_BACKEND')
-EMAIL_USE_TLS       = True
-EMAIL_PORT          = get_secret('EMAIL_PORT')
-EMAIL_HOST          = get_secret('EMAIL_HOST')
-EMAIL_HOST_USER     = get_secret('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = get_secret('EMAIL_HOST_PASSWORD')
-SERVER_EMAIL        = get_secret('SERVER_EMAIL')
-ACCOUNT_CONFIRM_EMAIL_ON_GET = True
-ACCOUNT_EMAIL_VERIFICATION = "mandatory"
-EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/'
-ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
-ACCOUNT_EMAIL_SUBJECT_PREFIX = "[LoveSolo]"
+# EMAIL_BACKEND       = get_secret('EMAIL_BACKEND')
+# EMAIL_USE_TLS       = True
+# EMAIL_PORT          = get_secret('EMAIL_PORT')
+# EMAIL_HOST          = get_secret('EMAIL_HOST')
+# EMAIL_HOST_USER     = get_secret('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = get_secret('EMAIL_HOST_PASSWORD')
+# SERVER_EMAIL        = get_secret('SERVER_EMAIL')
+# ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+# ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+# EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/'
+# ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
+# ACCOUNT_EMAIL_SUBJECT_PREFIX = "[LoveSolo]"
 
 # 소셜 로그인
 SOCIALACCOUNT_PROVIDERS = {

@@ -16,7 +16,6 @@ from rest_framework.decorators import APIView, permission_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
 #ys
-from chat.custom_methods import IsAuthenticatedCustom
 from rest_framework.viewsets import ModelViewSet
 from django.db.models import Q, Count, Subquery, OuterRef
 import re
@@ -33,7 +32,7 @@ from allauth.account.models import EmailConfirmation, EmailConfirmationHMAC
 class UserProfileView(ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
-    permission_classes = (IsAuthenticatedCustom, )
+    # permission_classes = (IsAuthenticatedCustom, )
 
     def get_queryset(self): 
         if self.request.method.lower() != "get":
