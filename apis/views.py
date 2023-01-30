@@ -109,6 +109,8 @@ class UserProfileView(ModelViewSet):
       return [normspace(' ', (t[0] or t[1]).strip()) for t in findterms(query_string)]
 
 #회원가입
+@permission_classes([AllowAny])
+@method_decorator(ensure_csrf_cookie, name="dispatch")
 class RegisterView(APIView) :
 
     def post(self, req):
@@ -189,8 +191,8 @@ class RefreshJWTtoken(APIView):
             }
         )
         
-        
-@method_decorator(csrf_protect, name='dispatch')
+@permission_classes([AllowAny])
+@method_decorator(ensure_csrf_cookie, name="dispatch")
 class LogoutApi(APIView):
     def post(self, request):
         """
