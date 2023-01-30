@@ -78,6 +78,9 @@ INSTALLED_APPS += [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    # 소셜 로그인
+    'allauth.socialaccount.providers.kakao',
+    'allauth.socialaccount.providers.google',
     ]
 
 SITE_ID = 1
@@ -190,3 +193,33 @@ REST_USE_JWT = True
 REFRESH_TOKEN_SECRET = get_secret("REFRESH_TOKEN_SECRET")
 
 
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/'
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
+ACCOUNT_EMAIL_SUBJECT_PREFIX = "[LoveSolo]"
+
+# 소셜 로그인
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+         "APP": {
+            "client_id": os.environ.get("SOCIAL_AUTH_GOOGLE_CLIENT_ID"),
+            "secret": os.environ.get("SOCIAL_AUTH_GOOGLE_SECRET"),
+        },
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        },
+        'OAUTH_PKCE_ENABLED': True,
+    }
+}
+SOCIALACCOUNT_LOGIN_ON_GET = True
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+    # `allauth` specific authentication methods, such as login by e-mail
+    "allauth.account.auth_backends.AuthenticationBackend",
+]
