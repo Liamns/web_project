@@ -18,7 +18,6 @@ class UserSerializer(serializers.ModelSerializer):
         if password is not None :
         #provide django, password will be hashing!
             instance.set_password(password)
-            instance.set_is_active(False)
         instance.save()
         return instance
         

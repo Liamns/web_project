@@ -65,7 +65,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     nickname = models.CharField(verbose_name="닉네임", max_length=50)
     birth = models.CharField(verbose_name="생년월일", max_length=20)
     address = models.CharField(verbose_name="거주지역", max_length=128)
-    is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(verbose_name="관리자여부", default=False)
 
     # CustomUser 를 기반으로 user 생성을 도와줄 매니저 클래스 등록
