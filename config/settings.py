@@ -189,10 +189,10 @@ REST_USE_JWT = True
 
 REFRESH_TOKEN_SECRET = get_secret("REFRESH_TOKEN_SECRET")
 
-EMAIL_BACKEND       = get_secret['EMAIL.EMAIL_BACKEND']
-EMAIL_USE_TLS       = get_secret['EMAIL.EMAIL_USE_TLS']
-EMAIL_PORT          = get_secret['EMAIL.EMAIL_PORT']
-EMAIL_HOST          = get_secret['EMAIL.EMAIL_HOST']
-EMAIL_HOST_USER     = get_secret['EMAIL.EMAIL_HOST_USER']
-EMAIL_HOST_PASSWORD = get_secret['EMAIL.EMAIL_HOST_PASSWORD']
-SERVER_EMAIL        = get_secret['EMAIL.SERVER_EMAIL']
+EMAIL_BACKEND       = get_secret('EMAIL_BACKEND')
+EMAIL_USE_TLS       = get_secret('EMAIL_USE_TLS')
+EMAIL_PORT          = get_secret('EMAIL_PORT')
+EMAIL_HOST          = get_secret('EMAIL_HOST')
+EMAIL_HOST_USER     = get_secret('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = get_secret('EMAIL_HOST_PASSWORD')
+SERVER_EMAIL        = get_secret('SERVER_EMAIL')

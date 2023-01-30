@@ -35,7 +35,7 @@ from django.core.exceptions import ValidationError
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
 from django.core.mail import EmailMessage
-from django.utils.encoding import force_bytes, force_text
+from django.utils.encoding import force_bytes, force_str
 from .register_token import account_activation_token
 from .text import message
 
@@ -151,7 +151,7 @@ class RegisterView(APIView) :
             return JsonResponse({"message" : "INVALID_TYPE"}, status=400)
         except ValidationError:
             return JsonResponse({"message" : "VALIDATION_ERROR"}, status=400)
-            
+
     def get(self, req):
         user = UserSerializer()
         return Response({"user" : user}, template_name="user/register.html")
@@ -159,14 +159,14 @@ class RegisterView(APIView) :
 class Activate(APIView):
     def get(self, req, uidb64, token):
         try:
-            uid  = force_text(urlsafe_base64_decode(uidb64))
+            uid  = force_str(urlsafe_base64_decode(uidb64))
             user = User.objects.get(pk=uid)
             
             if account_activation_token.check_token(user, token):
                 user.is_active = True
                 user.save()
 
-                return redirect({"REDIRECT_PAGE": "#"})
+                return redirect("login")
         
             return JsonResponse({"message" : "AUTH FAIL"}, status=400)
 
