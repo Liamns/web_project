@@ -83,7 +83,7 @@ INSTALLED_APPS += [
     'allauth.socialaccount.providers.google',
     ]
 
-SITE_ID = 1
+SITE_ID = 2
 
 MIDDLEWARE = [
     
@@ -175,6 +175,10 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
+        # JWT Social
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # JWT Social
         'apis.authenticate.SafeJWTAuthentication',
     ),
 }
@@ -223,3 +227,13 @@ AUTHENTICATION_BACKENDS = [
     # `allauth` specific authentication methods, such as login by e-mail
     "allauth.account.auth_backends.AuthenticationBackend",
 ]
+
+# JWT Social
+from datetime import timedelta
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+}
+# JWT Social
