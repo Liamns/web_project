@@ -5,6 +5,7 @@ from rest_framework.decorators import APIView
 from rest_framework.response import Response
 from django.views.decorators.csrf import csrf_exempt
 
+
 import jwt,datetime
 
 
@@ -236,9 +237,15 @@ class LoginApi(APIView):
                 "message": "wrong password"
             }, status=status.HTTP_400_BAD_REQUEST)
         
-        response = Response(status=status.HTTP_200_OK)
-        return jwt_login(response, user)
-        
+        access_token = generate_access_token(user)
+        refresh_token = generate_refresh_token(user)
+
+        response = Response(data={"message": "Success!!"},status=status.HTTP_200_OK, headers={"Authorization": access_token}, template_name="home.html")        
+        response.set_cookie(key="refreshtoken", value=refresh_token, httponly=True)
+        response.set_cookie(key="access-token", value=access_token)
+
+        return response
+
 
 @method_decorator(csrf_protect, name='dispatch')
 class RefreshJWTtoken(APIView):
