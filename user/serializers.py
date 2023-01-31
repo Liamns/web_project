@@ -2,7 +2,6 @@ from rest_framework import serializers
 from .models import User, Profile
 from message.serializers import GenericFileUploadSerializer
 
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
