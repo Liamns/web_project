@@ -36,7 +36,7 @@ from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
 from django.core.mail import EmailMessage
 from django.utils.encoding import force_bytes, force_str
 from .register_token import account_activation_token
-from .text import message
+# from text import message
 
 
 from allauth.account.models import EmailConfirmation, EmailConfirmationHMAC
@@ -209,7 +209,6 @@ class Activate(APIView):
             return JsonResponse({"message" : "TYPE_ERROR"}, status=400)
         except KeyError:
             return JsonResponse({"message" : "INVALID_KEY"}, status=400)
->>>>>>> Stashed changes
 
 User = get_user_model()
 
@@ -241,8 +240,13 @@ class LoginApi(APIView):
                 "message": "wrong password"
             }, status=status.HTTP_400_BAD_REQUEST)
         
-        response = Response(status=status.HTTP_200_OK)
-        return jwt_login(response, user)
+        access_token = generate_access_token(user)
+        refresh_token = generate_refresh_token(user)
+
+        response = Response(data={"message": "Success!!"},status=status.HTTP_200_OK, headers={"Authorization": access_token}, template_name="home.html")        
+        response.set_cookie(key="refreshtoken", value=refresh_token, httponly=True)
+
+        return response
         
 
 @method_decorator(csrf_protect, name='dispatch')
@@ -329,15 +333,18 @@ def generate_refresh_token(user):
     return refresh_token
 
 
-def jwt_login(response, user):
-    access_token = generate_access_token(user)
-    refresh_token = generate_refresh_token(user)
+def jwt_login(response):
+    # access_token = generate_access_token(user)
+    # refresh_token = generate_refresh_token(user)
     
-    data = {
-        'access_token': access_token,
-    }
+    # data = {
+    #     'access_token': access_token,
+    # }
     
-    response.data = data
-    response.set_cookie(key="refreshtoken", value=refresh_token, httponly=True)
+    # response.data = data
+    # response.set_cookie(key="refreshtoken", value=refresh_token, httponly=True)
+    if response.status_code == 200:
+        return response
 
-    return response
+
+    return Response({"message" : "틀렸다 이자식아"})
