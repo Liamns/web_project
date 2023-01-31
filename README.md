@@ -30,14 +30,16 @@ Register 회원가입 화면 완료<br>
 메인 홈페이지 사진 적용 및 url등록까지 완료 <br>
 
 # 230127
-chat 코딩률 (50%) 디자인 작업<br>
+chat1 코딩률 (50%) 디자인 작업<br>
 JWT login 프론트 연결 작업 중<br>
 
 # 230130
 allauth social login google, kakao 연동 <br>
-chat 작업 (30%)  <br>
+chat2 작업 (30%)  <br>
 Home.html 로그인프로필변경 오류 찾는 작업중,js 코드문제인듯.<br>
 이메일 인증 작업 중<br>
 
 # 230131
 프로필 프론트 완료(98%)
+chat2 작업 실패 서밋안됨  <br>
+chat3 시작  <br>
