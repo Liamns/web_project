@@ -35,11 +35,13 @@ JWT login 프론트 연결 작업 중<br>
 
 # 230130
 allauth social login google, kakao 연동 <br>
+chat1 작업 실패 챗 안됨  <br>
 chat2 작업 (30%)  <br>
 Home.html 로그인프로필변경 오류 찾는 작업중,js 코드문제인듯.<br>
 이메일 인증 작업 중<br>
 
 # 230131
-프로필 프론트 완료(98%)
-chat2 작업 실패 서밋안됨  <br>
+프로필 프론트 완료(98%) <br>
+chat2 작업 실패 서밋안됨   <br>
+chat1 작업 실패 원인파악됨 돌아가기 늦음 <br>
 chat3 시작  <br>
