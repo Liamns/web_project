@@ -27,25 +27,26 @@ import jwt
 class HomeView(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = "home.html"
+    permission_classes = [IsAuthenticated]
 
 
     def get(self, request):
         
-        headers = request.headers.get("Authorization")
-        if not headers:
+        headers = request.COOKIES.get("access-token")
+        if headers == None:
             return Response(template_name="home.html")
 
-        access_token = headers.split(' ')[1]
         payload = jwt.decode(
-                access_token, settings.SECRET_KEY, algorithms=['HS256']
+                headers, settings.SECRET_KEY, algorithms=['HS256']
             )
 
-        user = User.objects.get(id=payload['nkn'])
-        id_c = payload["nkn"]
+        id = payload.get("nkn")
+        user = User.objects.get(id=id)
+
 
 
                 
-        return Response({"user" : user, "payload" : id_c}, template_name="home.html")
+        return Response({"user" : user, "message" : "Suceess"}, template_name="home.html")
 
     # def dispatch(self, request, *args, **kwargs):
     #     """

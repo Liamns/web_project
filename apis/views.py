@@ -4,11 +4,12 @@ from user.serializers import UserSerializer, ProfileSerializer
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
 
+
 import jwt,datetime
 
 
 from rest_framework import status
-from django.conf import settings
+from config import settings
 from django.contrib.auth import get_user_model
 from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 from django.utils.decorators import method_decorator
@@ -25,21 +26,19 @@ import re
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import APIView, permission_classes
 from django.http import HttpResponseRedirect
-from django.http import JsonResponse
-from django.http import HttpResponseRedirect,HttpResponse
-
-#회원가입 관련
-from django.core.validators import validate_email
-from django.core.exceptions import ValidationError
-from django.contrib.sites.shortcuts import get_current_site
-from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
-from django.core.mail import EmailMessage
-from django.utils.encoding import force_bytes, force_str
-from .register_token import account_activation_token
-# from text import message
-
 
 from allauth.account.models import EmailConfirmation, EmailConfirmationHMAC
+
+from dj_rest_auth.registration.views import RegisterView
+from dj_rest_auth.utils import import_callable
+from django.views.decorators.debug import sensitive_post_parameters
+
+from allauth.account.views import SignupView
+from user.forms import UserSignupForm
+from allauth.utils import get_request_param
+from allauth.account.utils import passthrough_next_redirect_url
+from django.urls import reverse
+from django.contrib.sites.shortcuts import get_current_site
 
 # 프로필 View
 class UserProfileView(ModelViewSet):
@@ -123,13 +122,19 @@ class UserProfileView(ModelViewSet):
       return [normspace(' ', (t[0] or t[1]).strip()) for t in findterms(query_string)]
 
 #회원가입
-class RegisterView(APIView) :
 
-    def post(self, req):
-        serializer = UserSerializer(data=req.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
+sensitive_post_parameters_m = method_decorator(
+    sensitive_post_parameters('password1', 'password2'),
+)
+
+@permission_classes([AllowAny])
+class UserRegisterView(RegisterView) :
+
+    serializers = getattr(settings, 'REST_AUTH_REGISTER_SERIALIZERS', {})
+
+    RegisterSerializer = import_callable(serializers.get('REGISTER_SERIALIZER', UserSerializer))
+
+    permission_classes = [AllowAny]
 
     def get(self, req):
         user = UserSerializer()
@@ -162,53 +167,42 @@ class ConfirmEmailView(APIView):
         qs = qs.select_related("email_address__user")
         return qs
 
+class UserSignupView(SignupView):
+    template_name = "user/register.html"
+    success_url = "home.html"
+    redirect_field_name = "home.html"
+    form_class = UserSignupForm
 
-class ConfirmEmailView(APIView):
-    permission_classes = [AllowAny]
+    @csrf_exempt
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
 
-    def get(self, *args, **kwargs):
-        self.object = confirmation = self.get_object()
-        confirmation.confirm(self.request)
-        # A React Router Route will handle the failure scenario
-        return HttpResponseRedirect('/') # 인증성공
+    def get_context_data(self, **kwargs):
+        ret = super(SignupView, self).get_context_data(**kwargs)
+        form = ret["form"]
+        email = self.request.session.get("account_verified_email")
+        if email:
+            email_keys = ["email"]
+            for email_key in email_keys:
+                form.fields[email_key].initial = email
+        login_url = passthrough_next_redirect_url(
+            self.request, reverse("home"), self.redirect_field_name
+        )
+        redirect_field_name = self.redirect_field_name
+        site = get_current_site(self.request)
+        redirect_field_value = get_request_param(self.request, redirect_field_name)
+        ret.update(
+            {
+                "login_url": login_url,
+                "redirect_field_name": redirect_field_name,
+                "redirect_field_value": redirect_field_value,
+                "site": site,
+            }
+        )
+        return ret
+    
+    
 
-    def get_object(self, queryset=None):
-        key = self.kwargs['key']
-        email_confirmation = EmailConfirmationHMAC.from_key(key)
-        if not email_confirmation:
-            if queryset is None:
-                queryset = self.get_queryset()
-            try:
-                email_confirmation = queryset.get(key=key.lower())
-            except EmailConfirmation.DoesNotExist:
-                # A React Router Route will handle the failure scenario
-                return HttpResponseRedirect('/') # 인증실패
-        return email_confirmation
-
-    def get_queryset(self):
-        qs = EmailConfirmation.objects.all_valid()
-        qs = qs.select_related("email_address__user")
-        return qs
-            
-
-class Activate(APIView):
-    def get(self, req, uidb64, token):
-        try:
-            uid  = force_str(urlsafe_base64_decode(uidb64))
-            user = User.objects.get(pk=uid)
-            
-            if account_activation_token.check_token(user, token):
-                user.is_active = True
-                user.save()
-
-                return redirect({"REDIRECT_PAGE": "#"})
-        
-            return JsonResponse({"message" : "AUTH FAIL"}, status=400)
-
-        except ValidationError:
-            return JsonResponse({"message" : "TYPE_ERROR"}, status=400)
-        except KeyError:
-            return JsonResponse({"message" : "INVALID_KEY"}, status=400)
 
 User = get_user_model()
 
@@ -245,9 +239,10 @@ class LoginApi(APIView):
 
         response = Response(data={"message": "Success!!"},status=status.HTTP_200_OK, headers={"Authorization": access_token}, template_name="home.html")        
         response.set_cookie(key="refreshtoken", value=refresh_token, httponly=True)
+        response.set_cookie(key="access-token", value=access_token)
 
         return response
-        
+
 
 @method_decorator(csrf_protect, name='dispatch')
 class RefreshJWTtoken(APIView):
@@ -303,7 +298,7 @@ class LogoutApi(APIView):
 
 def generate_access_token(user):
     access_token_payload = {
-        'nkn': user.id,
+        'nkn': user.nickname,
         'exp': datetime.datetime.utcnow() + datetime.timedelta(
             days=0, minutes=30
         ),
@@ -320,7 +315,7 @@ def generate_access_token(user):
     
 def generate_refresh_token(user):
     refresh_token_payload = {
-        'nkn': user.id,
+        'nkn': user.nickname,
         'exp': datetime.datetime.utcnow() + datetime.timedelta(days=7),
         'iat': datetime.datetime.utcnow(),
     }
@@ -333,18 +328,15 @@ def generate_refresh_token(user):
     return refresh_token
 
 
-def jwt_login(response):
-    # access_token = generate_access_token(user)
-    # refresh_token = generate_refresh_token(user)
+def jwt_login(response, user):
+    access_token = generate_access_token(user)
+    refresh_token = generate_refresh_token(user)
     
-    # data = {
-    #     'access_token': access_token,
-    # }
+    data = {
+        'access_token': access_token,
+    }
     
-    # response.data = data
-    # response.set_cookie(key="refreshtoken", value=refresh_token, httponly=True)
-    if response.status_code == 200:
-        return response
+    response.data = data
+    response.set_cookie(key="refreshtoken", value=refresh_token, httponly=True)
 
-
-    return Response({"message" : "틀렸다 이자식아"})
+    return response
