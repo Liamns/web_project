@@ -9,11 +9,18 @@ from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from user.models import User
+from user.serializers import UserSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import APIView, permission_classes
 from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 from django.utils.decorators import method_decorator
+
 from post.serializers import PostSerializer
+
+from django.conf import settings
+from apis.authenticate import *
+import jwt
+
 
 @permission_classes([AllowAny])
 @method_decorator(ensure_csrf_cookie, name="dispatch")
@@ -23,8 +30,22 @@ class HomeView(APIView):
 
 
     def get(self, request):
-        user = User.objects.all()
-        return Response({"user" : user}, template_name="home.html")
+        
+        headers = request.headers.get("Authorization")
+        if not headers:
+            return Response(template_name="home.html")
+
+        access_token = headers.split(' ')[1]
+        payload = jwt.decode(
+                access_token, settings.SECRET_KEY, algorithms=['HS256']
+            )
+
+        user = User.objects.get(id=payload['nkn'])
+        id_c = payload["nkn"]
+
+
+                
+        return Response({"user" : user, "payload" : id_c}, template_name="home.html")
 
     # def dispatch(self, request, *args, **kwargs):
     #     """

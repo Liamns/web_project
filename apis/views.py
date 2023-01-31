@@ -25,6 +25,19 @@ import re
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import APIView, permission_classes
 from django.http import HttpResponseRedirect
+from django.http import JsonResponse
+from django.http import HttpResponseRedirect,HttpResponse
+
+#회원가입 관련
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
+from django.core.mail import EmailMessage
+from django.utils.encoding import force_bytes, force_str
+from .register_token import account_activation_token
+from .text import message
+
 
 from allauth.account.models import EmailConfirmation, EmailConfirmationHMAC
 
@@ -149,6 +162,55 @@ class ConfirmEmailView(APIView):
         qs = qs.select_related("email_address__user")
         return qs
 
+
+class ConfirmEmailView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, *args, **kwargs):
+        self.object = confirmation = self.get_object()
+        confirmation.confirm(self.request)
+        # A React Router Route will handle the failure scenario
+        return HttpResponseRedirect('/') # 인증성공
+
+    def get_object(self, queryset=None):
+        key = self.kwargs['key']
+        email_confirmation = EmailConfirmationHMAC.from_key(key)
+        if not email_confirmation:
+            if queryset is None:
+                queryset = self.get_queryset()
+            try:
+                email_confirmation = queryset.get(key=key.lower())
+            except EmailConfirmation.DoesNotExist:
+                # A React Router Route will handle the failure scenario
+                return HttpResponseRedirect('/') # 인증실패
+        return email_confirmation
+
+    def get_queryset(self):
+        qs = EmailConfirmation.objects.all_valid()
+        qs = qs.select_related("email_address__user")
+        return qs
+            
+
+class Activate(APIView):
+    def get(self, req, uidb64, token):
+        try:
+            uid  = force_str(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(pk=uid)
+            
+            if account_activation_token.check_token(user, token):
+                user.is_active = True
+                user.save()
+
+                return redirect({"REDIRECT_PAGE": "#"})
+        
+            return JsonResponse({"message" : "AUTH FAIL"}, status=400)
+
+        except ValidationError:
+            return JsonResponse({"message" : "TYPE_ERROR"}, status=400)
+        except KeyError:
+            return JsonResponse({"message" : "INVALID_KEY"}, status=400)
+>>>>>>> Stashed changes
+
 User = get_user_model()
 
 @permission_classes([AllowAny])
@@ -237,7 +299,7 @@ class LogoutApi(APIView):
 
 def generate_access_token(user):
     access_token_payload = {
-        'nkn': user.nickname,
+        'nkn': user.id,
         'exp': datetime.datetime.utcnow() + datetime.timedelta(
             days=0, minutes=30
         ),
@@ -254,7 +316,7 @@ def generate_access_token(user):
     
 def generate_refresh_token(user):
     refresh_token_payload = {
-        'nkn': user.nickname,
+        'nkn': user.id,
         'exp': datetime.datetime.utcnow() + datetime.timedelta(days=7),
         'iat': datetime.datetime.utcnow(),
     }
