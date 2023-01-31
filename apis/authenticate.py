@@ -12,7 +12,7 @@ User = get_user_model()
 class SafeJWTAuthentication(BaseAuthentication):
     """
     JWT Authentication
-    헤더의 jwt 값을 디코딩해 얻은 nickname 값을 통해서 유저 인증 여부를 판단한다.
+    헤더의 jwt 값을 디코딩해 얻은 id 값을 통해서 유저 인증 여부를 판단한다.
     """
     
     def authenticate(self, request):
