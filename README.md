@@ -49,6 +49,6 @@ chat3 시작  <br>
 social JWT 토큰 방식 실패 <br>
 social 로그인 후 비어있는 name, nickname 자동으로 채우는 뷰 작성 중 <br>
 
-#230201
+# 230201
 social 로그인 후 비어있는 name, nickname 자동 채우기 완성<br>
 profile 수정 api 작성 중 <br>
