@@ -67,10 +67,10 @@ class PostView(TemplateView):
     template_name = "post/main.html"
 
 
-class PostEventView(APIView):
+class PostEventView(TemplateView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = "post/event_list.html"
 
     def get(self, req):
         post_serializer = PostSerializer()
-        return Response({"post" : post_serializer})
+        return render(req, "post/event_list.html")
