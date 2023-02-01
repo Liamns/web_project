@@ -206,9 +206,10 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        # 'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
         # postman test용
-        'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
+        # postman test용
         'apis.authenticate.SafeJWTAuthentication',
     ),
 }
@@ -272,7 +273,3 @@ AUTHENTICATION_BACKENDS = [
 # 이름, 별명 자동짓기
 SOCIALACCOUNT_ADAPTER = 'user.adapter.SocialUserSignUp'
 # 이름, 별명 자동짓기
-
-# # authenticat.py 오류해결
-# CSRF_COOKIE_NAME = 'csrftoken'
-# authenticat.py 오류해결
