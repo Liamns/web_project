@@ -8,9 +8,28 @@
   <div class="title_container">
     <h2 class="lovesolo_title">LoveSolo 회원가입</h2>
   </div>
+
+  <form action="" method="post">
+    {% csrf_token %}
+    {% for field in form %}
+      <div>
+        <label for="{{field.id_for_label}}">{{field.label}}</label>
+        <input type="{{field.field.widget.input_type}}" name="{{field.name}}">
+      </div>
+      <!-- content-->
+      {% if field.errors %}
+        {{field.errors}}
+      {% endif %}
+    {% endfor %}
+    <div class="btn_area">
+      <button type="submit" id="btnJoin">
+        <span>가입하기</span>
+      </button>
+    </div>
+  </form>
+
   <!-- wrapper -->
   <div id="wrapper">
-    <!-- content-->
     <form action="" method="post">
       {% csrf_token %}
       <div id="content">
@@ -71,7 +90,7 @@
             <!-- BIRTH_YY -->
             <div id="bir_yy">
               <span class="box">
-                <input type="text" id="yy" class="int" maxlength="4" placeholder="년(4자)"/>
+                <input type="text" id="yy" class="int" maxlength="4" placeholder="년(4자)" name="birth"/>
               </span>
             </div>
 
@@ -98,7 +117,7 @@
             <label for="nickname">닉네임</label>
           </h3>
           <span class="box gender_code">
-            <input type="text" id="nickname" class="int" maxlength="20" placeholder="닉네임"/>
+            <input type="text" id="nickname" class="int" maxlength="20" placeholder="닉네임" name="nickname"/>
           </span>
           <span class="error_next_box">필수 정보입니다.</span>
         </div>
@@ -112,7 +131,7 @@
           <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
 
           <span class="box gender_code addr">
-            <input type="text" class="int" id="sample6_address" placeholder="주소">
+            <input type="text" class="int" id="sample6_address" placeholder="주소" name="address">
           </span>
           <span class="box gender_code">
             <input type="text" class="int" id="sample6_detailAddress" placeholder="상세주소">

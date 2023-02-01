@@ -124,7 +124,6 @@ class UserProfileView(ModelViewSet):
       return [normspace(' ', (t[0] or t[1]).strip()) for t in findterms(query_string)]
 
 #회원가입
-
 sensitive_post_parameters_m = method_decorator(
     sensitive_post_parameters('password1', 'password2'),
 )
@@ -142,71 +141,13 @@ class UserRegisterView(RegisterView) :
         user = UserSerializer()
         return Response({"user" : user}, template_name="user/register.html")
 
-class ConfirmEmailView(APIView):
-    permission_classes = [AllowAny]
-
-    def get(self, *args, **kwargs):
-        self.object = confirmation = self.get_object()
-        confirmation.confirm(self.request)
-        # A React Router Route will handle the failure scenario
-        return HttpResponseRedirect('/') # 인증성공
-
-    def get_object(self, queryset=None):
-        key = self.kwargs['key']
-        email_confirmation = EmailConfirmationHMAC.from_key(key)
-        if not email_confirmation:
-            if queryset is None:
-                queryset = self.get_queryset()
-            try:
-                email_confirmation = queryset.get(key=key.lower())
-            except EmailConfirmation.DoesNotExist:
-                # A React Router Route will handle the failure scenario
-                return HttpResponseRedirect('/') # 인증실패
-        return email_confirmation
-
-    def get_queryset(self):
-        qs = EmailConfirmation.objects.all_valid()
-        qs = qs.select_related("email_address__user")
-        return qs
-
 class UserSignupView(SignupView):
-    template_name = "user/register.html"
-    success_url = "home.html"
-    redirect_field_name = "home.html"
-    form_class = UserSignupForm
-
-    @csrf_exempt
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        ret = super(SignupView, self).get_context_data(**kwargs)
-        form = ret["form"]
-        email = self.request.session.get("account_verified_email")
-        if email:
-            email_keys = ["email"]
-            for email_key in email_keys:
-                form.fields[email_key].initial = email
-        login_url = passthrough_next_redirect_url(
-            self.request, reverse("home"), self.redirect_field_name
-        )
-        redirect_field_name = self.redirect_field_name
-        site = get_current_site(self.request)
-        redirect_field_value = get_request_param(self.request, redirect_field_name)
-        ret.update(
-            {
-                "login_url": login_url,
-                "redirect_field_name": redirect_field_name,
-                "redirect_field_value": redirect_field_value,
-                "site": site,
-            }
-        )
-        return ret
+    """
+    회원가입
+    """
+    template_name = "user/register.html"   
+    form_class = UserSignupForm    
     
-    
-
-
-User = get_user_model()
 
 @permission_classes([AllowAny])
 @method_decorator(ensure_csrf_cookie, name="dispatch")
