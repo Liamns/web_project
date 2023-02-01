@@ -4,9 +4,11 @@ from user.serializers import UserSerializer, ProfileSerializer
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
 from django.views.decorators.csrf import csrf_exempt
-
-
+from rest_framework import generics, viewsets
+import random, string
 import jwt,datetime
+from django.http import Http404
+from django.db.models import Q
 
 
 from rest_framework import status
@@ -17,6 +19,7 @@ from django.utils.decorators import method_decorator
 from rest_framework.decorators import APIView, permission_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.renderers import TemplateHTMLRenderer
+from django.http import JsonResponse
 
 #ys
 from chat.custom_methods import IsAuthenticatedCustom
@@ -142,6 +145,8 @@ class UserRegisterView(RegisterView) :
     def get(self, req):
         user = UserSerializer()
         return Response({"user" : user}, template_name="user/register.html")
+
+
 
 class ConfirmEmailView(APIView):
     permission_classes = [AllowAny]

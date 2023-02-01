@@ -44,14 +44,17 @@
           <li class="nav-item">
             <a class="nav-link" href="#contact">컨택트</a>
           </li>
+          {% if not user.is_authenticated %}
           <li class="nav-item">
             <a href="#" aria-current="page" class="ml-4 nav-link active btn btn-primary btn-sm rounded"
               id="login">로그인</a>
           </li>
+          {% else %}
           <li class="nav-item">
             <a href="#" aria-current="page" class="ml-4 nav-link active btn btn-primary rounded"
               id="profile-btn">{{user.nickname}}</a>
           </li>
+          {% endif %}
         </ul>
       </div>
     </div>
@@ -516,7 +519,7 @@
 
   <script>
 
-    document.getElementById("profile-btn").style.display = "none"
+    document.getElementById("profile-btn").style.display = "block"
 
     let user_id = fetch("http://127.0.0.1:8000/", {
       method: "GET"
@@ -530,9 +533,7 @@
       }
     })
 
-
-
-
+    
   </script>
 
   <!-- core -->
@@ -544,6 +545,9 @@
 
   <!-- Isotope -->
   <script src="{% static 'vendors/isotope/isotope.pkgd.js' %}"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+
 
 
 
