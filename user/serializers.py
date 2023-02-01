@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from .models import User, Profile
-from message.serializers import GenericFileUploadSerializer
 import string, random
 
 class UserSerializer(serializers.ModelSerializer):

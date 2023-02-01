@@ -5,3 +5,44 @@
  */
 // This file is intentionally blank
 // Use this file to add JavaScript to your project
+window.onload = function () {
+  // 여기에다가 script 코드 작성
+  const open = () => {
+    document.querySelector(".modal").classList.remove("hidden");
+  };
+
+  const close = () => {
+    document.querySelector(".modal").classList.add("hidden");
+  };
+
+  document.querySelector(".btn-sm").addEventListener("click", open);
+  document.querySelector(".close").addEventListener("click", close);
+  document.querySelector(".bg").addEventListener("click", close);
+
+  const email = document.getElementById("email");
+  const password = document.getElementById("pswd1");
+  const login_btn = document.getElementById("btnlogin");
+
+  login_btn.addEventListener("click", () => {
+    const login_object = {
+      email: email.value,
+      password: password.value,
+    };
+
+    fetch("http://127.0.0.1:8000/user/jwt/login/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(login_object),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message == "Success!!") {
+          window.location.href = "http://127.0.0.1:8000/";
+        } else {
+          alert(data.message);
+        }
+      });
+  });
+};
