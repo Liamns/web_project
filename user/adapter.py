@@ -53,3 +53,19 @@ class SocialUserSignUp(DefaultSocialAccountAdapter):
         url = reverse("socialaccount_connections")
         return url
 # 이름, 별명 자동짓기
+
+from allauth.account.adapter import DefaultAccountAdapter
+
+class MyAccountAdapter(DefaultAccountAdapter):
+
+    def get_signup_redirect_url(self, request):
+        path = "/"
+        return path
+
+    def get_login_redirect_url(self, request):
+        path ="/"
+        return path
+
+    def get_email_confirmation_redirect_url(self, request):
+        path ="/"
+        return path

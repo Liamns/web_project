@@ -13,13 +13,12 @@ from django.db.models import Q
 
 from rest_framework import status
 from config import settings
-from django.contrib.auth import get_user_model
 from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 from django.utils.decorators import method_decorator
 from rest_framework.decorators import APIView, permission_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.renderers import TemplateHTMLRenderer
-from django.http import JsonResponse
+
 
 #ys
 from chat.custom_methods import IsAuthenticatedCustom
@@ -29,22 +28,13 @@ import re
 
 
 #수정사항
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import AllowAny
 from rest_framework.decorators import APIView, permission_classes
-from django.http import HttpResponseRedirect
 
-from allauth.account.models import EmailConfirmation, EmailConfirmationHMAC
-
-from dj_rest_auth.registration.views import RegisterView
-from dj_rest_auth.utils import import_callable
 from django.views.decorators.debug import sensitive_post_parameters
 
 from allauth.account.views import SignupView
 from user.forms import UserSignupForm
-from allauth.utils import get_request_param
-from allauth.account.utils import passthrough_next_redirect_url
-from django.urls import reverse
-from django.contrib.sites.shortcuts import get_current_site
 
 # 프로필 View
 class UserProfileView(ModelViewSet):
@@ -128,10 +118,10 @@ class UserProfileView(ModelViewSet):
       return [normspace(' ', (t[0] or t[1]).strip()) for t in findterms(query_string)]
 
 #회원가입
-
 sensitive_post_parameters_m = method_decorator(
     sensitive_post_parameters('password1', 'password2'),
 )
+
 
 @permission_classes([AllowAny])
 class UserRegisterView(RegisterView) :
@@ -175,44 +165,14 @@ class ConfirmEmailView(APIView):
         qs = qs.select_related("email_address__user")
         return qs
 
+
 class UserSignupView(SignupView):
-    template_name = "user/register.html"
-    success_url = "home.html"
-    redirect_field_name = "home.html"
+    """
+    회원가입
+    """
+    template_name = "user/register.html"   
     form_class = UserSignupForm
-
-    @csrf_exempt
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        ret = super(SignupView, self).get_context_data(**kwargs)
-        form = ret["form"]
-        email = self.request.session.get("account_verified_email")
-        if email:
-            email_keys = ["email"]
-            for email_key in email_keys:
-                form.fields[email_key].initial = email
-        login_url = passthrough_next_redirect_url(
-            self.request, reverse("home"), self.redirect_field_name
-        )
-        redirect_field_name = self.redirect_field_name
-        site = get_current_site(self.request)
-        redirect_field_value = get_request_param(self.request, redirect_field_name)
-        ret.update(
-            {
-                "login_url": login_url,
-                "redirect_field_name": redirect_field_name,
-                "redirect_field_value": redirect_field_value,
-                "site": site,
-            }
-        )
-        return ret
     
-    
-
-
-User = get_user_model()
 
 @permission_classes([AllowAny])
 @method_decorator(ensure_csrf_cookie, name="dispatch")
@@ -241,13 +201,14 @@ class LoginApi(APIView):
             return Response({
                 "message": "wrong password"
             }, status=status.HTTP_400_BAD_REQUEST)
-        
+            
         access_token = generate_access_token(user)
         refresh_token = generate_refresh_token(user)
 
-        response = Response(data={"message": "Success!!"},status=status.HTTP_200_OK, headers={"Authorization": access_token}, template_name="home.html")        
+        response = Response(data={"message": "Success!!"},status=status.HTTP_200_OK, headers={"Authorization": access_token})
+
         response.set_cookie(key="refreshtoken", value=refresh_token, httponly=True)
-        response.set_cookie(key="access-token", value=access_token)
+        response.set_cookie(key="access_token", value=access_token, httponly=True)
 
         return response
 
@@ -283,12 +244,11 @@ class RefreshJWTtoken(APIView):
             }, status=status.HTTP_400_BAD_REQUEST)
         
         access_token = generate_access_token(user)
+        response = Response(data={"message": "Success!!"},status=status.HTTP_200_OK, headers={"Authorization": access_token})
+
+        response.set_cookie(key="access_token", value=access_token, httponly=True)
         
-        return Response(
-            {
-                'access_token': access_token,
-            }
-        )
+        return response
         
 @permission_classes([AllowAny])
 @method_decorator(ensure_csrf_cookie, name="dispatch")
@@ -301,12 +261,13 @@ class LogoutApi(APIView):
             "message": "Logout success"
             }, status=status.HTTP_202_ACCEPTED)
         response.delete_cookie('refreshtoken')
+        response.delete_cookie('access_token')
 
         return response
 
 def generate_access_token(user):
     access_token_payload = {
-        'nkn': user.nickname,
+        'nkn': user.id,
         'exp': datetime.datetime.utcnow() + datetime.timedelta(
             days=0, minutes=30
         ),
@@ -323,7 +284,7 @@ def generate_access_token(user):
     
 def generate_refresh_token(user):
     refresh_token_payload = {
-        'nkn': user.nickname,
+        'nkn': user.id,
         'exp': datetime.datetime.utcnow() + datetime.timedelta(days=7),
         'iat': datetime.datetime.utcnow(),
     }

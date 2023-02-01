@@ -1,7 +1,7 @@
 {% load static %}
 
 {% load socialaccount %}
-<link rel="stylesheet" href="{% static 'css/register.css' %}" />
+<link rel="stylesheet" href="{% static 'css/register.css' %}"/>
 
 <div class="wrap modal hidden">
   <div class="bg"></div>
@@ -18,7 +18,7 @@
         </h3>
         <span class="box_span int_pass">
 
-          <input type="email" id="email" class="text" maxlength="20" placeholder="아이디" />
+          <input type="email" id="email" class="text" maxlength="20" placeholder="아이디"/>
         </span>
       </div>
     </div>
@@ -31,8 +31,8 @@
         </h3>
         <span class="box_span int_pass">
 
-          <input type="password" id="pswd1" class="text" maxlength="20" placeholder="비밀번호" />
-          <img src="{% static 'imgs/m_icon_pass.png' %}" id="pswd1_img1" class="pswdImg" />
+          <input type="password" id="pswd1" class="text" maxlength="20" placeholder="비밀번호"/>
+          <img src="{% static 'imgs/m_icon_pass.png' %}" id="pswd1_img1" class="pswdImg"/>
         </span>
       </div>
     </div>
@@ -51,10 +51,8 @@
       <a href="#" class="lost_pw">아이디 또는 비밀번호를 잊으셨나요?</a>
     </div>
     <div class="social-btn mt-4 text-center">
-      <a href="{% provider_login_url  'kakao' %}"><img src="{% static 'img/login/kakao_login_medium_narrow.png' %}"
-          alt="" /></a>
-      <a href="{% provider_login_url 'google' %}"><img
-          src="{% static 'img/login/btn_google_signin_dark_normal_web.png' %}" alt="" /></a>
+      <a href="{% provider_login_url  'kakao' %}"><img src="{% static 'img/login/kakao_login_medium_narrow.png' %}" alt=""/></a>
+      <a href="{% provider_login_url 'google' %}"><img src="{% static 'img/login/btn_google_signin_dark_normal_web.png' %}" alt=""/></a>
     </div>
   </div>
 </div>
@@ -94,8 +92,6 @@
       password: password.value
     };
 
-    console.log(login_object);
-
     fetch("http://127.0.0.1:8000/user/jwt/login/", {
       method: "POST",
       headers: {
@@ -106,9 +102,7 @@
       .then((res) => res.json())
       .then((data) => {
         if (data.message == "Success!!") {
-          close()
-          document.getElementById("login").style.display = "none";
-          document.getElementById("profile-btn").style.display = "block";
+          window.location.href = "http://127.0.0.1:8000/"
 
         } else {
           alert(data.message)
