@@ -22,7 +22,7 @@ from rest_framework_simplejwt.views import (
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
-from post.views import HomeView
+from post.views import HomeView, profile_view
  
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,6 +33,7 @@ urlpatterns = [
     path('post/', include('post.urls')),
     
     path('chat/', include('chat.urls')),
+    path('profile/', profile_view, name='profile'),
     
     path('api/token/', TokenObtainSlidingView.as_view(), name='token_obtain'),
     path('api/token/refresh/', TokenRefreshSlidingView.as_view(), name='token_refresh'),
