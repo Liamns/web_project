@@ -129,19 +129,6 @@ sensitive_post_parameters_m = method_decorator(
     sensitive_post_parameters('password1', 'password2'),
 )
 
-@permission_classes([AllowAny])
-class UserRegisterView(RegisterView) :
-
-    serializers = getattr(settings, 'REST_AUTH_REGISTER_SERIALIZERS', {})
-
-    RegisterSerializer = import_callable(serializers.get('REGISTER_SERIALIZER', UserSerializer))
-
-    permission_classes = [AllowAny]
-
-    def get(self, req):
-        user = UserSerializer()
-        return Response({"user" : user}, template_name="user/register.html")
-
 class UserSignupView(SignupView):
     """
     회원가입
