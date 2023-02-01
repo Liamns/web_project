@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractBaseUser, AbstractUser, BaseUserM
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 
-from message.models import GenericFileUpload
+
 from django.utils import timezone
 
 

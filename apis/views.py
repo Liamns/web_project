@@ -1,19 +1,23 @@
-from user.models import User
-from rest_framework.decorators import APIView
+from django.shortcuts import render, redirect
+from user.models import User, Profile
+from user.serializers import UserSerializer, ProfileSerializer
+from rest_framework import generics
 from rest_framework.response import Response
-
 import jwt,datetime
+from django.db.models import Q
+from django.http import Http404
+from apis.jwtdecoding import JWTDecoding
 
 from rest_framework import status
 from config import settings
 from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 from django.utils.decorators import method_decorator
 from rest_framework.decorators import APIView, permission_classes
+from rest_framework.permissions import IsAuthenticated, AllowAny
+
 
 #수정사항
 from rest_framework.permissions import AllowAny
-from rest_framework.decorators import APIView, permission_classes
-
 from django.views.decorators.debug import sensitive_post_parameters
 
 from allauth.account.views import SignupView
@@ -108,8 +112,8 @@ class RefreshJWTtoken(APIView):
         
         return response
         
-@permission_classes([AllowAny])
-@method_decorator(ensure_csrf_cookie, name="dispatch")
+        
+@method_decorator(csrf_protect, name='dispatch')
 class LogoutApi(APIView):
     def post(self, request):
         """
@@ -167,3 +171,31 @@ def jwt_login(response, user):
     response.set_cookie(key="refreshtoken", value=refresh_token, httponly=True)
 
     return response
+
+# profile update
+# class ProfileDetail(APIView):
+    # def get_object(self, pk):
+    #     try:
+    #         return User.objects.get(id=pk)
+    #     except User.DoesNotExist:
+    #         raise Http404
+
+    # def get(self, request, pk, format=None):
+    #     user = self.get_object(pk)
+    #     serializer = UserSerializer(user)
+    #     return Response(serializer.data)
+
+    # def put(self, request, pk, format=None):
+    #     user = self.get_object(pk)
+    #     serializer = UserSerializer(user, data=request.data)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data)
+    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class profileUpdateView(generics.UpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+
+# profile update

@@ -16,16 +16,12 @@ class SafeJWTAuthentication(BaseAuthentication):
     """
     
     def authenticate(self, request):
-        authorization_header = request.headers.get('Authentication')
+        access_token = request.COOKIES.get('access_token')
         
-        if not authorization_header:
+        if not access_token:
             return None
             
         try:
-            prefix = authorization_header.split(' ')[0]
-            if prefix.lower() != 'jwt':
-                raise exceptions.AuthenticationFailed('Token is not jwt')
-            access_token = authorization_header.split(' ')[1]
             payload = jwt.decode(
                 access_token, settings.SECRET_KEY, algorithms=['HS256']
             )
@@ -49,7 +45,10 @@ class SafeJWTAuthentication(BaseAuthentication):
         return (user, None)
 
     def enforce_csrf(self, request):
-        check = CSRFCheck()
+        def dummy_get_response(request):
+            return None
+
+        check = CSRFCheck(dummy_get_response)
         
         check.process_request(request)
         reason = check.process_view(request, None, (), {})
