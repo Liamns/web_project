@@ -4,17 +4,20 @@ from user.serializers import UserSerializer, ProfileSerializer
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
 from django.views.decorators.csrf import csrf_exempt
-
+from rest_framework import generics, viewsets
+import random, string
 import jwt,datetime
+from django.http import Http404
+from django.db.models import Q
 
 
 from rest_framework import status
 from config import settings
-from django.contrib.auth import get_user_model
 from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 from django.utils.decorators import method_decorator
 from rest_framework.decorators import APIView, permission_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
+
 
 #ys
 from rest_framework.viewsets import ModelViewSet
@@ -23,22 +26,13 @@ import re
 
 
 #수정사항
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import AllowAny
 from rest_framework.decorators import APIView, permission_classes
-from django.http import HttpResponseRedirect
 
-from allauth.account.models import EmailConfirmation, EmailConfirmationHMAC
-
-from dj_rest_auth.registration.views import RegisterView
-from dj_rest_auth.utils import import_callable
 from django.views.decorators.debug import sensitive_post_parameters
 
 from allauth.account.views import SignupView
 from user.forms import UserSignupForm
-from allauth.utils import get_request_param
-from allauth.account.utils import passthrough_next_redirect_url
-from django.urls import reverse
-from django.contrib.sites.shortcuts import get_current_site
 
 # 프로필 View
 class UserProfileView(ModelViewSet):
@@ -126,6 +120,7 @@ sensitive_post_parameters_m = method_decorator(
     sensitive_post_parameters('password1', 'password2'),
 )
 
+
 @permission_classes([AllowAny])
 class UserRegisterView(RegisterView) :
 
@@ -139,12 +134,42 @@ class UserRegisterView(RegisterView) :
         user = UserSerializer()
         return Response({"user" : user}, template_name="user/register.html")
 
+
+
+class ConfirmEmailView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, *args, **kwargs):
+        self.object = confirmation = self.get_object()
+        confirmation.confirm(self.request)
+        # A React Router Route will handle the failure scenario
+        return HttpResponseRedirect('/') # 인증성공
+
+    def get_object(self, queryset=None):
+        key = self.kwargs['key']
+        email_confirmation = EmailConfirmationHMAC.from_key(key)
+        if not email_confirmation:
+            if queryset is None:
+                queryset = self.get_queryset()
+            try:
+                email_confirmation = queryset.get(key=key.lower())
+            except EmailConfirmation.DoesNotExist:
+                # A React Router Route will handle the failure scenario
+                return HttpResponseRedirect('/') # 인증실패
+        return email_confirmation
+
+    def get_queryset(self):
+        qs = EmailConfirmation.objects.all_valid()
+        qs = qs.select_related("email_address__user")
+        return qs
+
+
 class UserSignupView(SignupView):
     """
     회원가입
     """
     template_name = "user/register.html"   
-    form_class = UserSignupForm    
+    form_class = UserSignupForm
     
 
 @permission_classes([AllowAny])

@@ -271,12 +271,7 @@ AUTHENTICATION_BACKENDS = [
     "allauth.account.auth_backends.AuthenticationBackend",
 ]
 
-# JWT Social
-from datetime import timedelta
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
-    'ROTATE_REFRESH_TOKENS': False,
-    'BLACKLIST_AFTER_ROTATION': True,
-}
-# JWT Social
+# 이름, 별명 자동짓기
+SOCIALACCOUNT_ADAPTER = 'user.adapter.SocialUserSignUp'
+# 이름, 별명 자동짓기
+
