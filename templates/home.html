@@ -43,12 +43,15 @@
             <li class="nav-item">
               <a class="nav-link" href="#contact">컨택트</a>
             </li>
-            <li class="nav-item">
-              <a href="#" aria-current="page" class="ml-4 nav-link active btn btn-primary btn-sm rounded" id="login">
-                {% if user != None %}{{user.nickname}}
-                {% else %}로그인{% endif %}
-              </a>
-            </li>
+            {% if user.nickname != None %}
+              <li class="nav-item">
+                <a href="#" aria-current="page" class="ml-4 nav-link active btn btn-primary rounded" id="login">{{user.nickname}}</a>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                <a href="#" aria-current="page" class="ml-4 nav-link active btn btn-primary btn-sm rounded" id="login">로그인</a>
+              </li>
+            {% endif %}
           </ul>
         </div>
       </div>

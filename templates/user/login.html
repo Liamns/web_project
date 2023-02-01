@@ -102,15 +102,7 @@
       .then((res) => res.json())
       .then((data) => {
         if (data.message == "Success!!") {
-          close()
-          document
-            .getElementById("login")
-            .style
-            .display = "none";
-          document
-            .getElementById("profile-btn")
-            .style
-            .display = "block";
+          window.location.href = "http://127.0.0.1:8000/"
 
         } else {
           alert(data.message)

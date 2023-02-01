@@ -240,7 +240,7 @@ class LoginApi(APIView):
         access_token = generate_access_token(user)
         refresh_token = generate_refresh_token(user)
 
-        response = Response(data={"message": "Success!!", "user" : UserSerializer(user).data},status=status.HTTP_200_OK, headers={"Authorization": access_token})
+        response = Response(data={"message": "Success!!"},status=status.HTTP_200_OK, headers={"Authorization": access_token})
 
         response.set_cookie(key="refreshtoken", value=refresh_token, httponly=True)
         response.set_cookie(key="access_token", value=access_token, httponly=True)
