@@ -233,13 +233,14 @@ class LoginApi(APIView):
             return Response({
                 "message": "wrong password"
             }, status=status.HTTP_400_BAD_REQUEST)
-        
+            
         access_token = generate_access_token(user)
         refresh_token = generate_refresh_token(user)
 
-        response = Response(data={"message": "Success!!"},status=status.HTTP_200_OK, headers={"Authorization": access_token})        
+        response = Response(data={"message": "Success!!", "user" : UserSerializer(user).data},status=status.HTTP_200_OK, headers={"Authorization": access_token})
+
         response.set_cookie(key="refreshtoken", value=refresh_token, httponly=True)
-        response.set_cookie(key="access_token", value=access_token)
+        response.set_cookie(key="access_token", value=access_token, httponly=True)
 
         return response
 
@@ -275,12 +276,11 @@ class RefreshJWTtoken(APIView):
             }, status=status.HTTP_400_BAD_REQUEST)
         
         access_token = generate_access_token(user)
+        response = Response(data={"message": "Success!!"},status=status.HTTP_200_OK, headers={"Authorization": access_token})
+
+        response.set_cookie(key="access_token", value=access_token, httponly=True)
         
-        return Response(
-            {
-                'access_token': access_token,
-            }
-        )
+        return response
         
         
 @method_decorator(csrf_protect, name='dispatch')
@@ -293,6 +293,7 @@ class LogoutApi(APIView):
             "message": "Logout success"
             }, status=status.HTTP_202_ACCEPTED)
         response.delete_cookie('refreshtoken')
+        response.delete_cookie('access_token')
 
         return response
 
