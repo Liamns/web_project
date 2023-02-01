@@ -46,7 +46,11 @@
           </li>
           <li class="nav-item">
             <a href="#" aria-current="page" class="ml-4 nav-link active btn btn-primary btn-sm rounded"
-              id="login">{{user.nickname|default_if_none:"로그인"}} + {{payload}}</a>
+              id="login">로그인</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" aria-current="page" class="ml-4 nav-link active btn btn-primary rounded"
+              id="profile-btn">{{user.nickname}}</a>
           </li>
         </ul>
       </div>
@@ -512,23 +516,22 @@
 
   <script>
 
+    document.getElementById("profile-btn").style.display = "none"
 
-    window.onload = function () {
-      let user_id = fetch("http://127.0.0.1:8000/", {
-        method: "GET",
-        headers: {
-          'Content-Type': 'application/json;charset=UTF-8',
-          "Authorization": "JWT " + String(window.localStorage.getItem("aceess-token")),
-        },
-      })
+    let user_id = fetch("http://127.0.0.1:8000/", {
+      method: "GET"
+    })
 
-      console.log(user_id)
 
-      user_id.then((res) => {
-        res.json();
-        console.log(res.json());
-      })
-    }
+    user_id.then((res) => res.json()).then((data) => {
+
+      document.getElementById("login").style.display = "none";
+      document.getElementById("profile-btn").style.display = "block";
+
+    })
+
+
+
 
   </script>
 

@@ -15,7 +15,7 @@ from django.utils.decorators import method_decorator
 
 from post.serializers import PostSerializer
 
-from django.conf import settings
+from config import settings
 from apis.authenticate import *
 import jwt
 
@@ -25,25 +25,30 @@ import jwt
 class HomeView(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = "home.html"
+    permission_classes = [IsAuthenticated]
 
 
     def get(self, request):
         
-        headers = request.headers.get("Authorization")
-        if not headers:
+        headers = request.COOKIES.get("access_token")
+        if headers == None:
             return Response(template_name="home.html")
+        
+        
 
-        access_token = headers.split(' ')[1]
-        payload = jwt.decode(
-                access_token, settings.SECRET_KEY, algorithms=['HS256']
-            )
+        try:
+            payload = jwt.decode(headers, settings.SECRET_KEY, algorithms=['HS256'])
+            user = User.objects.get(id=payload['nkn'])
+        except jwt.ExpiredSignatureError:
+            raise Exception("Token has expired")
+        except jwt.InvalidTokenError:
+            raise Exception("Invalid token")
 
-        user = User.objects.get(id=payload['nkn'])
-        id_c = payload["nkn"]
-
+        response = Response({"user" : user}, template_name="home.html")
+        response.set_cookie(key="access_token", value=headers)
 
                 
-        return Response({"user" : user, "payload" : id_c}, template_name="home.html")
+        return response
 
     # def dispatch(self, request, *args, **kwargs):
     #     """
