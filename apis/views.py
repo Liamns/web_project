@@ -6,7 +6,7 @@ from rest_framework.response import Response
 import jwt,datetime
 from django.db.models import Q
 from django.http import Http404
-
+from apis.jwtdecoding import JWTDecoding
 
 from rest_framework import status
 from config import settings
@@ -197,5 +197,16 @@ class profileUpdateView(generics.UpdateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     lookup_field = 'id'
+
+    def patch(self, request):
+        user_id = JWTDecoding.Jwt_decoding(request=request)
+        user = User.objects.get(id=user_id)
+        serializer = UserSerializer(user, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 # profile update
