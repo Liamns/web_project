@@ -141,3 +141,10 @@ class PostEventView(APIView):
     def get(self, req):
         post_serializer = PostSerializer()
         return Response({"post" : post_serializer})
+
+
+"""
+프로필 페이지 테스트
+"""
+def profile_view(request):
+    return render(request, 'profile.html')
