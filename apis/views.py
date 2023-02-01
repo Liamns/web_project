@@ -11,12 +11,9 @@ import jwt,datetime
 
 from rest_framework import status
 from config import settings
-from django.contrib.auth import get_user_model
 from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 from django.utils.decorators import method_decorator
 from rest_framework.decorators import APIView, permission_classes
-from rest_framework.permissions import IsAuthenticated, AllowAny
-from rest_framework.renderers import TemplateHTMLRenderer
 
 #ys
 from chat.custom_methods import IsAuthenticatedCustom
@@ -26,22 +23,13 @@ import re
 
 
 #수정사항
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import AllowAny
 from rest_framework.decorators import APIView, permission_classes
-from django.http import HttpResponseRedirect
 
-from allauth.account.models import EmailConfirmation, EmailConfirmationHMAC
-
-from dj_rest_auth.registration.views import RegisterView
-from dj_rest_auth.utils import import_callable
 from django.views.decorators.debug import sensitive_post_parameters
 
 from allauth.account.views import SignupView
 from user.forms import UserSignupForm
-from allauth.utils import get_request_param
-from allauth.account.utils import passthrough_next_redirect_url
-from django.urls import reverse
-from django.contrib.sites.shortcuts import get_current_site
 
 # 프로필 View
 class UserProfileView(ModelViewSet):
@@ -134,7 +122,7 @@ class UserSignupView(SignupView):
     회원가입
     """
     template_name = "user/register.html"   
-    form_class = UserSignupForm    
+    form_class = UserSignupForm
     
 
 @permission_classes([AllowAny])
