@@ -909,10 +909,10 @@
 
 
     user_id.then((res) => res.json()).then((data) => {
-      if (data.user != NaN) {
-        document.getElementById("login").style.display = "none";
-        document.getElementById("profile-btn").style.display = "block";
-      }
+
+      document.getElementById("login").style.display = "none";
+      document.getElementById("profile-btn").style.display = "block";
+
     })
 
 
