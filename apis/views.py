@@ -3,7 +3,7 @@ from user.models import User, Profile
 from user.serializers import UserSerializer, ProfileSerializer
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
-
+from django.views.decorators.csrf import csrf_exempt
 
 import jwt,datetime
 
