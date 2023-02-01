@@ -134,17 +134,14 @@ def comment_create(request,post_id):
     return render(request,"post/post_detail.html",{"form":form,"post":post})
 
 
-class PostEventView(APIView):
+class PostEventView(TemplateView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = "post/event_list.html"
 
     def get(self, req):
         post_serializer = PostSerializer()
-        return Response({"post" : post_serializer})
-
-
-"""
-프로필 페이지 테스트
-"""
+        return render(req, "post/event_list.html")
+        
 def profile_view(request):
     return render(request, 'profile.html')
+

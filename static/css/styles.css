@@ -206,22 +206,18 @@ address {
   line-height: inherit;
 }
 
-ol,
-ul {
+ol {
   padding-left: 2rem;
 }
 
 ol,
-ul,
 dl {
   margin-top: 0;
   margin-bottom: 1rem;
 }
 
 ol ol,
-ul ul,
-ol ul,
-ul ol {
+ol ol {
   margin-bottom: 0;
 }
 
@@ -11661,183 +11657,4 @@ fieldset:disabled .btn {
   .d-print-none {
     display: none !important;
   }
-}
-
-/*W3C CSS 일부*/
-.w3-col .w3-half .w3-third .w3-twothird .w3-threequarter .w3-quarter {
-  float: left;
-  width: 100%;
-}
-.w3-col.s1 {
-  width: 8.33333%;
-}
-.w3-col.s2 {
-  width: 16.66666%;
-}
-.w3-col.s3 {
-  width: 24.99999%;
-}
-.w3-col.s4 {
-  width: 33.33333%;
-}
-.w3-col.s5 {
-  width: 41.66666%;
-}
-.w3-col.s6 {
-  width: 49.99999%;
-}
-.w3-col.s7 {
-  width: 58.33333%;
-}
-.w3-col.s8 {
-  width: 66.66666%;
-}
-.w3-col.s9 {
-  width: 74.99999%;
-}
-.w3-col.s10 {
-  width: 83.33333%;
-}
-.w3-col.s11 {
-  width: 91.66666%;
-}
-.w3-col.s12 {
-  width: 99.99999%;
-}
-@media (min-width: 601px) {
-  .w3-col.m1 {
-    width: 8.33333%;
-  }
-  .w3-col.m2 {
-    width: 16.66666%;
-  }
-  .w3-col.m3 .w3-quarter {
-    width: 24.99999%;
-  }
-  .w3-col.m4 .w3-third {
-    width: 33.33333%;
-  }
-  .w3-col.m5 {
-    width: 41.66666%;
-  }
-  .w3-col.m6 .w3-half {
-    width: 49.99999%;
-  }
-  .w3-col.m7 {
-    width: 58.33333%;
-  }
-  .w3-col.m8 .w3-twothird {
-    width: 66.66666%;
-  }
-  .w3-col.m9 .w3-threequarter {
-    width: 74.99999%;
-  }
-  .w3-col.m10 {
-    width: 83.33333%;
-  }
-  .w3-col.m11 {
-    width: 91.66666%;
-  }
-  .w3-col.m12 {
-    width: 99.99999%;
-  }
-}
-@media (min-width: 993px) {
-  .w3-col.l1 {
-    width: 8.33333%;
-  }
-  .w3-col.l2 {
-    width: 16.66666%;
-  }
-  .w3-col.l3 {
-    width: 24.99999%;
-  }
-  .w3-col.l4 {
-    width: 33.33333%;
-  }
-  .w3-col.l5 {
-    width: 41.66666%;
-  }
-  .w3-col.l6 {
-    width: 49.99999%;
-  }
-  .w3-col.l7 {
-    width: 58.33333%;
-  }
-  .w3-col.l8 {
-    width: 66.66666%;
-  }
-  .w3-col.l9 {
-    width: 74.99999%;
-  }
-  .w3-col.l10 {
-    width: 83.33333%;
-  }
-  .w3-col.l11 {
-    width: 91.66666%;
-  }
-  .w3-col.l12 {
-    width: 99.99999%;
-  }
-}
-/*W3C CSS 일부 끝 */
-
-.square {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 60%;
-  margin: 20px auto;
-  text-align: center;
-  border: 1px solid #bbb;
-  box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.03);
-}
-.square:before {
-  content: "";
-  display: block;
-  padding-top: 100%;
-}
-.circle {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 60%;
-  border-radius: 50%;
-  margin: 20px auto;
-  text-align: center;
-  border: 1px solid #bbb;
-  box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.03);
-}
-.circle:before {
-  content: "";
-  display: block;
-  padding-top: 100%;
-}
-
-/*flex를 안쓰고 하는 법*/
-.noneflex {
-  position: relative;
-  width: 60%;
-  margin: 20px auto;
-  text-align: center;
-  border: 1px solid #bbb;
-  box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.03);
-}
-.noneflex:before {
-  content: "";
-  display: block;
-  padding-top: 100%;
-}
-.noneflexinside {
-  position: absolute;
-  top: 30%;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
-}
-
-ion-icon {
-  font-size: 40px;
-  color: red;
-  --ionicon-stroke-width: 16px;
 }
