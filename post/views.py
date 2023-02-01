@@ -19,6 +19,7 @@ from post.serializers import PostSerializer
 
 from config import settings
 from apis.views import *
+from apis.jwtdecoding import JWTDecoding
 import jwt
 
 
@@ -33,12 +34,13 @@ class HomeView(APIView):
     def get(self, request):
         
         headers = request.COOKIES.get("access_token")
+        
         if headers is None:
-            return Response(template_name="home.html")
+            return Response(data= {"login" : "로그인"},template_name="home.html")
         else:   
             try:
                 payload = jwt.decode(headers, settings.SECRET_KEY, algorithms=['HS256'])
-                user = User.objects.get(id=payload['nkn'])
+                user = User.objects.get(id=JWTDecoding.Jwt_decoding(request=request))
             except jwt.ExpiredSignatureError: # 토큰이 만료되었을 때 나오는 것
                 return RefreshJWTtoken.post(request=request)
             except jwt.InvalidTokenError:
@@ -48,7 +50,6 @@ class HomeView(APIView):
                 response = Response({"user" : user}, template_name="home.html")
                 response.set_cookie(key="access_token", value=headers)
 
-                redirect("home")
 
                 
 
