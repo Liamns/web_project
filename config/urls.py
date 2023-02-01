@@ -27,6 +27,8 @@ from post.views import HomeView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", HomeView.as_view(), name="home"),
+    path('user/', include('dj_rest_auth.urls')),
+    path('user/', include('allauth.urls')),
     path('user/', include('user.urls')),
     path('post/', include('post.urls')),
     
