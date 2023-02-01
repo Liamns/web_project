@@ -46,8 +46,6 @@ class HomeView(APIView):
 
             if user is not None:
                 response = Response({"user" : user}, template_name="home.html")
-                response.set_cookie(key="access_token", value=headers)
-
 
                 
 
