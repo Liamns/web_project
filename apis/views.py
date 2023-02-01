@@ -196,16 +196,6 @@ def jwt_login(response, user):
 class profileUpdateView(generics.UpdateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    lookup_field = 'id'
-
-    def patch(self, request):
-        user_id = JWTDecoding.Jwt_decoding(request=request)
-        user = User.objects.get(id=user_id)
-        serializer = UserSerializer(user, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 
