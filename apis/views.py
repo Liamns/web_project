@@ -1,12 +1,11 @@
 from django.shortcuts import render, redirect
 from user.models import User, Profile
 from user.serializers import UserSerializer, ProfileSerializer
-from rest_framework.decorators import APIView
+from rest_framework import generics
 from rest_framework.response import Response
-from django.views.decorators.csrf import csrf_exempt
-
-
 import jwt,datetime
+from django.db.models import Q
+from django.http import Http404
 
 
 from rest_framework import status
@@ -14,103 +13,16 @@ from config import settings
 from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 from django.utils.decorators import method_decorator
 from rest_framework.decorators import APIView, permission_classes
-
-#ys
-from chat.custom_methods import IsAuthenticatedCustom
-from rest_framework.viewsets import ModelViewSet
-from django.db.models import Q, Count, Subquery, OuterRef
-import re
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 
 #수정사항
 from rest_framework.permissions import AllowAny
-from rest_framework.decorators import APIView, permission_classes
-
 from django.views.decorators.debug import sensitive_post_parameters
 
 from allauth.account.views import SignupView
 from user.forms import UserSignupForm
 
-# 프로필 View
-class UserProfileView(ModelViewSet):
-    queryset = Profile.objects.all()
-    serializer_class = ProfileSerializer
-    permission_classes = (IsAuthenticatedCustom, )
-
-    def get_queryset(self): 
-        if self.request.method.lower() != "get":
-            return self.queryset
-
-        data = self.request.query_params.dict()
-        data.pop("page", None)
-        keyword = data.pop("keyword", None)
-
-        if keyword:
-            search_fields = (
-                "user__name", "profile_img", "user__email"
-            )
-            query = self.get_query(keyword, search_fields)
-            try:
-                return self.queryset.filter(query).filter(**data).exclude(
-                    Q(user_id=self.request.user.id) |
-                    Q(user__is_superuser=True)
-                ).annotate(
-                    fav_count=Count(self.user_fav_query(self.request.user))
-                ).order_by("-fav_count")
-            except Exception as e:
-                raise Exception(e)
-
-        result = self.queryset.filter(**data).exclude(
-            Q(user_id=self.request.user.id) |
-            Q(user__is_superuser=True)
-        ).annotate(
-            fav_count=Count(self.user_fav_query(self.request.user))
-        ).order_by("-fav_count")
-        return result
-
-    @staticmethod
-    def user_fav_query(user):
-        try:
-            return user.user_favorites.favorite.filter(id=OuterRef("user_id")).values("pk")
-        except Exception:
-            return []
-
-
-    @staticmethod
-
-    def get_query(query_string, search_fields):
-      
-        ''' Returns a query, that is a combination of Q objects. that combination
-        aims to search keywords within a model by testion the give search fields.
-        '''
-      
-      
-        query = None  # Query to search for every search term
-        terms = UserProfileView.normalize_query(query_string)
-        for term in terms:
-            or_query = None  # Query to search for a given term in each field
-            for field_name in search_fields:
-                q = Q(**{"%s__icontains" % field_name: term})
-                if or_query is None:
-                    or_query = q
-                else:
-                    or_query = or_query | q
-            if query is None:
-                query = or_query
-            else:
-                query = query & or_query
-        return query
-
-    @staticmethod
-    def normalize_query(query_string, findterms=re.compile(r'"([^"]+)"|(\S+)').findall, normspace=re.compile(r'\s{2,}').sub):
-      ''' Splits the query string in invidual keywords, getting rid of unecessary spaces
-          and grouping quoted words together
-          
-          Examlple:
-          >>> normalize_query(some random words with quotes and spaces)
-          ['some','random','words','with','quotes','and','spaces']
-      '''
-      return [normspace(' ', (t[0] or t[1]).strip()) for t in findterms(query_string)]
 
 #회원가입
 sensitive_post_parameters_m = method_decorator(
@@ -201,8 +113,8 @@ class RefreshJWTtoken(APIView):
         
         return response
         
-@permission_classes([AllowAny])
-@method_decorator(ensure_csrf_cookie, name="dispatch")
+        
+@method_decorator(csrf_protect, name='dispatch')
 class LogoutApi(APIView):
     def post(self, request):
         """
@@ -260,3 +172,30 @@ def jwt_login(response, user):
     response.set_cookie(key="refreshtoken", value=refresh_token, httponly=True)
 
     return response
+
+# profile update
+# class ProfileDetail(APIView):
+    # def get_object(self, pk):
+    #     try:
+    #         return User.objects.get(id=pk)
+    #     except User.DoesNotExist:
+    #         raise Http404
+
+    # def get(self, request, pk, format=None):
+    #     user = self.get_object(pk)
+    #     serializer = UserSerializer(user)
+    #     return Response(serializer.data)
+
+    # def put(self, request, pk, format=None):
+    #     user = self.get_object(pk)
+    #     serializer = UserSerializer(user, data=request.data)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data)
+    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class profileUpdateView(generics.UpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    lookup_field = 'id'
+
+# profile update

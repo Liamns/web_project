@@ -1,10 +1,18 @@
-from . import views
 from django.views.generic import TemplateView
 from django.urls import path, include, re_path
-from apis.views import LoginApi, LogoutApi, UserSignupView
+from apis.views import LoginApi, LogoutApi, UserSignupView, profileUpdateView
 from dj_rest_auth.registration.views import VerifyEmailView
-
+from rest_framework import routers
+from rest_framework.routers import DefaultRouter
 from allauth.account import views as allauth_views
+from rest_framework.urlpatterns import format_suffix_patterns
+
+router = DefaultRouter(trailing_slash=False)
+
+
+
+
+
 
 
 urlpatterns = [
@@ -23,6 +31,6 @@ urlpatterns = [
     # 유저가 클릭한 이메일(=링크) 확인
     re_path(r'^account-confirm-email/(?P<key>[-:\w]+)/$', allauth_views.ConfirmEmailView.as_view(), name='account_confirm_email'),
     path("", include("allauth.urls")),
-   
+    path("update/<int:id>/", profileUpdateView.as_view(), name='profile_update'),
 ]
 

@@ -15,6 +15,7 @@ import os, json
 from django.core.exceptions import ImproperlyConfigured
 from datetime import timedelta
 import pymysql
+# from decouple import config
 
 
 pymysql.install_as_MySQLdb()
@@ -46,6 +47,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'user.User' # <-- ys
+
+
+
 
 # Application definition
 
@@ -63,9 +68,9 @@ INSTALLED_APPS = [
     "taggit",
     "apis",
     'jazzmin',
-    'corsheaders', # <- 추가
-    'chat',
-    'message',    
+    'corsheaders', # <- ys
+    'chat', # <- ys
+    'channels', # <- ys
 ]
 
 INSTALLED_APPS += [    
@@ -83,7 +88,7 @@ INSTALLED_APPS += [
     'allauth.socialaccount.providers.google',
     ]
 
-SITE_ID = 1
+SITE_ID = 2
 
 MIDDLEWARE = [
     
@@ -118,8 +123,35 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
+ASGI_APPLICATION = "config.asgi.application"                    # <== ys
+ 
+CHANNEL_LAYERS = {                                              # <== ys
+    "default": { 
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
 
 DATABASES = get_secret("DATABASES")
+
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_HEADERS = (
+    'x-requested-with',
+    'content-type',
+    'accept',
+    'origin',
+    'authorization',
+    'accept-encoding',
+    'x-csrftoken',
+    'access-control-allow-origin',
+    'content-disposition'
+)
+CORS_ALLOW_CREDENTIALS = False
+CORS_ALLOW_METHODS = ('GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS')
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -175,6 +207,10 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
+        # JWT Social
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # JWT Social
         'apis.authenticate.SafeJWTAuthentication',
     ),
 }
@@ -234,3 +270,8 @@ AUTHENTICATION_BACKENDS = [
     # `allauth` specific authentication methods, such as login by e-mail
     "allauth.account.auth_backends.AuthenticationBackend",
 ]
+
+# 이름, 별명 자동짓기
+SOCIALACCOUNT_ADAPTER = 'user.adapter.SocialUserSignUp'
+# 이름, 별명 자동짓기
+
