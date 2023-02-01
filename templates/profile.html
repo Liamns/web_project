@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="en" class="theme theme--mercado artdeco windows"><script type="text/javascript" async="" charset="utf-8" id="utag_128" src="https://platform.linkedin.com/litms/vendor/google/gtag-adwords.js?id=AW-867846157"></script><script id="allow-copy_script">(function agent() {
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" class="theme theme--mercado artdeco windows"><script type="text/javascript" async="" charset="utf-8" id="utag_128" src="https://platform.linkedin.com/litms/vendor/google/gtag-adwords.js?id=AW-867846157"></script><script id="allow-copy_script">(function agent() {
     let unlock = false
     document.addEventListener('allow_copy', (event) => {
       unlock = event.detail.unlock
@@ -45,11 +47,11 @@
     <link rel="mask-icon" href="https://static.licdn.com/sc/h/8a1a8xqjolkyjbf9n3i40oimj" color="#0a66c2">
 
     
-        <link id="ui-theme" rel="stylesheet" href="ui-theme.css">
-        <link id="ui-theme-dark" rel="stylesheet" href="ui-theme-dark.css" disabled="">
+        <link id="ui-theme" rel="stylesheet" href="{% static 'css/profile-ui-theme.css' %}">
+        <link id="ui-theme-dark" rel="stylesheet" href="{% static 'css/profile-ui-theme-dark.css' %}" disabled="">
       
 <!-- --------------------------------------------------------------------------------------------------------------- -->
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="{% static 'css/profile-main.css' %}">
 <!-- --------------------------------------------------------------------------------------------------------------- -->
 
 <!--     
@@ -168,10 +170,10 @@
 <meta name="video-intro/config/environment" content="%7B%7D">
 <meta name="workflow/config/environment" content="%7B%7D">
 
-    <link rel="stylesheet" href="searchbar.css">
+    <link rel="stylesheet" href="{% static 'css/profile-searchbar.css' %}">
 
 <!-- --------------------------------------------------------------------------------------------------------------- -->
-    <link rel="stylesheet" href="body.css">
+    <link rel="stylesheet" href="{% static 'css/profile-body.css' %}">
 <!-- --------------------------------------------------------------------------------------------------------------- -->
 
     <meta name="asset-url" id="artdeco-icons/static/images/icons.svg" content="https://static.licdn.com/sc/h/4u3n21bmitzyljlm274yvwzfu">
