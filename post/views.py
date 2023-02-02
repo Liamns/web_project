@@ -152,24 +152,12 @@ def comment_create(request,post_id):
     return render(request,"post/post_detail.html",{"form":form,"post":post})
 
 
-class PostEventView(TemplateView):
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = "post/event_list.html"
 
-    def get(self, req):
-        post_serializer = PostSerializer()
-        return render(req, "event/event_list.html")
         
 def profile_view(request):
     return render(request, 'profile.html')
 
 
 
-class PostEventFormView(TemplateView):
-    def get(self,req):
-        return render(req, "event/events_form.html")
 
-class PostEventDetailView(TemplateView):
-    def get(self, req):
-        return render(req, 'event/event_detail.html')
 
