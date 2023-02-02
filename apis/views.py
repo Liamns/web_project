@@ -1,50 +1,35 @@
 from django.shortcuts import render, redirect
-from user.models import User, Profile
-from user.serializers import UserSerializer, ProfileSerializer
-from rest_framework.decorators import APIView
+from user.models import User
+from user.serializers import UserSerializer
+from rest_framework import generics
 from rest_framework.response import Response
-
 import jwt,datetime
 
-
 from rest_framework import status
-from django.conf import settings
-from django.contrib.auth import get_user_model
+from config import settings
 from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 from django.utils.decorators import method_decorator
 from rest_framework.decorators import APIView, permission_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
-#ys
-
-from rest_framework.viewsets import ModelViewSet
-from django.db.models import Q, Count, Subquery, OuterRef
-import re
-
-
 #수정사항
-from rest_framework.permissions import IsAuthenticated, AllowAny
-from rest_framework.decorators import APIView, permission_classes
-from django.http import HttpResponseRedirect
+from rest_framework.permissions import AllowAny
+from django.views.decorators.debug import sensitive_post_parameters
 
-
+from allauth.account.views import SignupView
+from user.forms import UserSignupForm
 
 #회원가입
+sensitive_post_parameters_m = method_decorator(
+    sensitive_post_parameters('password1', 'password2'),
+)
 
-@permission_classes([AllowAny])
-@method_decorator(ensure_csrf_cookie, name="dispatch")
-class RegisterView(APIView) :
-
-    def post(self, req):
-        serializer = UserSerializer(data=req.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
-
-User = get_user_model()
-
-
-#로그인
+class UserSignupView(SignupView):
+    """
+    회원가입
+    """
+    template_name = "user/register.html"   
+    form_class = UserSignupForm
 
 @permission_classes([AllowAny])
 @method_decorator(ensure_csrf_cookie, name="dispatch")
@@ -73,10 +58,15 @@ class LoginApi(APIView):
             return Response({
                 "message": "wrong password"
             }, status=status.HTTP_400_BAD_REQUEST)
-        
-        response = Response(status=status.HTTP_200_OK)
-        return jwt_login(response, user)
-        
+        access_token = generate_access_token(user)
+        refresh_token = generate_refresh_token(user)
+
+        response = Response(data={"message": "Success!!"},status=status.HTTP_200_OK, headers={"Authorization": access_token})
+
+        response.set_cookie(key="refreshtoken", value=refresh_token, httponly=True)
+        response.set_cookie(key="access_token", value=access_token, httponly=True)
+
+        return response
 
 @method_decorator(csrf_protect, name='dispatch')
 class RefreshJWTtoken(APIView):
@@ -109,15 +99,14 @@ class RefreshJWTtoken(APIView):
             }, status=status.HTTP_400_BAD_REQUEST)
         
         access_token = generate_access_token(user)
+        response = Response(data={"message": "Success!!"},status=status.HTTP_200_OK, headers={"Authorization": access_token})
+
+        response.set_cookie(key="access_token", value=access_token, httponly=True)
         
-        return Response(
-            {
-                'access_token': access_token,
-            }
-        )
+        return response
         
-@permission_classes([AllowAny])
-@method_decorator(ensure_csrf_cookie, name="dispatch")
+        
+@method_decorator(csrf_protect, name='dispatch')
 class LogoutApi(APIView):
     def post(self, request):
         """
@@ -127,12 +116,12 @@ class LogoutApi(APIView):
             "message": "Logout success"
             }, status=status.HTTP_202_ACCEPTED)
         response.delete_cookie('refreshtoken')
-
+        response.delete_cookie('access_token')
         return response
 
 def generate_access_token(user):
     access_token_payload = {
-        'nkn': user.nickname,
+        'nkn': user.id,
         'exp': datetime.datetime.utcnow() + datetime.timedelta(
             days=0, minutes=30
         ),
@@ -149,7 +138,7 @@ def generate_access_token(user):
     
 def generate_refresh_token(user):
     refresh_token_payload = {
-        'nkn': user.nickname,
+        'nkn': user.id,
         'exp': datetime.datetime.utcnow() + datetime.timedelta(days=7),
         'iat': datetime.datetime.utcnow(),
     }
@@ -172,5 +161,13 @@ def jwt_login(response, user):
     
     response.data = data
     response.set_cookie(key="refreshtoken", value=refresh_token, httponly=True)
-
     return response
+
+# profile update
+class profileUpdateView(generics.UpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+
+
