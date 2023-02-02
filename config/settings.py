@@ -88,7 +88,7 @@ INSTALLED_APPS += [
     'allauth.socialaccount.providers.google',
     ]
 
-SITE_ID = 2
+SITE_ID = 1
 
 MIDDLEWARE = [
     
@@ -207,10 +207,9 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
-        # JWT Social
-        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-        # JWT Social
+        # postman test용
+        # 'rest_framework.authentication.BasicAuthentication',
+        # postman test용
         'apis.authenticate.SafeJWTAuthentication',
     ),
 }
@@ -274,4 +273,3 @@ AUTHENTICATION_BACKENDS = [
 # 이름, 별명 자동짓기
 SOCIALACCOUNT_ADAPTER = 'user.adapter.SocialUserSignUp'
 # 이름, 별명 자동짓기
-

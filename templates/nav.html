@@ -1,3 +1,5 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/leadmark.css' %}">
 <!-- page Navigation -->
 <nav class="navbar custom-navbar navbar-expand-md navbar-light fixed-top" data-spy="affix" data-offset-top="10">
   <div class="container">
@@ -24,10 +26,43 @@
         <li class="nav-item">
           <a class="nav-link" href="#contact">컨택트</a>
         </li>
-        <li class="nav-item">
-          <a href="#" class="ml-4 nav-link btn btn-primary btn-sm rounded">회원가입</a>
-        </li>
+        {% if user.nickname != None %}
+          <li class="nav-item">
+            <a href="#" aria-current="page" class="ml-4 nav-link active btn btn-primary rounded" id="login">{{user.nickname}}</a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a href="#" aria-current="page" class="ml-4 nav-link active btn btn-primary btn-sm rounded" id="login">로그인</a>
+          </li>
+        {% endif %}
       </ul>
     </div>
   </div>
 </nav>
+
+<!-- Page Header -->
+<header class="header">
+  <div class="overlay">
+    <h1 class="subtitle">complex meeting service</h1>
+    <h1 class="title">Love Solo</h1>
+  </div>
+  <div class="shape">
+    <svg viewbox="0 0 1500 200">
+      <path d="m 0,240 h 1500.4828 v -71.92164 c 0,0 -286.2763,-81.79324 -743.19024,-81.79324 C 300.37862,86.28512 0,168.07836 0,168.07836 Z"/>
+    </svg>
+  </div>
+  <div class="mouse-icon">
+    <div class="wheel"></div>
+  </div>
+</header>
+<!-- End Of Page Header -->
+
+<!-- core -->
+<script src="{% static 'vendors/jquery/jquery-3.4.1.js' %}"></script>
+<script src="{% static 'vendors/bootstrap/bootstrap.bundle.js' %}"></script>
+
+<!-- bootstrap 3 affix -->
+<script src="{% static 'vendors/bootstrap/bootstrap.affix.js' %}"></script>
+
+<!-- Isotope -->
+<script src="{% static 'vendors/isotope/isotope.pkgd.js' %}"></script>

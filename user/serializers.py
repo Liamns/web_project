@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from .models import User, Profile
-import string, random
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:

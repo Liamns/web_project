@@ -8,28 +8,11 @@
     <h2 class="lovesolo_title">LoveSolo 회원가입</h2>
   </div>
 
-  <form action="" method="post">
-    {% csrf_token %}
-    {% for field in form %}
-      <div>
-        <label for="{{field.id_for_label}}">{{field.label}}</label>
-        <input type="{{field.field.widget.input_type}}" name="{{field.name}}">
-      </div>
-      <!-- content-->
-      {% if field.errors %}
-        {{field.errors}}
-      {% endif %}
-    {% endfor %}
-    <div class="btn_area">
-      <button type="submit" id="btnJoin">
-        <span>가입하기</span>
-      </button>
-    </div>
-  </form>
+  <!-- <form action="" method="post"> {% csrf_token %} {% for field in form %} <div> <label for="{{field.id_for_label}}">{{field.label}}</label> <input type="{{field.field.widget.input_type}}" name="{{field.name}}"> </div> {% if field.errors %} {{field.errors}} {% endif %} {% endfor %} <div class="btn_area"> <button type="submit" id="btnJoin"> <span>가입하기</span> </button> </div> </form> -->
 
   <!-- wrapper -->
   <div id="wrapper">
-    <form action="" method="post">
+    <form method="post" id="registerForm">
       {% csrf_token %}
       <div id="content">
         <!-- ID -->
@@ -76,7 +59,7 @@
           <span class="box int_name">
             <input type="text" id="name" class="int" maxlength="20" name='name'/>
           </span>
-          <span class="error_next_box"></span>
+          <span class="error_next_box">필수정보 입니다.</span>
         </div>
 
         <!-- BIRTH -->
@@ -86,10 +69,11 @@
           </h3>
 
           <div id="bir_wrap">
+            <input type="hidden" id="birth" class="int" name="birth">
             <!-- BIRTH_YY -->
             <div id="bir_yy">
               <span class="box">
-                <input type="text" id="yy" class="int" maxlength="4" placeholder="년(4자)" name="birth"/>
+                <input type="text" id="yy" class="int" maxlength="4" placeholder="년(4자)"/>
               </span>
             </div>
 
@@ -107,7 +91,7 @@
               </span>
             </div>
           </div>
-          <span class="error_next_box"></span>
+          <span class="error_next_box">필수정보 입니다.</span>
         </div>
 
         <!-- GENDER -->
@@ -125,12 +109,12 @@
           <h3 class="join_title">
             <label for="address">우편주소</label>
           </h3>
-
+          <input type="hidden" id="address" class="address" name="address">
           <input type="text" class="address" id="sample6_postcode" placeholder="우편번호">
           <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
 
           <span class="box gender_code addr">
-            <input type="text" class="int" id="sample6_address" placeholder="주소" name="address">
+            <input type="text" class="int" id="sample6_address" placeholder="주소">
           </span>
           <span class="box gender_code">
             <input type="text" class="int" id="sample6_detailAddress" placeholder="상세주소">
@@ -154,6 +138,8 @@
     </div>
     <!-- content-->
   </div>
+  {% endblock contents %}
+  {% block script %}
   <!-- wrapper -->
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   <script>
@@ -173,66 +159,86 @@
         })
         .open();
     }
-
-    const register_btn = document.getElementById("btnJoin")
-    const psw_check = document.getElementById("pswd2")
-
-    register_btn.addEventListener("click", () => {
-
-      const id = document
-        .getElementById("id")
-        .value
-      const password = document
-        .getElementById("pswd1")
-        .value
-      const name = document
-        .getElementById("name")
-        .value
-      const nickname = document
-        .getElementById("nickname")
-        .value
-      const birth = document
-        .getElementById("yy")
-        .value + "." + document
-        .getElementById("mm")
-        .value + "." + document
-        .getElementById("dd")
-        .value
-      const zipcode = document
-        .getElementById("sample6_postcode")
-        .value + " " + document
-        .getElementById("sample6_address")
-        .value + " " + document
-        .getElementById("sample6_detailAddress")
-        .value
-
-      const error_box = document.querySelector(".error_next_box")
-
-      const register_object = {
-        "email": id,
-        "password": password,
-        "name": name,
-        "nickname": nickname,
-        "birth": birth,
-        "address": zipcode
-      }
-
-      fetch("http://127.0.0.1:8000/user/jwt/register/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(register_object)
+  </script>
+  <script>
+    const registerForm = document.querySelector("#registerForm");
+    //일을 입력 후 값이 변경된 걸 확인한 후 하나로 묶기
+    document
+      .getElementById("dd")
+      .addEventListener('change', function () {
+        console.log("생년월일");
+        document
+          .getElementById("birth")
+          .value = document
+          .getElementById("yy")
+          .value + "." + document
+          .getElementById("mm")
+          .value + "." + document
+          .getElementById("dd")
+          .value;
       })
-        .then((response) => response.json())
-        .then((error) => {
-          if (error.email == "이 필드는 blank일 수 없습니다.") {
-            error_box.style.display = "block"
-          } else {
-            // window.location.href = "http://127.0.0.1:8000/"
-          }
-          console.log(error)
-        })
+    document
+      .getElementById("sample6_detailAddress")
+      .addEventListener('change', function () {
+        console.log("주소");
+        document
+          .getElementById("address")
+          .value = document
+          .getElementById("sample6_postcode")
+          .value + " " + document
+          .getElementById("sample6_address")
+          .value + " " + document
+          .getElementById("sample6_detailAddress")
+          .value;
+      })
+    
+      const id = document.querySelector("#id")
+      const pwd1 = document.querySelector("#pswd1")
+      const pwd2 = document.querySelector("#pswd2")
+      const name = document.querySelector("#name")
+      const nickname = document.querySelector("#nickname")
+      const birth = document.querySelector("#birth")
+      const address = document.querySelector("#address")
+
+    document.querySelector("#btnJoin").addEventListener("click", (e) => {
+
+      e.preventDefault();
+
+      if (id.value == "") {
+        alert("이메일을 입력하세요.");
+        id.focus();
+        return;
+      } if (pwd1.value == "") {
+        alert("비밀번호를 입력하세요.");
+        pwd1.focus();
+        return;
+      } if (pwd2.value == "") {
+        alert("비밀번호 재확인을 입력하세요.");
+        pwd2.focus();
+        return;
+      } if (pwd1.value != pwd2.value) {
+        alert("비밀번호가 일치하지 않습니다.");
+        pwd2.focus();
+        return;
+      } if (name.value == "") {
+        alert("이름을 입력하세요.");
+        name.focus();
+        return;
+      } if (nickname.value == "") {
+        alert("닉네임을 입력하세요.");
+        nickname.focus();
+        return;
+      } if (birth.value == "") {
+        alert("생일을 입력하세요.");
+        document.querySelector("#yy").focus();
+        return;
+      } if (address.value == "") {
+        alert("주소를 입력하세요.");
+        document.querySelector("#sample6_detailAddress").focus();
+        return;
+      };
+      registerForm.submit();
     })
   </script>
-{% endblock contents %}
+  {% endblock script %}
+
