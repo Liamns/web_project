@@ -1,10 +1,11 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/leadmark.css' %}">
 <!-- page Navigation -->
+<!-- page Navigation -->
 <nav class="navbar custom-navbar navbar-expand-md navbar-light fixed-top" data-spy="affix" data-offset-top="10">
   <div class="container">
     <a class="navbar-brand" href="#">
-      <img src="" alt="">
+      <img src="{% static 'imgs/logo.png' %}" alt="">
     </a>
     <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -12,49 +13,56 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
+          <a href="" class="ml-4 nav-link btn btn btn-success">채팅하기</a>
+        </li>
+        <li class="nav-item">
+
           <a class="nav-link" href="#service">서비스</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#about">회사소개</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#portfolio">이용방법</a>
+          <a class="nav-link" href="#howuse">이용방법</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#blog">후원</a>
+          <a class="nav-link" href="#donation">후원</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#contact">컨택트</a>
         </li>
         {% if user.nickname != None %}
           <li class="nav-item">
-            <a href="#" aria-current="page" class="ml-4 nav-link active btn btn-primary rounded" id="login">{{user.nickname}}</a>
+            <a href="#" aria-current="page" class="ml-4 nav-link active btn btn-signature6 rounded" id="login">{{user.nickname}}</a>
           </li>
         {% else %}
           <li class="nav-item">
-            <a href="#" aria-current="page" class="ml-4 nav-link active btn btn-primary btn-sm rounded" id="login">로그인</a>
+            <a href="#" aria-current="page" class="ml-4 nav-link active btn btn-signature6 btn-sm rounded" id="login">로그인</a>
           </li>
         {% endif %}
       </ul>
     </div>
   </div>
 </nav>
+<!-- End Of Second Navigation -->
+{% include 'user/login.html' %}
 
 <!-- Page Header -->
 <header class="header">
   <div class="overlay">
     <h1 class="subtitle">complex meeting service</h1>
-    <h1 class="title">Love Solo</h1>
+    <h1 class="title btn-signature5">Love Solo</h1>
   </div>
   <div class="shape">
     <svg viewbox="0 0 1500 200">
       <path d="m 0,240 h 1500.4828 v -71.92164 c 0,0 -286.2763,-81.79324 -743.19024,-81.79324 C 300.37862,86.28512 0,168.07836 0,168.07836 Z"/>
     </svg>
   </div>
-  <div class="mouse-icon">
-    <div class="wheel"></div>
+  <div class="lds-heart">
+    <div></div>
   </div>
 </header>
+<!-- End Of Page Header -->
 <!-- End Of Page Header -->
 
 <!-- core -->
