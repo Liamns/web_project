@@ -142,3 +142,6 @@ class PostEventView(TemplateView):
 def profile_view(request):
     return render(request, 'profile.html')
 
+def profile_edit_view(request):
+    return render(request, 'profile-edit.html')
+
