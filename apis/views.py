@@ -1,12 +1,9 @@
 from django.shortcuts import render, redirect
-from user.models import User, Profile
-from user.serializers import UserSerializer, ProfileSerializer
+from user.models import User
+from user.serializers import UserSerializer
 from rest_framework import generics
 from rest_framework.response import Response
 import jwt,datetime
-from django.db.models import Q
-from django.http import Http404
-from apis.jwtdecoding import JWTDecoding
 
 from rest_framework import status
 from config import settings

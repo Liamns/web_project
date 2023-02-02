@@ -55,6 +55,7 @@ class SocialUserSignUp(DefaultSocialAccountAdapter):
 # 이름, 별명 자동짓기
 
 from allauth.account.adapter import DefaultAccountAdapter
+from django.conf import settings
 
 class MyAccountAdapter(DefaultAccountAdapter):
 
@@ -69,3 +70,5 @@ class MyAccountAdapter(DefaultAccountAdapter):
     def get_email_confirmation_redirect_url(self, request):
         path ="/"
         return path
+    def format_email_subject(self, subject):
+        prefix = settings.EMAIL_SUBJECT_PREFIX
