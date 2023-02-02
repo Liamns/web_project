@@ -56,3 +56,5 @@ profile 수정 api 끝 <br>
 이메일 인증 작업 끝 <br>
 register.html 작업 끝 <br>
 비밀변호 변경 api 끝 <br>
+채팅2 완료 <br>
+채팅엔진 완료 <br>
