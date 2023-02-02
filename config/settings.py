@@ -15,6 +15,8 @@ import os, json
 from django.core.exceptions import ImproperlyConfigured
 from datetime import timedelta
 import pymysql
+# from decouple import config
+
 
 pymysql.install_as_MySQLdb()
 
@@ -49,6 +51,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -64,7 +67,9 @@ INSTALLED_APPS = [
     'jazzmin',
     'corsheaders', # <- 추가
     'chat',
-    'message',    
+    'chat2',
+    'message',
+ 
 ]
 
 INSTALLED_APPS += [    
@@ -77,6 +82,9 @@ INSTALLED_APPS += [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    # 소셜 로그인
+    'allauth.socialaccount.providers.kakao',
+    'allauth.socialaccount.providers.google',
     ]
 
 SITE_ID = 1
@@ -114,10 +122,20 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
+ASGI_APPLICATION = 'config.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
 
 DATABASES = get_secret("DATABASES")
 
-AUTH_PASSWORD_VALIDATORS = [
+AUTH_PASSWORD_VALIDATORS = [ 
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
@@ -166,11 +184,14 @@ MEDIA_URL = '/media/'
 # simple jwt 공식문서
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
         'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
-        
+        # postman test용
+        # 'rest_framework.authentication.BasicAuthentication',
+        # postman test용
         'apis.authenticate.SafeJWTAuthentication',
     ),
 }
@@ -181,10 +202,57 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = 'none'
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 REST_USE_JWT = True
 
 
 REFRESH_TOKEN_SECRET = get_secret("REFRESH_TOKEN_SECRET")
+SIGNUP_PASSWORD_ENTER_TWICE = True
 
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/'
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
+ACCOUNT_EMAIL_SUBJECT_PREFIX = "[LoveSolo]"
+
+# allauth adapter 사용 안하고 custom
+ACCOUNT_ADAPTER = 'user.adapter.MyAccountAdapter'
+
+DEFAULT_FROM_EMAIL = get_secret("DEFAULT_FROM_EMAIL")
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+EMAIL_HOST = get_secret("EMAIL_HOST")
+EMAIL_HOST_USER = get_secret("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = get_secret("EMAIL_HOST_PASSWORD")
+EMAIL_PORT = 465
+
+REFRESH_TOKEN_SECRET = get_secret("REFRESH_TOKEN_SECRET")
+
+# 소셜 로그인
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+         "APP": {
+            "client_id": os.environ.get("SOCIAL_AUTH_GOOGLE_CLIENT_ID"),
+            "secret": os.environ.get("SOCIAL_AUTH_GOOGLE_SECRET"),
+        },
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        },
+        'OAUTH_PKCE_ENABLED': True,
+    }
+}
+SOCIALACCOUNT_LOGIN_ON_GET = True
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+    # `allauth` specific authentication methods, such as login by e-mail
+    "allauth.account.auth_backends.AuthenticationBackend",
+]
+
+# 이름, 별명 자동짓기
+SOCIALACCOUNT_ADAPTER = 'user.adapter.SocialUserSignUp'
+# 이름, 별명 자동짓기

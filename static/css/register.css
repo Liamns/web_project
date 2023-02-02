@@ -146,7 +146,7 @@ h3 {
   margin: auto;
 }
 
-.sololove_title {
+.lovesolo_title {
   text-align: center;
   color: #6a7ba2;
 }
@@ -268,3 +268,13 @@ h3 {
 .hidden {
   display: none;
 }
+.address {
+  display: block;
+  position: relative;
+  width: 50%;
+  height: 29px;
+  border: none;
+  background: #fff;
+  font-size: 15px;
+}
+

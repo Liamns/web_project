@@ -1,7 +1,5 @@
 from rest_framework import serializers
 from .models import User, Profile
-from message.serializers import GenericFileUploadSerializer
-
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,9 +17,8 @@ class UserSerializer(serializers.ModelSerializer):
         #provide django, password will be hashing!
             instance.set_password(password)
         instance.save()
-        return instance
-        
-        
+        return instance        
+
 class ProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
     user_id = serializers.IntegerField(write_only=True)
