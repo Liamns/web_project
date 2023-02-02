@@ -12,4 +12,5 @@ urlpatterns = [
     path("events/", views.PostEventView.as_view(), name="event_list"),
 
     # 이벤트 작성 폼
+    path("events/forms/", views.PostDetailView.as_view(), name="event_detail")
 ]
