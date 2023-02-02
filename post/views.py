@@ -158,7 +158,7 @@ class PostEventView(TemplateView):
 
     def get(self, req):
         post_serializer = PostSerializer()
-        return render(req, "post/event_list.html")
+        return render(req, "event/event_list.html")
         
 def profile_view(request):
     return render(request, 'profile.html')
