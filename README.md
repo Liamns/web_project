@@ -52,6 +52,7 @@ social 로그인 후 비어있는 name, nickname 자동으로 채우는 뷰 작�
 
 # 230201
 social 로그인 후 비어있는 name, nickname 자동 채우기 완성<br>
-profile 수정 api 작성 중 <br>
+profile 수정 api 끝 <br>
 이메일 인증 작업 끝 <br>
 register.html 작업 끝 <br>
+비밀변호 변경 api 끝 <
