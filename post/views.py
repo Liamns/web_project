@@ -163,3 +163,13 @@ class PostEventView(TemplateView):
 def profile_view(request):
     return render(request, 'profile.html')
 
+
+
+class PostEventFormView(TemplateView):
+    def get(self,req):
+        return render(req, "event/events_form.html")
+
+class PostEventDetailView(TemplateView):
+    def get(self, req):
+        return render(req, 'event/event_detail.html')
+

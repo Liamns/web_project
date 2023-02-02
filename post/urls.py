@@ -12,5 +12,9 @@ urlpatterns = [
     path("events/", PostEventView.as_view(), name="event_list"),
 
     # 이벤트 작성 폼
-    # path("events/forms/", PostDetailView.as_view(), name="event_detail")
+    path("events/forms/", PostEventFormView.as_view(), name="event_detail"),
+
+    # 이벤트 디데일 뷰
+    path("events/detail/", PostEventDetailView.as_view(), name="event_detail")
+
 ]
