@@ -1,7 +1,7 @@
 from django.views.generic import TemplateView
 from django.urls import path, include, re_path
-from apis.views import LoginApi, LogoutApi, UserSignupView, profileUpdateView
-from dj_rest_auth.registration.views import VerifyEmailView
+from apis.views import LoginApi, LogoutApi, UserSignupView, profileUpdateView, UserPasswordResetConfirmView, UserPasswordResetCompleteView, UserPasswordResetDoneView, UserPasswordResetView
+from dj_rest_auth.views import PasswordResetConfirmView
 from rest_framework import routers
 from rest_framework.routers import DefaultRouter
 from allauth.account import views as allauth_views
@@ -30,5 +30,23 @@ urlpatterns = [
     re_path(r'^account-confirm-email/(?P<key>[-:\w]+)/$', allauth_views.ConfirmEmailView.as_view(), name='account_confirm_email'),
     path("", include("allauth.urls")),
     path("update/<int:pk>/", profileUpdateView.as_view(), name='profile_update'),
+    path("password_reset/",
+         UserPasswordResetView.as_view(),
+         name="password_reset"),
+    path(
+        "password_reset/done/",
+        UserPasswordResetDoneView.as_view(),
+        name="password_reset_done",
+    ),
+    path(
+        "reset/<uidb64>/<token>/",
+        UserPasswordResetConfirmView.as_view(),
+        name="password_reset_confirm",
+    ),
+    path(
+        "reset/done/",
+        UserPasswordResetCompleteView.as_view(),
+        name="password_reset_complete",
+    ),
 ]
 
