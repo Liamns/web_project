@@ -47,10 +47,7 @@ class HomeView(APIView):
                 raise Exception("Invalid token")
 
             if user is not None:
-                response = Response({"user" : user}, template_name="home.html")
-
-                
-
+                response = Response({"user" : user}, template_name="home.html")                
                     
             return response
 

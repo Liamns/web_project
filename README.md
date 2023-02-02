@@ -48,3 +48,4 @@ chat3 시작  <br>
 프로젝트 클론파일만들어서 home화면 이리저리 적용중, 서버오류패버리고싶음.<br>
 social JWT 토큰 방식 실패 <br>
 social 로그인 후 비어있는 name, nickname 자동으로 채우는 뷰 작성 중 <br>
+

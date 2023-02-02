@@ -13,8 +13,6 @@ router = DefaultRouter(trailing_slash=False)
 
 
 
-
-
 urlpatterns = [
     path('', include('dj_rest_auth.urls')),
     

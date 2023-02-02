@@ -16,14 +16,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt.views import (
-    TokenObtainSlidingView,
+    TokenObtainSlidingView, 
     TokenRefreshSlidingView,
 )
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
+from django.urls import re_path
+from . import views
+
+
 from post.views import HomeView, profile_view
  
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", HomeView.as_view(), name="home"),
@@ -33,10 +38,15 @@ urlpatterns = [
     path('post/', include('post.urls')),
     
     path('chat/', include('chat.urls')),
+    # path('chat2/', include('chat2.urls')),
     path('profile/', profile_view, name='profile'),
     
     path('api/token/', TokenObtainSlidingView.as_view(), name='token_obtain'),
     path('api/token/refresh/', TokenRefreshSlidingView.as_view(), name='token_refresh'),
     path('schedule/', TemplateView.as_view(template_name = "schedule.html"), name='schedule'),
+    
+    re_path('login', views.login),
+    re_path('signup', views.signup),
+    
     
 ]

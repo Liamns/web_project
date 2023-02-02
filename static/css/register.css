@@ -268,3 +268,13 @@ h3 {
 .hidden {
   display: none;
 }
+.address {
+  display: block;
+  position: relative;
+  width: 50%;
+  height: 29px;
+  border: none;
+  background: #fff;
+  font-size: 15px;
+}
+

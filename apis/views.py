@@ -12,7 +12,6 @@ from django.utils.decorators import method_decorator
 from rest_framework.decorators import APIView, permission_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
-
 #수정사항
 from rest_framework.permissions import AllowAny
 from django.views.decorators.debug import sensitive_post_parameters
@@ -31,7 +30,6 @@ class UserSignupView(SignupView):
     """
     template_name = "user/register.html"   
     form_class = UserSignupForm
-    
 
 @permission_classes([AllowAny])
 @method_decorator(ensure_csrf_cookie, name="dispatch")
@@ -60,7 +58,6 @@ class LoginApi(APIView):
             return Response({
                 "message": "wrong password"
             }, status=status.HTTP_400_BAD_REQUEST)
-            
         access_token = generate_access_token(user)
         refresh_token = generate_refresh_token(user)
 
@@ -70,7 +67,6 @@ class LoginApi(APIView):
         response.set_cookie(key="access_token", value=access_token, httponly=True)
 
         return response
-
 
 @method_decorator(csrf_protect, name='dispatch')
 class RefreshJWTtoken(APIView):
@@ -121,7 +117,6 @@ class LogoutApi(APIView):
             }, status=status.HTTP_202_ACCEPTED)
         response.delete_cookie('refreshtoken')
         response.delete_cookie('access_token')
-
         return response
 
 def generate_access_token(user):
@@ -166,33 +161,13 @@ def jwt_login(response, user):
     
     response.data = data
     response.set_cookie(key="refreshtoken", value=refresh_token, httponly=True)
-
     return response
 
 # profile update
-# class ProfileDetail(APIView):
-    # def get_object(self, pk):
-    #     try:
-    #         return User.objects.get(id=pk)
-    #     except User.DoesNotExist:
-    #         raise Http404
-
-    # def get(self, request, pk, format=None):
-    #     user = self.get_object(pk)
-    #     serializer = UserSerializer(user)
-    #     return Response(serializer.data)
-
-    # def put(self, request, pk, format=None):
-    #     user = self.get_object(pk)
-    #     serializer = UserSerializer(user, data=request.data)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(serializer.data)
-    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 class profileUpdateView(generics.UpdateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
 
-# profile update
+

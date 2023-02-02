@@ -47,14 +47,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-AUTH_USER_MODEL = 'user.User' # <-- ys
-
-
-
 
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -68,9 +65,11 @@ INSTALLED_APPS = [
     "taggit",
     "apis",
     'jazzmin',
-    'corsheaders', # <- ys
-    'chat', # <- ys
-    'channels', # <- ys
+    'corsheaders', # <- 추가
+    'chat',
+    'chat2',
+    'message',
+ 
 ]
 
 INSTALLED_APPS += [    
@@ -123,37 +122,20 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
-ASGI_APPLICATION = "config.asgi.application"                    # <== ys
- 
-CHANNEL_LAYERS = {                                              # <== ys
-    "default": { 
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [("127.0.0.1", 6379)],
+ASGI_APPLICATION = 'config.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
         },
     },
 }
 
 DATABASES = get_secret("DATABASES")
 
-
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_HEADERS = (
-    'x-requested-with',
-    'content-type',
-    'accept',
-    'origin',
-    'authorization',
-    'accept-encoding',
-    'x-csrftoken',
-    'access-control-allow-origin',
-    'content-disposition'
-)
-CORS_ALLOW_CREDENTIALS = False
-CORS_ALLOW_METHODS = ('GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS')
-
-
-AUTH_PASSWORD_VALIDATORS = [
+AUTH_PASSWORD_VALIDATORS = [ 
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
@@ -244,6 +226,7 @@ EMAIL_HOST_USER = get_secret("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = get_secret("EMAIL_HOST_PASSWORD")
 EMAIL_PORT = 465
 
+REFRESH_TOKEN_SECRET = get_secret("REFRESH_TOKEN_SECRET")
 
 # 소셜 로그인
 SOCIALACCOUNT_PROVIDERS = {
