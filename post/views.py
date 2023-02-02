@@ -63,7 +63,7 @@ class HomeView(APIView):
     
 
 class PostView(TemplateView):
-    template_name = "post/main.html"
+    template_name = "post/post_main.html"
     
 
 def index(request):
