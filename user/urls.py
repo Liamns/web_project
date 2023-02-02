@@ -6,7 +6,7 @@ from rest_framework import routers
 from rest_framework.routers import DefaultRouter
 from allauth.account import views as allauth_views
 from rest_framework.urlpatterns import format_suffix_patterns
-
+from django.contrib.auth import views as auth_views
 router = DefaultRouter(trailing_slash=False)
 
 
@@ -19,7 +19,7 @@ urlpatterns = [
     path('login/', TemplateView.as_view(template_name="user/login.html"), name="login"),
     path('jwt/login/', LoginApi.as_view(),name='jwt_login'),
     path('jwt/logout/', LogoutApi.as_view(),name='jwt_logout'),
-
+    path('logout/', auth_views.LogoutView.as_view(template_name="home.html"),name="logout"),
     # 회원가입
     path("register/",  UserSignupView.as_view(), name="register"),
 
