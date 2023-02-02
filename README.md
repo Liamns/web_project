@@ -58,3 +58,10 @@ register.html 작업 끝 <br>
 비밀변호 변경 api 끝 <br>
 채팅2 완료 <br>
 채팅엔진 완료 <br>
+
+
+# 230202
+chat1 포기 채널 에러 <br>
+chat2 디자인 변경<br>
+chatengin 로그인 연동<br>
+dm 작업 시작<br>
