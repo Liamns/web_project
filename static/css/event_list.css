@@ -31,3 +31,12 @@
 .met_category:hover {
   color: black;
 }
+
+.navbar.custom-navbar .nav-link {
+  color: #fff;
+  margin: 0 6px;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: #fff;
+}

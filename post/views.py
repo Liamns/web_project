@@ -63,7 +63,7 @@ class HomeView(APIView):
     
 
 class PostView(TemplateView):
-    template_name = "post/main.html"
+    template_name = "post/post_main.html"
     
 
 def index(request):
@@ -141,4 +141,9 @@ class PostEventView(TemplateView):
         
 def profile_view(request):
     return render(request, 'profile.html')
+
+
+class PostDetailView(TemplateView):
+    def get(self,req):
+        return render(req, "post/events_form.html")
 
