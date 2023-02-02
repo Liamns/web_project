@@ -15,7 +15,7 @@ import os, json
 from django.core.exceptions import ImproperlyConfigured
 from datetime import timedelta
 import pymysql
-from decouple import config
+
 
 pymysql.install_as_MySQLdb()
 
@@ -46,14 +46,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-AUTH_USER_MODEL = 'user.User' # <-- ys
-
-
-
 
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -67,9 +64,11 @@ INSTALLED_APPS = [
     "taggit",
     "apis",
     'jazzmin',
-    'corsheaders', # <- ys
-    'chat', # <- ys
-    'channels', # <- ys
+    'corsheaders', # <- 추가
+    'chat',
+    'chat2',
+    'message',
+ 
 ]
 
 INSTALLED_APPS += [    
@@ -119,37 +118,20 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
-ASGI_APPLICATION = "config.asgi.application"                    # <== ys
- 
-CHANNEL_LAYERS = {                                              # <== ys
-    "default": { 
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [("127.0.0.1", 6379)],
+ASGI_APPLICATION = 'config.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
         },
     },
 }
 
 DATABASES = get_secret("DATABASES")
 
-
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_HEADERS = (
-    'x-requested-with',
-    'content-type',
-    'accept',
-    'origin',
-    'authorization',
-    'accept-encoding',
-    'x-csrftoken',
-    'access-control-allow-origin',
-    'content-disposition'
-)
-CORS_ALLOW_CREDENTIALS = False
-CORS_ALLOW_METHODS = ('GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS')
-
-
-AUTH_PASSWORD_VALIDATORS = [
+AUTH_PASSWORD_VALIDATORS = [ 
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
@@ -198,11 +180,12 @@ MEDIA_URL = '/media/'
 # simple jwt 공식문서
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
         'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
-        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+        'apis.authenticate.SafeJWTAuthentication',
     ),
 }
 
@@ -216,12 +199,6 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 REST_USE_JWT = True
 
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(hours=2),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
-    'ROTATE_REFRESH_TOKENS': False,
-    'BLACKLIST_AFTER_ROTATION': True,
-}
 
-
+REFRESH_TOKEN_SECRET = get_secret("REFRESH_TOKEN_SECRET")
 
