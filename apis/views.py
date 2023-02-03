@@ -11,6 +11,9 @@ from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 from django.utils.decorators import method_decorator
 from rest_framework.decorators import APIView, permission_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
+from django.contrib import messages
+from django.urls import reverse_lazy
 
 #수정사항
 from rest_framework.permissions import AllowAny
@@ -117,6 +120,7 @@ class LogoutApi(APIView):
             }, status=status.HTTP_202_ACCEPTED)
         response.delete_cookie('refreshtoken')
         response.delete_cookie('access_token')
+        response.delete_cookie('sessionid')
         return response
 
 def generate_access_token(user):
@@ -169,5 +173,33 @@ class profileUpdateView(generics.UpdateAPIView):
     serializer_class = UserSerializer
 
 
+# 비밀번호 reset 담당 클래스 뷰
+class UserPasswordResetView(PasswordResetView):
+    # 이메일을 입력할 수 있는 화면
+    template_name = "user/password_reset_form.html"
+    # 이메일이 존재하는 경우 그 다음 작업을 진행할 경로 지정
+    success_url = reverse_lazy("password_reset_done")
+    # 이메일로 전송될 페이지 지정
+    email_template_name = "user/password_reset_email.txt"
 
+    def form_valid(self, form):
+        # 사용자가 입력한 이메일이 실제 존재하는지 확인 후 없으면 에러 메세지 전송
+        # 존재한다면 유효성 검증
+        if User.objects.filter(email=self.request.POST.get("email")).exists():
+            return super().form_valid(form)
+        else:
+            messages.info(self.request, "이메일을 확인해주세요")
+            return redirect("password_reset")
+
+
+class UserPasswordResetDoneView(PasswordResetDoneView):
+    template_name = "user/password_reset_done.html"
+
+
+class UserPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = "user/password_reset_confirm.html"
+
+
+class UserPasswordResetCompleteView(PasswordResetCompleteView):
+    template_name = "user/password_reset_complete.html"
 

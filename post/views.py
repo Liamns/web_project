@@ -22,6 +22,7 @@ from apis.views import *
 from apis.jwtdecoding import JWTDecoding
 import jwt
 
+from django.db.models import Q, Count
 
 @permission_classes([AllowAny])
 @method_decorator(ensure_csrf_cookie, name="dispatch")
@@ -42,7 +43,7 @@ class HomeView(APIView):
                 payload = jwt.decode(headers, settings.SECRET_KEY, algorithms=['HS256'])
                 user = User.objects.get(id=JWTDecoding.Jwt_decoding(request=request))
             except jwt.ExpiredSignatureError: # 토큰이 만료되었을 때 나오는 것
-                return RefreshJWTtoken.post(request=request)
+                return RefreshJWTtoken.post(self, request=request)
             except jwt.InvalidTokenError:
                 raise Exception("Invalid token")
 
@@ -63,24 +64,38 @@ class HomeView(APIView):
     
 
 class PostView(TemplateView):
-    template_name = "post/main.html"
+    template_name = "post/post_main.html"
+
+class PostCreateView(TemplateView):
+    template_name = "post/post_create.html"
+
+class PostDetailView(TemplateView):
+    template_name = "post/post_detail.html"
     
 
 def index(request):
     """
-    post 전체 목록 추출(작성날짜 최신순)
-    """
+    Post 전체 추출(작성날짜 최신순)
+    """ 
 
-    #현재 페이지 번호
-    page = request.GET.get('page',1)
+    # 검색어 받기
+    keyword = request.GET.get('keyword','')
 
-    post_list = Post.objects.order_by("-created_at")
+    # 정렬 기준 받기
+    so = request.GET.get('so','latest') # sort 기준 : latest(기본)
 
-    paginator = Paginator(post_list, 10)
-    page_obj = paginator.get_page(page)
+    # 전체 게시물 추출
+    if so == "latest":
+        all_questions = Post.objects.annotate(num_voter=Count('voter')).order_by('-num_voter','-created_dttm')
+    elif so == "inquiry":
+        all_questions = Post.objects.annotate(num_answer=Count('answer')).order_by('-num_answer','-created_dttm')
 
+    # 전체 리스트에서 검색어가 들어간 리스트만 추출(질문 제목, 질문 내용, 질문 작성자, 답변 작성자)
+    # Q : OR 조건으로 데이터 조회, distinct() : 중복 제거
+    if keyword:
+        all_questions = all_questions.filter(Q(title__icontains=keyword)|Q(content__icontains=keyword)).distinct()
 
-    return render(request, "post/post_list.html",{"post_list":page_obj})
+    return render(request, 'boardapp/question_list.html', {"questions":questions, "page":page, "keyword":keyword, "so":so})
 
 @login_required(login_url="login")
 def detail(request, post_id):
@@ -131,17 +146,12 @@ def comment_create(request,post_id):
     return render(request,"post/post_detail.html",{"form":form,"post":post})
 
 
-class PostEventView(TemplateView):
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = "post/event_list.html"
 
-    def get(self, req):
-        post_serializer = PostSerializer()
-        return render(req, "post/event_list.html")
         
 def profile_view(request):
     return render(request, 'profile.html')
 
 def profile_edit_view(request):
     return render(request, 'profile-edit.html')
+
 
