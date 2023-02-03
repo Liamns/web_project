@@ -1,9 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from user.models import User
 from user.serializers import UserSerializer
 from rest_framework import generics
 from rest_framework.response import Response
 import jwt,datetime
+from rest_framework.renderers import TemplateHTMLRenderer
 
 from rest_framework import status
 from config import settings
@@ -167,10 +168,6 @@ def jwt_login(response, user):
     response.set_cookie(key="refreshtoken", value=refresh_token, httponly=True)
     return response
 
-# profile update
-class profileUpdateView(generics.UpdateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
 
 
 # 비밀번호 reset 담당 클래스 뷰
@@ -203,3 +200,18 @@ class UserPasswordResetConfirmView(PasswordResetConfirmView):
 class UserPasswordResetCompleteView(PasswordResetCompleteView):
     template_name = "user/password_reset_complete.html"
 
+### 프로필
+class ProfileView(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'profile.html'
+
+    def get(self, req, pk):
+        user = get_object_or_404(User, pk=pk)
+        serializer = UserSerializer(user)
+
+        return Response({"user":user, "serializer":serializer})
+
+# profile update
+class ProfileUpdateView(generics.UpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer

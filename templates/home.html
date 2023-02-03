@@ -50,7 +50,7 @@
           </li>
           {% if user.nickname != None %}
           <li class="nav-item">
-            <a href="{% url 'register' %}" aria-current="page" class="ml-4 nav-link active btn btn-signature6 rounded"
+            <a href="{% url 'profile_view' pk=user.pk %}" aria-current="page" class="ml-4 nav-link active btn btn-signature6 rounded"
               id="nickname">{{user.nickname}}님</a>
           </li>
           <li class="nav-item">
