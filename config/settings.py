@@ -51,7 +51,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'channels',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -66,10 +66,11 @@ INSTALLED_APPS = [
     "apis",
     'jazzmin',
     'corsheaders', # <- 추가
-    'chat',
     'chat2',
     'message',
- 
+    'dm',
+    'chatengine',
+    'crispy_forms',
 ]
 
 INSTALLED_APPS += [    
@@ -122,7 +123,9 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
-ASGI_APPLICATION = 'config.asgi.application'
+
+
+
 
 CHANNEL_LAYERS = {
     'default': {

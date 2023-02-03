@@ -5,12 +5,13 @@ const AuthPage = (props) => {
   const [username, setUsername] = useState();
   const [secret, setSecret] = useState();
   const [email, setEmail] = useState();
-
+  const [first_name, setFirstName] = useState();
+  const [last_name, setLastName] = useState();
 
   const onLogin = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:8000/login", { username, secret })
+      .post("http://localhost:3001/login", { username, secret })
       .then((r) => props.onAuth({ ...r.data, secret })) // NOTE: over-ride secret
       .catch((e) => console.log(JSON.stringify(e.response.data)));
   };
@@ -18,11 +19,12 @@ const AuthPage = (props) => {
   const onSignup = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:8000/signup", {
+      .post("http://localhost:3001/signup", {
         username,
         secret,
         email,
-
+        first_name,
+        last_name,
       })
       .then((r) => props.onAuth({ ...r.data, secret })) // NOTE: over-ride secret
       .catch((e) => console.log(JSON.stringify(e.response.data)));
@@ -69,6 +71,18 @@ const AuthPage = (props) => {
             name="email"
             placeholder="Email"
             onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="text"
+            name="first_name"
+            placeholder="First name"
+            onChange={(e) => setFirstName(e.target.value)}
+          />
+          <input
+            type="text"
+            name="last_name"
+            placeholder="Last name"
+            onChange={(e) => setLastName(e.target.value)}
           />
           <button type="submit">SIGN UP</button>
         </form>

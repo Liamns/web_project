@@ -27,7 +27,6 @@ from . import views
 
 
 from post.views import HomeView, profile_view
- 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -37,16 +36,16 @@ urlpatterns = [
     path('user/', include('user.urls')),
     path('post/', include('post.urls')),
     
-    path('chat/', include('chat.urls')),
-    # path('chat2/', include('chat2.urls')),
+    # path('chat/', include('chat.urls', namespace='chat')),
+    path('chat2/', include('chat2.urls')),
     path('profile/', profile_view, name='profile'),
+    path('dm/', include('dm.urls')),
+    path('Chat_engine/', include('chatengine.urls')),
     
     path('api/token/', TokenObtainSlidingView.as_view(), name='token_obtain'),
     path('api/token/refresh/', TokenRefreshSlidingView.as_view(), name='token_refresh'),
     path('schedule/', TemplateView.as_view(template_name = "schedule.html"), name='schedule'),
     
-    re_path('login', views.login),
-    re_path('signup', views.signup),
     
     
 ]

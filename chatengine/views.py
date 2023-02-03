@@ -35,5 +35,3 @@ def Chat_engine(request, name):
         return HttpResponse('do not match back page plz')
 
 
-
-

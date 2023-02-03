@@ -21,7 +21,7 @@ urlpatterns = [
     path('jwt/logout/', LogoutApi.as_view(),name='jwt_logout'),
 
     # 회원가입
-    path("register/",  UserSignupView.as_view(), name="register"),
+    path("register/",  UserSignupView, name="register"),
 
     # 이메일 관련 필요
     # 유효한 이메일이 유저에게 전달

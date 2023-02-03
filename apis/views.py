@@ -19,17 +19,28 @@ from django.views.decorators.debug import sensitive_post_parameters
 from allauth.account.views import SignupView
 from user.forms import UserSignupForm
 
+from rest_framework.decorators import api_view
+
+import requests
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
+
+
 #회원가입
 sensitive_post_parameters_m = method_decorator(
     sensitive_post_parameters('password1', 'password2'),
 )
 
+@api_view(['POST']) 
 class UserSignupView(SignupView):
     """
     회원가입
     """
     template_name = "user/register.html"   
     form_class = UserSignupForm
+
 
 @permission_classes([AllowAny])
 @method_decorator(ensure_csrf_cookie, name="dispatch")
@@ -39,7 +50,6 @@ class LoginApi(APIView):
         email 과 password를 가지고 login 시도
         key값 : email, password
         """
-
         user = User
         email = request.data.get('email')
         password = request.data.get('password')
@@ -58,15 +68,17 @@ class LoginApi(APIView):
             return Response({
                 "message": "wrong password"
             }, status=status.HTTP_400_BAD_REQUEST)
+            
         access_token = generate_access_token(user)
         refresh_token = generate_refresh_token(user)
 
-        response = Response(data={"message": "Success!!"},status=status.HTTP_200_OK, headers={"Authorization": access_token})
+        response = Response(data={"message": "Success!!", },status=status.HTTP_200_OK, headers={"Authorization": access_token})
 
         response.set_cookie(key="refreshtoken", value=refresh_token, httponly=True)
         response.set_cookie(key="access_token", value=access_token, httponly=True)
-
+        
         return response
+    
 
 @method_decorator(csrf_protect, name='dispatch')
 class RefreshJWTtoken(APIView):
