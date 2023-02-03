@@ -17,6 +17,8 @@ class BaseModel(models.Model):
     location_tags = models.CharField(verbose_name="지역태그", max_length=128)
     content = models.TextField(default="", verbose_name="내용")
     title = models.CharField(max_length=256, verbose_name="제목")
+    EVENT_CATEGORY = [("운동","운동"), ("여행","여행"), ("문화관람","문화관람"), ("게임","게임"), ("음악","음악"), ("사교/인맥","사교/인맥"), ("봉사","봉사"), ("자유주제","자유주제")]
+    category = models.CharField(max_length=20, choices=EVENT_CATEGORY, default="자유주제")
 
     class Meta:
         abstract = True
@@ -28,8 +30,6 @@ class Event(BaseModel):
     start_event = models.CharField(verbose_name="이벤트 시작일", max_length=50)
     end_event = models.CharField(verbose_name="이벤트 종료일", max_length=50)
 
-    EVENT_CATEGORY = [("운동","운동"), ("여행","여행"), ("문화관람","문화관람"), ("게임","게임"), ("음악","음악"), ("사교/인맥","사교/인맥"), ("봉사","봉사"), ("자유주제","자유주제")]
-    category = models.CharField(max_length=20, choices=EVENT_CATEGORY, default="자유주제")
 
 
     class Meta:
