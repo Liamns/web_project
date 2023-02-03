@@ -6,69 +6,33 @@
 // This file is intentionally blank
 // Use this file to add JavaScript to your project
 
-fetch("http://127.0.0.1:8000", {
+let data = 5;
+
+fetch("/events/", {
   method: "GET",
-  headers: {
-    Authentication:
-      "JWT " + String(window.localStorage.getItem("aceess-token")),
-  },
 })
   .then((response) => response.json())
-  .then((data) => {
-    window.localStorage.clear();
-  });
+  .then((data) => console.log(data));
 
-if (window.localStorage.getItem("aceess-token") != NaN) {
-  const login_btn = document.querySelector(
-    "#navbarSupportedContent > ul > li:nth-child(6) > a"
-  );
-  login_btn.innerHTML = "프로필";
-  login_btn.classList.remove("btn-sm");
-} else {
-  const login_btn = document.querySelector(
-    "#navbarSupportedContent > ul > li:nth-child(6) > a"
-  );
-  login_btn.innerHTML = "프로필";
+window.addEventListener("scroll", infiniteScroll);
+
+let timer = null;
+
+function infiniteScroll() {
+  const currentScroll = window.scrollY;
+  const windowHeight = window.innerHeight;
+  const bodyHeight = document.querySelector("section").clientHeight;
+  const paddingBottom = 200;
+
+  if (currentScroll + windowHeight + paddingBottom >= bodyHeight) {
+    if (!timer) {
+      timer = setTimeout(() => {
+        timer = null;
+
+        // -- fetch API --
+      }, 200);
+    }
+  }
 }
 
-window.onload = function () {
-  // 여기에다가 script 코드 작성
-  const open = () => {
-    document.querySelector(".modal").classList.remove("hidden");
-  };
-
-  const close = () => {
-    document.querySelector(".modal").classList.add("hidden");
-  };
-
-  document.querySelector(".btn-sm").addEventListener("click", open);
-  document.querySelector(".close").addEventListener("click", close);
-  document.querySelector(".bg").addEventListener("click", close);
-
-  const email = document.getElementById("email");
-  const password = document.getElementById("pswd1");
-  const login_btn = document.getElementById("btnlogin");
-
-  login_btn.addEventListener("click", () => {
-    const login_object = {
-      email: email.value,
-      password: password.value,
-    };
-
-    fetch("http://127.0.0.1:8000/user/jwt/login/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(login_object),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.message == "Success!!") {
-          window.location.href = "http://127.0.0.1:8000/";
-        } else {
-          alert(data.message);
-        }
-      });
-  });
-};
+// window.addEventListener("scroll", callback, { passive: true });

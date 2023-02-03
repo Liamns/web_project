@@ -17,11 +17,15 @@ class BaseModel(models.Model):
     location_tags = models.CharField(verbose_name="지역태그", max_length=128)
     content = models.TextField(default="", verbose_name="내용")
     title = models.CharField(max_length=256, verbose_name="제목")
-    EVENT_CATEGORY = [("운동","운동"), ("여행","여행"), ("문화관람","문화관람"), ("게임","게임"), ("음악","음악"), ("사교/인맥","사교/인맥"), ("봉사","봉사"), ("자유주제","자유주제")]
-    category = models.CharField(max_length=20, choices=EVENT_CATEGORY, default="자유주제")
 
     class Meta:
         abstract = True
+
+def image_upload_to(instance, fileName):
+
+    ext = fileName.split('.')[-1]
+    return os.path.join(instance.UPLOAD_PATH, "%s.%s" % (uuid.uuid4(), ext))
+
 
 class Event(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="작성자")
@@ -29,22 +33,16 @@ class Event(BaseModel):
     participants_limit = models.SmallIntegerField(verbose_name="참여인원 제한 수")
     start_event = models.CharField(verbose_name="이벤트 시작일", max_length=50)
     end_event = models.CharField(verbose_name="이벤트 종료일", max_length=50)
-
+    event_imgage = models.ImageField(upload_to=image_upload_to)
+    EVENT_CATEGORY = [("운동","운동"), ("여행","여행"), ("문화관람","문화관람"), ("게임","게임"), ("음악","음악"), ("사교/인맥","사교/인맥"), ("봉사","봉사"), ("자유주제","자유주제")]
+    category = models.CharField(max_length=20, choices=EVENT_CATEGORY, default="자유주제")
 
 
     class Meta:
         ordering = ['-created_at']
 
-def image_upload_to(instance, fileName):
 
-    ext = fileName.split('.')[-1]
-    return os.path.join(instance.UPLOAD_PATH, "%s.%s" % (uuid.uuid4(), ext))
 
-class EventImage(models.Model):
-    UPLOAD_PATH = "event-upload"
-
-    event = models.ForeignKey(Event, on_delete=models.CASCADE, verbose_name="작성글")
-    event_img = models.ImageField(upload_to=image_upload_to)
     
         
 class Participants(models.Model):
