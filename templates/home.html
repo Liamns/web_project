@@ -29,11 +29,29 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a href="#" class="ml-4 nav-link btn btn btn-signature6">채팅하기</a>
+          {% if user.nickname != None %}
+          <li class="nav-item">  
+            <a class="nav-link" href="#recommend">추천모임</a>
           </li>
           <li class="nav-item">
-
+            <a class="nav-link" href="#ranking">랭킹</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#event">이벤트</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="ml-4 nav-link btn btn btn-signature2 rounded active">채팅하기</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" aria-current="page" class="ml-4 nav-link active btn btn-signature2 rounded"
+              id="nickname">{{user.nickname}}님</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" aria-current="page" class="ml-4 nav-link active btn btn-sm btn-signature5 rounded"
+              id="logout">로그아웃</a>
+          </li>
+          {% else %}
+          <li class="nav-item">  
             <a class="nav-link" href="#service">서비스</a>
           </li>
           <li class="nav-item">
@@ -50,21 +68,17 @@
           </li>
           {% if user.nickname != None %}
           <li class="nav-item">
-            <a href="{% url 'register' %}" aria-current="page" class="ml-4 nav-link active btn btn-signature6 rounded"
+            <a href="{% url 'profile_view' pk=user.pk %}" aria-current="page" class="ml-4 nav-link active btn btn-signature6 rounded"
               id="nickname">{{user.nickname}}님</a>
           </li>
+
           <li class="nav-item">
-            <a href="#" aria-current="page" class="ml-4 nav-link active btn btn-sm btn-signature5 rounded"
-              id="logout">로그아웃</a>
-          </li>
-          {% else %}
-          <li class="nav-item">
-            <a href="#" aria-current="page" class="ml-4 nav-link active btn btn-signature6 btn-sm rounded"
+            <a href="#" aria-current="page" class="ml-4 nav-link active btn btn-signature2 btn-sm rounded"
               id="login">로그인</a>
           </li>
           <li class="nav-item">
             <a href="{% url 'register' %}" aria-current="page"
-              class="ml-4 nav-link active btn btn-signature6 btn-sm rounded" id="register">회원가입</a>
+              class="ml-4 nav-link active btn btn-signature2 btn-sm rounded" id="register">회원가입</a>
           </li>
           {% endif %}
         </ul>
@@ -91,7 +105,137 @@
     </div>
   </header>
   <!-- End Of Page Header -->
+  {% if user.nickname != None %}
+  <section id="service" class="section pt-0">
+    <div class="container">
+      <h6 class="section-title text-center">채팅서비스 오픈!</h6>
+      <h6 class="section-subtitle text-center mb-5 pb-3">키워드별로 새로운 솔럽들과 이야기나누세요</h6>
 
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card mb-4 mb-md-0">
+            <div class="card-body">
+              <small class="text-primary font-weight-bold">01</small>
+              <h5 class="card-title mt-3">
+                자유채팅방
+                <h5>
+                  <p class="mb-0">자유주제
+                  </p><br>
+                  <a href="#" class="btn btn-signature2 rounded active bot-sm">채팅방입장</a>
+
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card mb-4 mb-md-0">
+            <div class="card-body">
+              <small class="text-primary font-weight-bold">02</small>
+              <h5 class="card-title mt-3">오늘 번개할 사람!<h5>
+                  <p class="mb-0">퇴근 후 치맥한잔 하실 분 ~ 너만 오면 Go!
+                  </p><br>
+                  <a href="#" class="btn btn-signature2 rounded active bot-sm">채팅방입장</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card mb-4 mb-md-0">
+            <div class="card-body">
+              <small class="text-primary font-weight-bold">03</small>
+              <h5 class="card-title mt-3">AI가 추천하는 주제로 대화하실 분~?<h5>
+                  <p class="mb-0">매일 매시간 마다 Ai가 던지는 랜덤한 주제로 와글와글 우르르 쾅쾅
+                  </p><br>
+                  <a href="#" class="btn btn-signature2 rounded active bot-sm">채팅방입장</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+  <!-- End OF Service Section -->
+  <!-- recommend Section -->
+  <section id="recommend" class="section portfolio-section">
+    <div class="container">
+      <h6 class="section-title text-center">추천모임</h6>
+      <h6 class="section-subtitle mb-5 text-center">럽솔이 추천하는 모임</h6>
+      <div class="filters">
+        <a href="#" data-filter=".onestep" class="active">
+          One Step
+        </a>
+        <a href="#" data-filter=".twostep" class="active">
+          Two Step
+        </a>
+        <a href="#" data-filter=".threestep" class="active">
+          Three Step
+        </a>
+        <a href="#" data-filter=".lastdance" class="active">
+          Final Step
+        </a>
+      </div>
+    </div>
+  </section>
+  <!-- End of portfolio section -->
+  <!-- Blog Section -->
+  <section class="section" id="ranking">
+    <div class="container">
+      <h6 class="section-title mb-0 text-center">랭킹</h6>
+      <h6 class="section-subtitle mb-5 text-center">이달의 럽솔</h6>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card border-0 mb-4">
+            <img src="{% static 'imgs/blog-1.jpg' %}" alt="" class="card-img-top w-100">
+            <div class="card-body">
+              <h6 class="card-title">주제알고 그림</h6>
+              <p>방장이 주는 주제로 그림그리자!</p>
+              <a href="javascript:void(0)" class="small text-muted">Go To The Sol</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card border-0 mb-4">
+            <img src="{% static 'imgs/blog-2.jpg' %}" alt="" class="card-img-top w-100">
+            <div class="card-body">
+              <h6 class="card-title">
+                AI그림 나눔터</h5>
+                <p>ai로 만든 그림 나누자기야.</p>
+                <a href="javascript:void(0)" class="small text-muted">Go To The Sol</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card border-0 mb-4">
+            <img src="{% static 'imgs/blog-3.jpg' %}" alt="" class="card-img-top w-100">
+            <div class="card-body">
+              <h6 class="card-title">코딩비기너</h6>
+              <p>코딩초보자 다 모여! 코드뿌셔</p>
+              <a href="javascript:void(0)" class="small text-muted">Go To The Sol</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="event" class="section portfolio-section">
+    <div class="container">
+      <h6 class="section-title text-center">럽솔이벤트</h6>
+      <h6 class="section-subtitle mb-5 text-center">이벤트 참여</h6>
+      <div class="filters">
+        <a href="#" data-filter=".onestep" class="active">
+          기부하고 포인트 받자
+        </a>
+        <a href="#" data-filter=".twostep" class="active">
+          자랑하고 포인트 받자
+        </a>
+        <a href="#" data-filter=".threestep" class="active">
+          결혼하고 포인트 받자
+        </a>
+        <a href="#" data-filter=".lastdance" class="active">
+          추천하고 포인트 받자
+        </a>
+      </div>
+    </div>
+  </section>
+  {% else %}
   <!-- Service Section -->
   <section id="service" class="section pt-0">
     <div class="container">
@@ -143,11 +287,7 @@
         <div class="col-md-6 pr-md-5 mb-4 mb-md-0">
           <h6 class="section-title mb-0">About LoveSolo Project</h6>
           <h6 class="section-subtitle mb-4">우리는 왜 LoveSolo를 만들었나?</h6>
-          <p>우리지금 만나 (만나) 아 당장 만나 (당장 만나) 우리 지금 만나 (만나) 아 당장 만나 (당장 만나) 휴대전화 너머로 짓고 있을 너의 표정을 나는 몰라 (몰라 몰라 나는 절대로 몰라) 우리
-            지금 만나 (만나) 아 당장 만나 (당장 만나) 우리 지금 만나 (만나) 아 당장 만나 (당장 만나) 말문이 막혔을땐 니가 웃는지 우는지 나는 몰라 (몰라 몰라 나는 절대로 몰라) 들어봐
-            그러니까 어제 너랑 헤어지고 새벽에 친구 잠깐 만나서 당구치고 술한잔 걸치고 바로 집으로 와서 잤어 베터리가 없는줄은 몰랐어 그러니까 니 친구가 클럽에서 본사람은 내가 아냐 만약 그사람이 나라면
-            난 니 남친도 아냐 자꾸 뭘 걸어 엄마를 어떻게 걸어 말 막하지 말어 일단 만나서 얘기해 집에서 딱 대기해 당장 데리러 갈께 우리 지금 만나 (만나) 아 당장 만나 (당장 만나) 우리 지금 만나
-            (만나) 아 당장 만나 (당장 만나)</p>
+          <p>이제 코로나에서 벗어날 시간. 지난 몇년간 코로나로 각종 모임과 만남이 제한되었습니다. 하지만 이제 실내 의무 마스크 규제가 풀린 지금, 여행과 만남의 연결이 필요한 시간입니다. 알파코 2조는 그러한 시대를 반영하여 키워드 미팅 어플리케이션 웹을 개발하였습니다.</p>
           <img src="{% static 'imgs/about.jpg' %}" alt="" class="w-100 mt-3 shadow-sm">
         </div>
         <div class="col-md-6 pl-md-5">
@@ -159,62 +299,71 @@
               <img src="{% static 'imgs/about-2.jpg' %}" alt="" class="w-100 shadow-sm">
             </div>
             <div class="col-12 mt-4">
-              <p>
-                말문이 막혔을땐 니가 웃는지 우는지 나는 몰라 (몰라 몰라 나는 절대로 몰라) 모든게 들통났네 모든게 들통났어 일단은 만나야지 만나서 빌어야지 지금은 너무나 불리해 오늘은 하늘이 왜이리
-                슬프게 보일까</p>
+              <p>운동, 여행, 문화관람, 게임, 음악, 사교/인맥, 봉사, 자유주제등 업데이트마다 새로운 카테고리가 생성될 것입니다. 저희 알파코2조는 새로운 만남 문화를 주도하는 회사가 되도록 노력하겠습니다.</p>
               <p>
                 <b>
-                  (야야야야야야야) 베터리는 다 떨어져 가는데 너도나도 아무런 말이 없는데 충전기는 멋대로 엉켜있는데 별수가 있나 만나야지 왈가왈부 싸움에 지쳐 전화기 던지기 일보직전 너때문에 또 미쳐
-                  올해 난 벌써전화기 세번째 바꿨어 그거 아니면 돈을 아꼈어 낚였어 너와의 싸움에 그러니까 제발 내말 끝까지 들어 내말 막지마 난 속이 끓어 일단 지지고 볶고 싸우던 풀던 우선 만나
-                  간단히 차나 한잔 하자 카라멜 마끼야또 지금 바로</b><br>
+                  문화와 공간, 만남을 주도하는 알파코2조 웹프로젝트입니다.</b><br>
               </p>
               <p>
-                우리 지금 만나 (만나) 아 당장 만나 (당장만나) 우리 지금 만나 (만나) 아 당장만나 (당장만나) 휴대전화 너머로 짓고 있을 너의 표정을 나는 몰라 (몰라 몰라 나는 절대로 몰라)
-                우리 지금 만나 (만나) 아 당장 만나 (당장만나) 우리 지금 만나 (만나) 아 당장만나 (당장만나) 말문이 막혔을땐 니가 웃는지 우는지 나는 도저히 모르겠으니까 그냥 당장 만나 (만나
-                만나 당장만나)</p>
+                커뮤니티 웹</p>
             </div>
           </div>
         </div>
       </div>
     </div>
-    </div>
   </section>
-  <!-- End OF About Section -->
-  <!-- Portfolio Section -->
-  <section id="howuse" class="section portfolio-section">
+  <!-- Blog Section -->
+  <section class="section" id="howuse">
     <div class="container">
-      <h6 class="section-title text-center">간단 이용 순서</h6>
-      <h6 class="section-subtitle mb-5 text-center">New stunning projects for our amazing clients</h6>
-      <div class="filters">
-        <a href="#" data-filter=".onestep" class="active">
-          One Step
-        </a>
-        <a href="#" data-filter=".twostep">
-          Two Step
-        </a>
-        <a href="#" data-filter=".threestep">
-          Three Step
-        </a>
-        <a href="#" data-filter=".lastdance">
-          Final Step
-        </a>
+      <h6 class="section-title mb-0 text-center">이용방법</h6>
+      <h6 class="section-subtitle mb-5 text-center">회원가입, 키워드설정, 모임참여</h6>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card border-0 mb-4">
+            <img src="{% static 'imgs/howuse-1.jpg' %}" alt="" class="card-img-top w-100">
+            <div class="card-body">
+              <h6 class="card-title">회원가입</h6>
+              <p>구글 또는 카카오 계정으로 편하게 가입하세요</p>
+              <a href="javascript:void(0)" class="small text-muted">Go To The 회원가입</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card border-0 mb-4">
+            <img src="{% static 'imgs/howuse-2.jpg' %}" alt="" class="card-img-top w-100">
+            <div class="card-body">
+              <h6 class="card-title">
+                키워드설정</h5>
+                <p>자신의 관심분야 키워드를 선택하세요</p>
+                <a href="javascript:void(0)" class="small text-muted">Go To The Keyword</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card border-0 mb-4">
+            <img src="{% static 'imgs/howuse-3.jpg' %}" alt="" class="card-img-top w-100">
+            <div class="card-body">
+              <h6 class="card-title">모임참여</h6>
+              <p>관심있는 모임을 만들거나 참여하세요</p>
+              <a href="javascript:void(0)" class="small text-muted">Go To Meeting</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
-  <!-- End of portfolio section -->
-  <!-- Blog Section -->
   <section class="section" id="donation">
     <div class="container">
       <h6 class="section-title mb-0 text-center">후원</h6>
-      <h6 class="section-subtitle mb-5 text-center">Architecto provident deserunt eveniet libero</h6>
+      <h6 class="section-subtitle mb-5 text-center">3가지 후원방법을 소개합니다</h6>
       <div class="row">
         <div class="col-md-4">
           <div class="card border-0 mb-4">
             <img src="{% static 'imgs/blog-1.jpg' %}" alt="" class="card-img-top w-100">
             <div class="card-body">
-              <h6 class="card-title">Pariatur Omnis Harum quae sint.</h6>
-              <p>Fuga quae ratione inventore Perferendis porro.</p>
-              <a href="javascript:void(0)" class="small text-muted">Go To The Article</a>
+              <h6 class="card-title">직접 투자</h6>
+              <p>사업팀에 직접 지분투자를 하실 수 있습니다</p>
+              <a href="javascript:void(0)" class="small text-muted">Go To The Donation</a>
             </div>
           </div>
         </div>
@@ -223,9 +372,9 @@
             <img src="{% static 'imgs/blog-2.jpg' %}" alt="" class="card-img-top w-100">
             <div class="card-body">
               <h6 class="card-title">
-                Harum Quae Porro</h5>
-                <p>Fuga quae ratione inventore Perferendis porro.</p>
-                <a href="javascript:void(0)" class="small text-muted">Go To The Article</a>
+                광고문의</h5>
+                <p>저희 웹서비스에 광고를 올리세요.</p>
+                <a href="javascript:void(0)" class="small text-muted">Go To The Donation</a>
             </div>
           </div>
         </div>
@@ -233,9 +382,9 @@
           <div class="card border-0 mb-4">
             <img src="{% static 'imgs/blog-3.jpg' %}" alt="" class="card-img-top w-100">
             <div class="card-body">
-              <h6 class="card-title">Qui optio neque alias</h6>
-              <p>Fuga quae ratione inventore Perferendis porro.</p>
-              <a href="javascript:void(0)" class="small text-muted">Go To The Article</a>
+              <h6 class="card-title">서비스 개발 지원</h6>
+              <p>더 나은 서비스를 위해 노력합니다.</p>
+              <a href="javascript:void(0)" class="small text-muted">Go To Donation</a>
             </div>
           </div>
         </div>
@@ -243,6 +392,7 @@
     </div>
   </section>
   <!-- End of Blog Section -->
+  {% endif %}
   <!-- Contact Section -->
   <section id="contact" class="section has-img-bg pb-0">
     <div class="container">
@@ -297,18 +447,6 @@
         </p>
       </footer>
       <!-- End of Page Footer -->
-    </div>
-    <!-- Page Footer -->
-    <footer class="mt-5 py-4 border-top border-secondary">
-      <p class="mb-0 small">&copy;
-        <script>
-          document.write(new Date().getFullYear())
-        </script>, LeadMark Created By
-        <a href="https://www.devcrud.com" target="_blank">DevCrud.</a>
-        All rights reserved
-      </p>
-    </footer>
-    <!-- End of Page Footer -->
     </div>
   </section>
 
