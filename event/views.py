@@ -38,11 +38,10 @@ class PostEventView(APIView):
 
 
         events = Event.objects.all()
-        events_image = EventImage.objects.all()
-        event_lens = len(EventImage.objects.all())
 
 
-        return Response({"events" : events, "events_image":events_image, "event_lens":event_lens})
+
+        return Response({"events" : events})
 
 
         
