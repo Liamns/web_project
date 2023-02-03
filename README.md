@@ -65,3 +65,4 @@ chat1 포기 채널 에러 <br>
 chat2 디자인 변경<br>
 chatengin 로그인 연동<br>
 dm 작업 시작<br>
+비밀번호 변경/초기화 완료<br>
