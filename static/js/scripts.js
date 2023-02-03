@@ -6,71 +6,55 @@
 // This file is intentionally blank
 // Use this file to add JavaScript to your project
 
+let pager = 1;
 
-fetch("http://127.0.0.1:8000", {
-  method: "GET",
-  headers: {
-    Authentication:
-      "JWT " + String(window.localStorage.getItem("aceess-token")),
-  },
-})
-  .then((response) => response.json())
-  .then((data) => {
-    window.localStorage.clear();
+window.addEventListener("scroll", infiniteScroll, { passive: true });
+
+let timer = null;
+
+function getCookie(key) {
+  var result = null;
+  var cookie = document.cookie.split(";");
+  cookie.some(function (item) {
+    // 공백을 제거
+    item = item.replace(" ", "");
+
+    var dic = item.split("=");
+
+    if (key === dic[0]) {
+      result = dic[1];
+      return true; // break;
+    }
   });
-
-if (window.localStorage.getItem("aceess-token") != NaN) {
-  const login_btn = document.querySelector(
-    "#navbarSupportedContent > ul > li:nth-child(6) > a"
-  );
-  login_btn.innerHTML = "프로필";
-  login_btn.classList.remove("btn-sm");
-} else {
-  const login_btn = document.querySelector(
-    "#navbarSupportedContent > ul > li:nth-child(6) > a"
-  );
-  login_btn.innerHTML = "프로필";
+  return result;
 }
 
-window.onload = function () {
-  // 여기에다가 script 코드 작성
-  const open = () => {
-    document.querySelector(".modal").classList.remove("hidden");
-  };
+function infiniteScroll() {
+  const currentScroll = window.scrollY;
+  const windowHeight = window.innerHeight;
+  const bodyHeight = document.querySelector("section").clientHeight;
+  const paddingBottom = 200;
 
-  const close = () => {
-    document.querySelector(".modal").classList.add("hidden");
-  };
+  if (currentScroll + windowHeight + paddingBottom >= bodyHeight) {
+    if (!timer) {
+      timer = setTimeout(() => {
+        timer = null;
+        pager++;
+        // -- fetch API --
+        fetch("http://127.0.0.1:8000/events/", {
+          method: "POST",
+          headers: {
+            "X-CSRFToken": getCookie("csrftoken"),
+          },
+          body: JSON.stringify({
+            page: pager,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => console.log(data));
+      }, 200);
+    }
+  }
+}
 
-  document.querySelector(".btn-sm").addEventListener("click", open);
-  document.querySelector(".close").addEventListener("click", close);
-  document.querySelector(".bg").addEventListener("click", close);
-
-  const email = document.getElementById("email");
-  const password = document.getElementById("pswd1");
-  const login_btn = document.getElementById("btnlogin");
-
-  login_btn.addEventListener("click", () => {
-    const login_object = {
-      email: email.value,
-      password: password.value,
-    };
-
-    fetch("http://127.0.0.1:8000/user/jwt/login/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(login_object),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.message == "Success!!") {
-          window.location.href = "http://127.0.0.1:8000/";
-        } else {
-          alert(data.message);
-        }
-      });
-  });
-};
-
+// window.addEventListener("scroll", callback, { passive: true });

@@ -3253,8 +3253,8 @@ fieldset:disabled a.btn {
 .btn-signature6:not(:disabled):not(.disabled).active,
 .show > .btn-signature6.dropdown-toggle {
   color: #fff;
-  background-color: #6a7ba2;
-  border-color: #6a7ba2;
+  background-color: #8aaae5;
+  border-color: #8aaae5;
 }
 
 .btn-signature6:not(:disabled):not(.disabled):active:focus,
@@ -11916,12 +11916,12 @@ textarea.form-control {
 .navbar.custom-navbar.affix {
   padding-top: 0.4rem;
   padding-bottom: 0.4rem;
-  background: #6a7ba2;
+  background: #8aaae5;
   border-bottom: 1px solid #dee2e6;
 }
 
 .navbar.custom-navbar.affix .nav-link {
-  color: #ffdfde;
+  color: #1b1b1b;
 }
 .navbar.custom-navbar.affix .logincolor {
   color: #343a40;
@@ -12232,12 +12232,12 @@ textarea.form-control {
 }
 
 .section {
-  background-color: #8aaae5;
+  background-color: #ffdfde;
   padding: 80px 0;
 }
 
 .section:nth-child(even) {
-  background: #ffdfde;
+  background: #8aaae5;
 }
 
 .section .section-devider {

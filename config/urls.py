@@ -26,7 +26,8 @@ from django.urls import re_path
 from . import views
 
 
-from post.views import HomeView, profile_view
+from post.views import HomeView, profile_view, profile_edit_view
+ 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -35,17 +36,21 @@ urlpatterns = [
     path('user/', include('allauth.urls')),
     path('user/', include('user.urls')),
     path('post/', include('post.urls')),
+    path('events/', include('event.urls')),
     
-    # path('chat/', include('chat.urls', namespace='chat')),
-    path('chat2/', include('chat2.urls')),
+    path('chat/', include('chat.urls')),
+    # path('chat2/', include('chat2.urls')),
     path('profile/', profile_view, name='profile'),
-    path('dm/', include('dm.urls')),
-    path('Chat_engine/', include('chatengine.urls')),
+    path('profile_edit/', profile_edit_view, name='profile'),
     
     path('api/token/', TokenObtainSlidingView.as_view(), name='token_obtain'),
     path('api/token/refresh/', TokenRefreshSlidingView.as_view(), name='token_refresh'),
     path('schedule/', TemplateView.as_view(template_name = "schedule.html"), name='schedule'),
     
+    re_path('login', views.login),
+    re_path('signup', views.signup),
     
     
 ]
+
+urlpatterns  += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

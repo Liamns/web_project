@@ -2,353 +2,498 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Start your development with LeadMark landing page.">
-    <meta name="author" content="Devcrud">
-    <title>Love Solo Web</title>
-    <!-- font icons -->
-    <link rel="stylesheet" href="{% static 'vendors/themify-icons/css/themify-icons.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <!-- Bootstrap + LeadMark main styles -->
-    <link rel="stylesheet" href="{% static 'css/leadmark.css' %}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-    <style>
-      .inbox-icon-container {
-        margin-right: 15px;
-      }
+<head>
+  <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Start your development with LeadMark landing page.">
+  <meta name="author" content="Devcrud">
+  <title>Love Solo Web</title>
+  <!-- font icons -->
+  <link rel="stylesheet" href="{% static 'vendors/themify-icons/css/themify-icons.css' %}">
+  <!-- Bootstrap + LeadMark main styles -->
+  <link rel="stylesheet" href="{% static 'css/leadmark.css' %}">
+</head>
 
-      .inbox-icon {
-        color: #333;
-        transition: 0.5s;
-      }
+<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
 
-      .inbox-icon:hover {
-        transition: 0.5s;
-      }
-    </style>
+  {% include 'nav.html' %}
+  {% include 'user/login.html' %}
 
-  </head>
+  <!-- Page Header -->
+  <header class="header">
+    <div class="overlay">
+      <h1 class="subtitle">complex meeting service</h1>
+      <h1 class="title btn-signature5">Love Solo</h1>
+    </div>
+    <div class="shape">
+      <svg viewbox="0 0 1500 200">
+        <path
+          d="m 0,240 h 1500.4828 v -71.92164 c 0,0 -286.2763,-81.79324 -743.19024,-81.79324 C 300.37862,86.28512 0,168.07836 0,168.07836 Z" />
+      </svg>
+    </div>
+    <div class="lds-heart">
+      <div></div>
+    </div>
+  </header>
+  <!-- End Of Page Header -->
+  {% if user.nickname != None %}
+  <section id="service" class="section pt-0">
+    <div class="container">
+      <h6 class="section-title text-center">채팅서비스 오픈!</h6>
+      <h6 class="section-subtitle text-center mb-5 pb-3">키워드별로 새로운 솔럽들과 이야기나누세요</h6>
 
-  <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card mb-4 mb-md-0">
+            <div class="card-body">
+              <small class="text-primary font-weight-bold">01</small>
+              <h5 class="card-title mt-3">
+                자유채팅방
+                <h5>
+                  <p class="mb-0">자유주제
+                  </p><br>
+                  <a href="#" class="btn btn-signature2 rounded active bot-sm">채팅방입장</a>
 
-    <!-- page Navigation -->
-    <nav class="navbar custom-navbar navbar-expand-md navbar-light fixed-top" data-spy="affix" data-offset-top="10">
-      <div class="container">
-        <a class="navbar-brand" href="#">
-          <img src="{% static 'imgs/logo.png' %}" alt="">
-        </a>
-        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <!-- Navigation -->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ml-auto">
-
-            <!-- 아이콘 -->
-            <li class="nav-item">
-              <a href="" class="ml-4 nav-link btn btn btn-primary">
-                <i class="fa-solid fa-paper-plane"></i>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="{% url 'inbox' %}" class="ml-4 nav-link btn btn btn-primary">to DM</a>
-            </li>
-            <li class="nav-item">
-              <a href="{% url 'chat2' %}" class="ml-4 nav-link btn btn btn-success">채팅하기</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#service">서비스</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#about">회사소개</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#howuse">이용방법</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#donation">후원</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#contact">컨택트</a>
-            </li>
-            {% if user.nickname != None %}
-              <li class="nav-item">
-                <a href="#" aria-current="page" class="ml-4 nav-link active btn btn-signature6 rounded" id="login">{{user.nickname}}</a>
-              </li>
-            {% else %}
-              <li class="nav-item">
-                <a href="#" aria-current="page" class="ml-4 nav-link active btn btn-signature6 btn-sm rounded" id="login">로그인</a>
-              </li>
-            {% endif %}
-          </ul>
-        </div>
-      </div>
-    </nav>
-    <!-- End Of Second Navigation -->
-    {% include 'user/login.html' %}
-
-    <!-- Page Header -->
-    <header class="header">
-      <div class="overlay">
-        <h1 class="subtitle">complex meeting service</h1>
-        <h1 class="title btn-signature5">Love Solo</h1>
-      </div>
-      <div class="shape">
-        <svg viewbox="0 0 1500 200">
-          <path d="m 0,240 h 1500.4828 v -71.92164 c 0,0 -286.2763,-81.79324 -743.19024,-81.79324 C 300.37862,86.28512 0,168.07836 0,168.07836 Z"/>
-        </svg>
-      </div>
-      <div class="lds-heart">
-        <div></div>
-      </div>
-    </header>
-    <!-- End Of Page Header -->
-
-    <!-- Service Section -->
-    <section id="service" class="section pt-0">
-      <div class="container">
-        <h6 class="section-title text-center">서비스 소개</h6>
-        <h6 class="section-subtitle text-center mb-5 pb-3">새로운 만남의 시작을 함께할게요</h6>
-
-        <div class="row">
-          <div class="col-md-4">
-            <div class="card mb-4 mb-md-0">
-              <div class="card-body">
-                <small class="text-primary font-weight-bold">01</small>
-                <h5 class="card-title mt-3">
-                  회원가입
-                  <h5>
-                    <p class="mb-0">구글계정와 카카오계정으로 편하게 가입하세요.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="card mb-4 mb-md-0">
-                  <div class="card-body">
-                    <small class="text-primary font-weight-bold">02</small>
-                    <h5 class="card-title mt-3">키워드선택을 통한 자기소개<h5>
-                        <p class="mb-0">관심있는 키워드를 선택해서 자신을 소개하세요.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="card mb-4 mb-md-0">
-                      <div class="card-body">
-                        <small class="text-primary font-weight-bold">03</small>
-                        <h5 class="card-title mt-3">날짜선택으로 매칭시작!<h5>
-                            <p class="mb-0">키워드에 맞는 모임을 날짜선택하여 모임매칭.
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
-              <!-- End OF Service Section -->
-              <!-- About Section -->
-              <section class="section" id="about">
-                <div class="container">
-                  <div class="row justify-content-between">
-                    <div class="col-md-6 pr-md-5 mb-4 mb-md-0">
-                      <h6 class="section-title mb-0">About LoveSolo Project</h6>
-                      <h6 class="section-subtitle mb-4">우리는 왜 LoveSolo를 만들었나?</h6>
-                      <p>우리지금 만나 (만나) 아 당장 만나 (당장 만나) 우리 지금 만나 (만나) 아 당장 만나 (당장 만나) 휴대전화 너머로 짓고 있을 너의 표정을 나는 몰라 (몰라 몰라 나는 절대로 몰라) 우리 지금 만나 (만나) 아 당장 만나 (당장 만나) 우리 지금 만나 (만나) 아 당장 만나 (당장 만나) 말문이 막혔을땐 니가 웃는지 우는지 나는 몰라 (몰라 몰라 나는 절대로 몰라) 들어봐 그러니까 어제 너랑 헤어지고 새벽에 친구 잠깐 만나서 당구치고 술한잔 걸치고 바로 집으로 와서 잤어 베터리가 없는줄은 몰랐어 그러니까 니 친구가 클럽에서 본사람은 내가 아냐 만약 그사람이 나라면 난 니 남친도 아냐 자꾸 뭘 걸어 엄마를 어떻게 걸어 말 막하지 말어 일단 만나서 얘기해 집에서 딱 대기해 당장 데리러 갈께 우리 지금 만나 (만나) 아 당장 만나 (당장 만나) 우리 지금 만나 (만나) 아 당장 만나 (당장 만나)</p>
-                      <img src="{% static 'imgs/about.jpg' %}" alt="" class="w-100 mt-3 shadow-sm">
-                    </div>
-                    <div class="col-md-6 pl-md-5">
-                      <div class="row">
-                        <div class="col-6">
-                          <img src="{% static 'imgs/about-1.jpg' %}" alt="" class="w-100 shadow-sm">
-                        </div>
-                        <div class="col-6">
-                          <img src="{% static 'imgs/about-2.jpg' %}" alt="" class="w-100 shadow-sm">
-                        </div>
-                        <div class="col-12 mt-4">
-                          <p>
-                            말문이 막혔을땐 니가 웃는지 우는지 나는 몰라 (몰라 몰라 나는 절대로 몰라) 모든게 들통났네 모든게 들통났어 일단은 만나야지 만나서 빌어야지 지금은 너무나 불리해 오늘은 하늘이 왜이리 슬프게 보일까</p>
-                          <p>
-                            <b>
-                              (야야야야야야야) 베터리는 다 떨어져 가는데 너도나도 아무런 말이 없는데 충전기는 멋대로 엉켜있는데 별수가 있나 만나야지 왈가왈부 싸움에 지쳐 전화기 던지기 일보직전 너때문에 또 미쳐 올해 난 벌써전화기 세번째 바꿨어 그거 아니면 돈을 아꼈어 낚였어 너와의 싸움에 그러니까 제발 내말 끝까지 들어 내말 막지마 난 속이 끓어 일단 지지고 볶고 싸우던 풀던 우선 만나 간단히 차나 한잔 하자 카라멜 마끼야또 지금 바로</b><br>
-                          </p>
-                          <p>
-                            우리 지금 만나 (만나) 아 당장 만나 (당장만나) 우리 지금 만나 (만나) 아 당장만나 (당장만나) 휴대전화 너머로 짓고 있을 너의 표정을 나는 몰라 (몰라 몰라 나는 절대로 몰라) 우리 지금 만나 (만나) 아 당장 만나 (당장만나) 우리 지금 만나 (만나) 아 당장만나 (당장만나) 말문이 막혔을땐 니가 웃는지 우는지 나는 도저히 모르겠으니까 그냥 당장 만나 (만나 만나 당장만나)</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-            <!-- End OF About Section -->
-            <!-- Portfolio Section -->
-            <section id="howuse" class="section portfolio-section">
-              <div class="container">
-                <h6 class="section-title text-center">간단 이용 순서</h6>
-                <h6 class="section-subtitle mb-5 text-center">New stunning projects for our amazing clients</h6>
-                <div class="filters">
-                  <a href="#" data-filter=".onestep" class="active">
-                    One Step
-                  </a>
-                  <a href="#" data-filter=".twostep">
-                    Two Step
-                  </a>
-                  <a href="#" data-filter=".threestep">
-                    Three Step
-                  </a>
-                  <a href="#" data-filter=".lastdance">
-                    Final Step
-                  </a>
-                </div>
-              </div>
-            </section>
-            <!-- End of portfolio section -->
-            <!-- Blog Section -->
-            <section class="section" id="donation">
-              <div class="container">
-                <h6 class="section-title mb-0 text-center">후원</h6>
-                <h6 class="section-subtitle mb-5 text-center">Architecto provident deserunt eveniet libero</h6>
-                <div class="row">
-                  <div class="col-md-4">
-                    <div class="card border-0 mb-4">
-                      <img src="{% static 'imgs/blog-1.jpg' %}" alt="" class="card-img-top w-100">
-                      <div class="card-body">
-                        <h6 class="card-title">Pariatur Omnis Harum quae sint.</h6>
-                        <p>Fuga quae ratione inventore Perferendis porro.</p>
-                        <a href="javascript:void(0)" class="small text-muted">Go To The Article</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="card border-0 mb-4">
-                      <img src="{% static 'imgs/blog-2.jpg' %}" alt="" class="card-img-top w-100">
-                      <div class="card-body">
-                        <h6 class="card-title">
-                          Harum Quae Porro</h5>
-                        <p>Fuga quae ratione inventore Perferendis porro.</p>
-                        <a href="javascript:void(0)" class="small text-muted">Go To The Article</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="card border-0 mb-4">
-                      <img src="{% static 'imgs/blog-3.jpg' %}" alt="" class="card-img-top w-100">
-                      <div class="card-body">
-                        <h6 class="card-title">Qui optio neque alias</h6>
-                        <p>Fuga quae ratione inventore Perferendis porro.</p>
-                        <a href="javascript:void(0)" class="small text-muted">Go To The Article</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-            <!-- End of Blog Section -->
-            <!-- Contact Section -->
-            <section id="contact" class="section has-img-bg pb-0">
-              <div class="container">
-                <div class="row align-items-center">
-                  <div class="col-md-5 my-3">
-                    <h6 class="mb-0">연락처</h6>
-                    <p class="mb-4">+ 123-456-7890</p>
-
-                    <h6 class="mb-0">주소</h6>
-                    <p class="mb-4">서울특별시 성동구 성수이로 113 7층</p>
-
-                    <h6 class="mb-0">이메일</h6>
-                    <p class="mb-0">alphaco2wh@website.com</p>
-                    <p></p>
-                  </div>
-                  <div class="col-md-7">
-                    <form>
-                      <h4 class="mb-4">개발자에게 메세지 전달</h4>
-                      <div class="form-row">
-                        <div class="form-group col-sm-4">
-                          <input type="text" class="form-control text-white rounded-0 bg-transparent" name="name" placeholder="Name">
-                        </div>
-                        <div class="form-group col-sm-4">
-                          <input type="email" class="form-control text-white rounded-0 bg-transparent" name="Email" placeholder="Email">
-                        </div>
-                        <div class="form-group col-sm-4">
-                          <input type="text" class="form-control text-white rounded-0 bg-transparent" name="subject" placeholder="Subject">
-                        </div>
-                        <div class="form-group col-12">
-                          <textarea name="message" id="" cols="30" rows="4" class="form-control text-white rounded-0 bg-transparent" placeholder="Message"></textarea>
-
-                        </div>
-                        <div class="form-group col-12 mb-0">
-                          <button type="submit" class="btn btn-signature6 rounded w-md mt-3">보내기</button>
-                        </div>
-                      </div>
-                      <div class="form-group col-12 mb-0">
-                        <button type="submit" class="btn btn-primary rounded w-md mt-3">Send</button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-                <!-- Page Footer -->
-                <footer class="mt-5 py-4 border-top border-secondary">
-                  <p class="mb-0 small">&copy;
-                    <script>
-                      document.write(new Date().getFullYear())
-                    </script>, homepage Created By
-                    <a href="https://www.alphaco2wh.com" target="_blank">alphaco2wh.</a>
-                    All rights reserved
-                  </p>
-                </footer>
-                <!-- End of Page Footer -->
-              </div>
-              <!-- Page Footer -->
-              <footer class="mt-5 py-4 border-top border-secondary">
-                <p class="mb-0 small">&copy;
-                  <script>
-                    document.write(new Date().getFullYear())
-                  </script>, LeadMark Created By
-                  <a href="https://www.devcrud.com" target="_blank">DevCrud.</a>
-                  All rights reserved
-                </p>
-              </footer>
-              <!-- End of Page Footer -->
             </div>
-          </section>
-
-          <!-- core -->
-          <script src="{% static 'vendors/jquery/jquery-3.4.1.js' %}"></script>
-          <script src="{% static 'vendors/bootstrap/bootstrap.bundle.js' %}"></script>
-
-          <!-- bootstrap 3 affix -->
-          <script src="{% static 'vendors/bootstrap/bootstrap.affix.js' %}"></script>
-          <script>
-            let user_id = fetch("http://127.0.0.1:8000/", {method: "GET"})
-
-            user_id
-              .then((res) => res.json())
-              .then((data) => {
-                console.log(data)
-              })
-          </script>
-
-          <!-- core -->
-          <script src="{% static 'vendors/jquery/jquery-3.4.1.js' %}"></script>
-          <script src="{% static 'vendors/bootstrap/bootstrap.bundle.js' %}"></script>
-          <!-- bootstrap 3 affix -->
-          <script src="{% static 'vendors/bootstrap/bootstrap.affix.js' %}"></script>
-
-          <!-- Isotope -->
-          <script src="{% static 'vendors/isotope/isotope.pkgd.js' %}"></script>
-
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card mb-4 mb-md-0">
+            <div class="card-body">
+              <small class="text-primary font-weight-bold">02</small>
+              <h5 class="card-title mt-3">오늘 번개할 사람!<h5>
+                  <p class="mb-0">퇴근 후 치맥한잔 하실 분 ~ 너만 오면 Go!
+                  </p><br>
+                  <a href="#" class="btn btn-signature2 rounded active bot-sm">채팅방입장</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card mb-4 mb-md-0">
+            <div class="card-body">
+              <small class="text-primary font-weight-bold">03</small>
+              <h5 class="card-title mt-3">AI가 추천하는 주제로 대화하실 분~?<h5>
+                  <p class="mb-0">매일 매시간 마다 Ai가 던지는 랜덤한 주제로 와글와글 우르르 쾅쾅
+                  </p><br>
+                  <a href="#" class="btn btn-signature2 rounded active bot-sm">채팅방입장</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+    </div>
+  </section>
+  <!-- End OF Service Section -->
+  <!-- recommend Section -->
+  <section id="recommend" class="section portfolio-section">
+    <div class="container">
+      <h6 class="section-title text-center">추천모임</h6>
+      <h6 class="section-subtitle mb-5 text-center">럽솔이 추천하는 모임</h6>
+      <div class="filters">
+        <a href="#" data-filter=".onestep" class="active">
+          One Step
+        </a>
+        <a href="#" data-filter=".twostep" class="active">
+          Two Step
+        </a>
+        <a href="#" data-filter=".threestep" class="active">
+          Three Step
+        </a>
+        <a href="#" data-filter=".lastdance" class="active">
+          Final Step
+        </a>
+      </div>
+    </div>
+  </section>
+  <!-- End of portfolio section -->
+  <!-- Blog Section -->
+  <section class="section" id="ranking">
+    <div class="container">
+      <h6 class="section-title mb-0 text-center">랭킹</h6>
+      <h6 class="section-subtitle mb-5 text-center">이달의 럽솔</h6>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card border-0 mb-4">
+            <img src="{% static 'imgs/blog-1.jpg' %}" alt="" class="card-img-top w-100">
+            <div class="card-body">
+              <h6 class="card-title">주제알고 그림</h6>
+              <p>방장이 주는 주제로 그림그리자!</p>
+              <a href="javascript:void(0)" class="small text-muted">Go To The Sol</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card border-0 mb-4">
+            <img src="{% static 'imgs/blog-2.jpg' %}" alt="" class="card-img-top w-100">
+            <div class="card-body">
+              <h6 class="card-title">
+                AI그림 나눔터</h5>
+                <p>ai로 만든 그림 나누자기야.</p>
+                <a href="javascript:void(0)" class="small text-muted">Go To The Sol</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card border-0 mb-4">
+            <img src="{% static 'imgs/blog-3.jpg' %}" alt="" class="card-img-top w-100">
+            <div class="card-body">
+              <h6 class="card-title">코딩비기너</h6>
+              <p>코딩초보자 다 모여! 코드뿌셔</p>
+              <a href="javascript:void(0)" class="small text-muted">Go To The Sol</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="event" class="section portfolio-section">
+    <div class="container">
+      <h6 class="section-title text-center">럽솔이벤트</h6>
+      <h6 class="section-subtitle mb-5 text-center">이벤트 참여</h6>
+      <div class="filters">
+        <a href="#" data-filter=".onestep" class="active">
+          기부하고 포인트 받자
+        </a>
+        <a href="#" data-filter=".twostep" class="active">
+          자랑하고 포인트 받자
+        </a>
+        <a href="#" data-filter=".threestep" class="active">
+          결혼하고 포인트 받자
+        </a>
+        <a href="#" data-filter=".lastdance" class="active">
+          추천하고 포인트 받자
+        </a>
+      </div>
+    </div>
+  </section>
+  {% else %}
+  <!-- Service Section -->
+  <section id="service" class="section pt-0">
+    <div class="container">
+      <h6 class="section-title text-center">서비스 소개</h6>
+      <h6 class="section-subtitle text-center mb-5 pb-3">새로운 만남의 시작을 함께할게요</h6>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card mb-4 mb-md-0">
+            <div class="card-body">
+              <small class="text-primary font-weight-bold">01</small>
+              <h5 class="card-title mt-3">
+                회원가입
+                <h5>
+                  <p class="mb-0">구글계정와 카카오계정으로 편하게 가입하세요.
+                  </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card mb-4 mb-md-0">
+            <div class="card-body">
+              <small class="text-primary font-weight-bold">02</small>
+              <h5 class="card-title mt-3">키워드선택을 통한 자기소개<h5>
+                  <p class="mb-0">관심있는 키워드를 선택해서 자신을 소개하세요.
+                  </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card mb-4 mb-md-0">
+            <div class="card-body">
+              <small class="text-primary font-weight-bold">03</small>
+              <h5 class="card-title mt-3">날짜선택으로 매칭시작!<h5>
+                  <p class="mb-0">키워드에 맞는 모임을 날짜선택하여 모임매칭.
+                  </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+  <!-- End OF Service Section -->
+  <!-- About Section -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="row justify-content-between">
+        <div class="col-md-6 pr-md-5 mb-4 mb-md-0">
+          <h6 class="section-title mb-0">About LoveSolo Project</h6>
+          <h6 class="section-subtitle mb-4">우리는 왜 LoveSolo를 만들었나?</h6>
+          <p>이제 코로나에서 벗어날 시간. 지난 몇년간 코로나로 각종 모임과 만남이 제한되었습니다. 하지만 이제 실내 의무 마스크 규제가 풀린 지금, 여행과 만남의 연결이 필요한 시간입니다. 알파코 2조는 그러한 시대를 반영하여 키워드 미팅 어플리케이션 웹을 개발하였습니다.</p>
+          <img src="{% static 'imgs/about.jpg' %}" alt="" class="w-100 mt-3 shadow-sm">
+        </div>
+        <div class="col-md-6 pl-md-5">
+          <div class="row">
+            <div class="col-6">
+              <img src="{% static 'imgs/about-1.jpg' %}" alt="" class="w-100 shadow-sm">
+            </div>
+            <div class="col-6">
+              <img src="{% static 'imgs/about-2.jpg' %}" alt="" class="w-100 shadow-sm">
+            </div>
+            <div class="col-12 mt-4">
+              <p>운동, 여행, 문화관람, 게임, 음악, 사교/인맥, 봉사, 자유주제등 업데이트마다 새로운 카테고리가 생성될 것입니다. 저희 알파코2조는 새로운 만남 문화를 주도하는 회사가 되도록 노력하겠습니다.</p>
+              <p>
+                <b>
+                  문화와 공간, 만남을 주도하는 알파코2조 웹프로젝트입니다.</b><br>
+              </p>
+              <p>
+                커뮤니티 웹</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Blog Section -->
+  <section class="section" id="howuse">
+    <div class="container">
+      <h6 class="section-title mb-0 text-center">이용방법</h6>
+      <h6 class="section-subtitle mb-5 text-center">회원가입, 키워드설정, 모임참여</h6>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card border-0 mb-4">
+            <img src="{% static 'imgs/howuse-1.jpg' %}" alt="" class="card-img-top w-100">
+            <div class="card-body">
+              <h6 class="card-title">회원가입</h6>
+              <p>구글 또는 카카오 계정으로 편하게 가입하세요</p>
+              <a href="javascript:void(0)" class="small text-muted">Go To The 회원가입</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card border-0 mb-4">
+            <img src="{% static 'imgs/howuse-2.jpg' %}" alt="" class="card-img-top w-100">
+            <div class="card-body">
+              <h6 class="card-title">
+                키워드설정</h5>
+                <p>자신의 관심분야 키워드를 선택하세요</p>
+                <a href="javascript:void(0)" class="small text-muted">Go To The Keyword</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card border-0 mb-4">
+            <img src="{% static 'imgs/howuse-3.jpg' %}" alt="" class="card-img-top w-100">
+            <div class="card-body">
+              <h6 class="card-title">모임참여</h6>
+              <p>관심있는 모임을 만들거나 참여하세요</p>
+              <a href="javascript:void(0)" class="small text-muted">Go To Meeting</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section" id="donation">
+    <div class="container">
+      <h6 class="section-title mb-0 text-center">후원</h6>
+      <h6 class="section-subtitle mb-5 text-center">3가지 후원방법을 소개합니다</h6>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card border-0 mb-4">
+            <img src="{% static 'imgs/blog-1.jpg' %}" alt="" class="card-img-top w-100">
+            <div class="card-body">
+              <h6 class="card-title">직접 투자</h6>
+              <p>사업팀에 직접 지분투자를 하실 수 있습니다</p>
+              <a href="javascript:void(0)" class="small text-muted">Go To The Donation</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card border-0 mb-4">
+            <img src="{% static 'imgs/blog-2.jpg' %}" alt="" class="card-img-top w-100">
+            <div class="card-body">
+              <h6 class="card-title">
+                광고문의</h5>
+                <p>저희 웹서비스에 광고를 올리세요.</p>
+                <a href="javascript:void(0)" class="small text-muted">Go To The Donation</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card border-0 mb-4">
+            <img src="{% static 'imgs/blog-3.jpg' %}" alt="" class="card-img-top w-100">
+            <div class="card-body">
+              <h6 class="card-title">서비스 개발 지원</h6>
+              <p>더 나은 서비스를 위해 노력합니다.</p>
+              <a href="javascript:void(0)" class="small text-muted">Go To Donation</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End of Blog Section -->
+  {% endif %}
+  <!-- Contact Section -->
+  <section id="contact" class="section has-img-bg pb-0">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-5 my-3">
+          <h6 class="mb-0">연락처</h6>
+          <p class="mb-4">+ 123-456-7890</p>
+
+          <h6 class="mb-0">주소</h6>
+          <p class="mb-4">서울특별시 성동구 성수이로 113 7층</p>
+
+          <h6 class="mb-0">이메일</h6>
+          <p class="mb-0">alphaco2wh@website.com</p>
+          <p></p>
+        </div>
+        <div class="col-md-7">
+          <form>
+            <h4 class="mb-4">개발자에게 메세지 전달</h4>
+            <div class="form-row">
+              <div class="form-group col-sm-4">
+                <input type="text" class="form-control text-white rounded-0 bg-transparent" name="name"
+                  placeholder="Name">
+              </div>
+              <div class="form-group col-sm-4">
+                <input type="email" class="form-control text-white rounded-0 bg-transparent" name="Email"
+                  placeholder="Email">
+              </div>
+              <div class="form-group col-sm-4">
+                <input type="text" class="form-control text-white rounded-0 bg-transparent" name="subject"
+                  placeholder="Subject">
+              </div>
+              <div class="form-group col-12">
+                <textarea name="message" id="" cols="30" rows="4"
+                  class="form-control text-white rounded-0 bg-transparent" placeholder="Message"></textarea>
+
+              </div>
+              <div class="form-group col-12 mb-0">
+                <button type="submit" class="btn btn-signature6 rounded w-md mt-3">보내기</button>
+              </div>
+            </div>
+        </div>
+        </form>
+      </div>
+      <!-- Page Footer -->
+      <footer class="mt-5 py-4 border-top border-secondary">
+        <p class="mb-0 small">&copy;
+          <script>
+            document.write(new Date().getFullYear())
+          </script>, homepage Created By
+          <a href="https://www.alphaco2wh.com" target="_blank">alphaco2wh.</a>
+          All rights reserved
+        </p>
+      </footer>
+      <!-- End of Page Footer -->
+    </div>
+  </section>
+
+  <!-- core -->
+  <script src="{% static 'vendors/jquery/jquery-3.4.1.js' %}"></script>
+  <script src="{% static 'vendors/bootstrap/bootstrap.bundle.js' %}"></script>
+
+  <!-- bootstrap 3 affix -->
+  <script src="{% static 'vendors/bootstrap/bootstrap.affix.js' %}"></script>
+  <script>
+    const open = () => {
+      document.querySelector(".modal").classList.remove("hidden");
+    };
+
+    const close = () => {
+      document.querySelector(".modal").classList.add("hidden");
+    };
+
+    const check_login = document.querySelector(".btn-sm")
+
+    if (check_login.innerText == "로그인") {
+
+      document.getElementById("login").addEventListener("click", open);
+      document.querySelector(".close").addEventListener("click", close);
+      document.querySelector(".bg").addEventListener("click", close);
+
+    }
+
+
+
+    const email = document.getElementById("email");
+    const password = document.getElementById("pswd1");
+    const login_btn = document.getElementById("btnlogin");
+
+    login_btn.addEventListener("click", () => {
+      const login_object = {
+        "email": email.value,
+        "password": password.value
+      }
+
+      fetch("http://127.0.0.1:8000/user/jwt/login/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(login_object)
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.message == "Success!!") {
+            window.location.href = "http://127.0.0.1:8000/";
+          } else {
+            alert(data.message);
+          }
+        });
+    });
+    let user_id = fetch("http://127.0.0.1:8000/", { method: "GET" })
+
+    user_id
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
+      })
+
+    function getCookie(key) {
+      var result = null;
+      var cookie = document.cookie.split(';');
+      cookie.some(function (item) {
+        // 공백을 제거
+        item = item.replace(' ', '');
+
+        var dic = item.split('=');
+
+        if (key === dic[0]) {
+          result = dic[1];
+          return true;    // break;
+        }
+      });
+      return result;
+    }
+
+
+
+
+    const logout = document.getElementById("logout")
+
+    logout.addEventListener("click", (e) => {
+      console.log(getCookie('csrftoken'));
+
+      fetch("http://127.0.0.1:8000/user/jwt/logout/", {
+        method: "POST",
+        headers: {
+          "X-CSRFToken": getCookie("csrftoken")
+        }
+      }).then((response) => response.json()).then((data) => {
+        window.location.href = "http://127.0.0.1:8000"
+      })
+    })
+  </script>
+
+  <!-- core -->
+  <script src="{% static 'vendors/jquery/jquery-3.4.1.js' %}"></script>
+  <script src="{% static 'vendors/bootstrap/bootstrap.bundle.js' %}"></script>
+  <!-- bootstrap 3 affix -->
+  <script src="{% static 'vendors/bootstrap/bootstrap.affix.js' %}"></script>
+
+  <!-- Isotope -->
+  <script src="{% static 'vendors/isotope/isotope.pkgd.js' %}"></script>
+
   </div>
-</div>
-</section>
+  </div>
+  </div>
+  </div>
+  </div>
+  </section>
 </body>
 
 </html>
