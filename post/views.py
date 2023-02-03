@@ -151,7 +151,7 @@ def comment_create(request,post_id):
 def profile_view(request):
     return render(request, 'profile.html')
 
-
-
+def profile_edit_view(request):
+    return render(request, 'profile-edit.html')
 
 
