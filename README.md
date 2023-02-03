@@ -63,8 +63,8 @@ register.html 작업 끝 <br>
 # 230202
 chat1 포기 채널 에러 <br>
 chat2 디자인 변경<br>
-chatengin 로그인 연동<br>
-dm 작업 시작<br>
+chatengin 로그인 연동 80%<br>
+dm 작업 시작 80% <br>
 비밀번호 변경/초기화 완료<br>
 게시판 html 작업시작 50% <br>
 프로필 수정 화면 완료 <br>
