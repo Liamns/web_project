@@ -181,10 +181,5 @@ class PostEventView(TemplateView):
 def profile_view(request):
     return render(request, 'profile.html')
 
-<<<<<<< Updated upstream
 def profile_edit_view(request):
     return render(request, 'profile-edit.html')
-
-
-=======
->>>>>>> Stashed changes
