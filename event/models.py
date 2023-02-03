@@ -30,6 +30,9 @@ def image_upload_to(instance, fileName):
 
 
 class Event(BaseModel):
+
+    UPLOAD_PATH = "event-upload"
+
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="작성자")
     deadline = models.DateTimeField(verbose_name="마감날짜")
     participants_limit = models.SmallIntegerField(verbose_name="참여인원 제한 수")
