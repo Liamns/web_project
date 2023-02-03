@@ -120,6 +120,7 @@ class LogoutApi(APIView):
             }, status=status.HTTP_202_ACCEPTED)
         response.delete_cookie('refreshtoken')
         response.delete_cookie('access_token')
+        response.delete_cookie('sessionid')
         return response
 
 def generate_access_token(user):

@@ -13,7 +13,7 @@ from rest_framework.decorators import APIView, permission_classes
 from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 from django.utils.decorators import method_decorator
 
-from post.serializers import PostSerializer
+from .models import *
 
 from config import settings
 from apis.views import *
@@ -29,11 +29,22 @@ class PostEventDetailView(TemplateView):
     def get(self, req):
         return render(req, 'event/event_detail.html')
 
-        
-class PostEventView(TemplateView):
+@permission_classes([AllowAny])       
+class PostEventView(APIView):
+    template_name = "event/event_list.html"
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = "post/event_list.html"
 
     def get(self, req):
-        post_serializer = PostSerializer()
-        return render(req, "event/event_list.html")
+
+
+        events = Event.objects.all()
+
+
+
+        return Response({"events" : events})
+
+
+        
+
+
+       
