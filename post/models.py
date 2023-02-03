@@ -14,6 +14,13 @@ class Post(BaseModel):
     class Meta:
         ordering = ['-created_at']
 
+class PostCount(models.Model):
+    ip = models.CharField(max_length=30)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+
+    def __unicode__(self):
+        return self.ip
+
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)

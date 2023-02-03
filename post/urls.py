@@ -6,6 +6,7 @@ urlpatterns = [
     # http://127.0.0.1:8000/post/
     path("", PostView.as_view(), name="post_main"),
     path("create/", PostCreateView.as_view(), name="post_create"),
+    path("detail/", PostDetailView.as_view(), name="post_detail"),
     path("<int:pk>/", detail, name="detail"),
 
     # 이벤트 리스트 

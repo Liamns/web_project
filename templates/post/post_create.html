@@ -17,17 +17,17 @@
       <div class="container">
         <form action="">
           <div class="form-group mb-3">
-            <label for="title" class="form-label">제목</label>
+            <label for="title" class="form-label mb-5">모임주최!!!!!</label>
+            <input type="text" name="title" id="title" class="form-control mb-2" placeholder='제목'>
             <form>
-              <select name="category_metting">
+              <select name="category_metting" class='badge badge-light'>
                 <option value="none">=== 카테고리 선택 ===</option>
-                <option value="korean">술</option>
-                <option value="english">운동</option>
-                <option value="chinese">여행</option>
-                <option value="spanish">독서모임</option>
+                <option value="drink">술</option>
+                <option value="exercise">운동</option>
+                <option value="tour">여행</option>
+                <option value="bookClub">독서모임</option>
               </select>
             </form>
-            <input type="text" name="title" id="title" class="form-control">
           </div>
 
           <div class="form-group mb-3">
@@ -37,18 +37,18 @@
 
           <div class="form-group mb-3">
             <label for="image" class="form-label">사진첨부</label>
-            <input type="file" name='image' id='image' class="form-control" value=''>
+            <input type="file" name='image' id='image' class='btn-outline-success' value=''>
+          </div>
+
+          <div class="form-group mb-3">
+            <input type="text" id="sample5_address" class="form-control mb-2" placeholder="주소">
+            <input type="button" onclick="sample5_execDaumPostcode()" class="btn-outline-success" value="주소 검색"><br>
+            <div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
           </div>
 
           <div class="form-group">
             <label for="tags" class="form-label">태그</label>
             <input type="text" name="tags" id="tags" class="form-control" placeholder="태그 입력">
-          </div>
-
-          <div class="form-group mb-3">
-            <input type="text" id="sample5_address" class="form-control" placeholder="주소">
-            <input type="button" onclick="sample5_execDaumPostcode()" class="btn-outline-success" value="주소 검색"><br>
-            <div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
           </div>
 
           <button type="submit" class="btn btn-primary">질문등록</button>

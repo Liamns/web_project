@@ -24,7 +24,7 @@ class BaseModel(models.Model):
 class Event(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="작성자")
     deadline = models.DateTimeField(verbose_name="마감날짜")
-    participants_limit = models.SmallIntegerField(verbose_name="참여인원 제한 수")  
+    participants_limit = models.SmallIntegerField(verbose_name="참여인원 제한 수")
     start_event = models.CharField(verbose_name="이벤트 시작일", max_length=50)
     end_event = models.CharField(verbose_name="이벤트 종료일", max_length=50)
 

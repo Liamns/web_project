@@ -17,7 +17,7 @@
 
   </head>
 
-  <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
+  <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home" style="width:1520px">
     <!-- Navigation-->
     {% include 'nav.html' %}
     <!-- Header-->
@@ -25,25 +25,61 @@
     <link href="{% static 'css/styles.css' %}" rel="stylesheet"/>
     <link rel="stylesheet" href="{% static 'css/event_list.css' %}">
     <!-- Example single danger button -->
-    <div class="met_category mt-5">
+    <div class="met_category mt-5 category" style="display: inline-block; margin-left: 30rem;">
       <button type="button" class="btn btn-danger dropdown-toggle mr-3 " data-bs-toggle="dropdown" aria-expanded="false">
         지역
       </button>
       <ul class="dropdown-menu">
         <li>
-          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item seoul" href="#">서울</a>
         </li>
         <li>
-          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item gyunggi" href="#">경기</a>
         </li>
         <li>
-          <a class="dropdown-item" href="#">Something else here</a>
+          <a class="dropdown-item incheon" href="#">인천</a>
         </li>
         <li>
-          <hr class="dropdown-divider">
+          <a class="dropdown-item gangwon" href="#">강원</a>
         </li>
         <li>
-          <a class="dropdown-item" href="#">Separated link</a>
+          <a class="dropdown-item chungbuk" href="#">충북</a>
+        </li>
+        <li>
+          <a class="dropdown-item chungnam" href="#">충남</a>
+        </li>
+        <li>
+          <a class="dropdown-item daejeon" href="#">대전</a>
+        </li>
+        <li>
+          <a class="dropdown-item seajong" href="#">세종특별자치시</a>
+        </li>
+        <li>
+          <a class="dropdown-item jeonbuk" href="#">전북</a>
+        </li>
+        <li>
+          <a class="dropdown-item jeonnam" href="#">전남</a>
+        </li>
+        <li>
+          <a class="dropdown-item gwangju" href="#">광주</a>
+        </li>
+        <li>
+          <a class="dropdown-item gyeongbuk" href="#">경북</a>
+        </li>
+        <li>
+          <a class="dropdown-item daegu" href="#">대구</a>
+        </li>
+        <li>
+          <a class="dropdown-item ulsan" href="#">울산</a>
+        </li>
+        <li>
+          <a class="dropdown-item gyeongnam" href="#">경남</a>
+        </li>
+        <li>
+          <a class="dropdown-item busan" href="#">부산</a>
+        </li>
+        <li>
+          <a class="dropdown-item jeaju" href="#">제주</a>
         </li>
       </ul>
       <button type="button" class="btn btn-danger dropdown-toggle mr-3" data-bs-toggle="dropdown" aria-expanded="false">
@@ -51,19 +87,7 @@
       </button>
       <ul class="dropdown-menu">
         <li>
-          <a class="dropdown-item" href="#">Action</a>
-        </li>
-        <li>
-          <a class="dropdown-item" href="#">Another action</a>
-        </li>
-        <li>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </li>
-        <li>
-          <hr class="dropdown-divider">
-        </li>
-        <li>
-          <a class="dropdown-item" href="#">Separated link</a>
+          <a class="dropdown-item address_detail" href="#">세부지역</a>
         </li>
       </ul>
       <button type="button" class="btn btn-danger dropdown-toggle mr-3" data-bs-toggle="dropdown" aria-expanded="false">
@@ -71,22 +95,31 @@
       </button>
       <ul class="dropdown-menu">
         <li>
-          <a class="dropdown-item" href="#">전체</a>
+          <a class="dropdown-item all" href="#">전체</a>
         </li>
         <li>
-          <a class="dropdown-item" href="#">운동</a>
+          <a class="dropdown-item exercise" href="#">운동</a>
         </li>
         <li>
-          <a class="dropdown-item" href="#">여행</a>
+          <a class="dropdown-item tour" href="#">여행</a>
         </li>
         <li>
-          <a class="dropdown-item" href="#">맛집</a>
+          <a class="dropdown-item cultural_viewing" href="#">문화관람</a>
         </li>
         <li>
-          <a class="dropdown-item" href="#">술</a>
+          <a class="dropdown-item game" href="#">게임</a>
         </li>
         <li>
-          <a class="dropdown-item" href="#">음악</a>
+          <a class="dropdown-item music" href="#">음악</a>
+        </li>
+        <li>
+          <a class="dropdown-item relationship" href="#">사교/인맥</a>
+        </li>
+        <li>
+          <a class="dropdown-item volunteer" href="#">봉사</a>
+        </li>
+        <li>
+          <a class="dropdown-item free_subject" href="#">자유주제</a>
         </li>
       </ul>
       <button type="button" class="btn btn-danger dropdown-toggle mr-3" data-bs-toggle="dropdown" aria-expanded="false">
@@ -97,21 +130,18 @@
           <a class="dropdown-item" href="#">전체</a>
         </li>
         <li>
-          <a class="dropdown-item" href="#">운동</a>
+          <a class="dropdown-item latest" href="#">최신순</a>
         </li>
         <li>
-          <a class="dropdown-item" href="#">여행</a>
-        </li>
-        <li>
-          <a class="dropdown-item" href="#">맛집</a>
-        </li>
-        <li>
-          <a class="dropdown-item" href="#">술</a>
-        </li>
-        <li>
-          <a class="dropdown-item" href="#">음악</a>
+          <a class="dropdown-item inquiry" href="#">조회순</a>
         </li>
       </ul>
+      <div class="met_category input-group col-4 entsearchForm" style="float: right;">
+        <input type="text" name="keyword" id="keyword" class="form-control" value="{{keyword|default_if_none:''}}">
+        <div class="input-group-append" style="float:right;">
+          <button type="button" class="btn btn-outline-secondary">찾기</button>
+        </div>
+      </div>
     </div>
     <section>
       <div class="container px-4 px-lg-5 mt-5">

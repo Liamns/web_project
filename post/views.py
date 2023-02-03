@@ -22,6 +22,7 @@ from apis.views import *
 from apis.jwtdecoding import JWTDecoding
 import jwt
 
+from django.db.models import Q, Count
 
 @permission_classes([AllowAny])
 @method_decorator(ensure_csrf_cookie, name="dispatch")
@@ -67,6 +68,9 @@ class PostView(TemplateView):
 
 class PostCreateView(TemplateView):
     template_name = "post/post_create.html"
+
+class PostDetailView(TemplateView):
+    template_name = "post/post_detail.html"
     
 
 def index(request):
@@ -74,32 +78,22 @@ def index(request):
     Post 전체 추출(작성날짜 최신순)
     """ 
 
-    # 사용자가 요청한 페이지 번호
-    page = request.GET.get('page',1)
-
     # 검색어 받기
     keyword = request.GET.get('keyword','')
 
     # 정렬 기준 받기
-    so = request.GET.get('so','recent') # sort 기준 : recent(기본), recommend, popular
+    so = request.GET.get('so','latest') # sort 기준 : latest(기본)
 
     # 전체 게시물 추출
-    if so == "recommend":
-        all_questions = Question.objects.annotate(num_voter=Count('voter')).order_by('-num_voter','-created_dttm')
-    elif so == "popular":
-        all_questions = Question.objects.annotate(num_answer=Count('answer')).order_by('-num_answer','-created_dttm')
-    else:
-        all_questions = Question.objects.order_by('-created_dttm')
+    if so == "latest":
+        all_questions = Post.objects.annotate(num_voter=Count('voter')).order_by('-num_voter','-created_dttm')
+    elif so == "inquiry":
+        all_questions = Post.objects.annotate(num_answer=Count('answer')).order_by('-num_answer','-created_dttm')
 
     # 전체 리스트에서 검색어가 들어간 리스트만 추출(질문 제목, 질문 내용, 질문 작성자, 답변 작성자)
     # Q : OR 조건으로 데이터 조회, distinct() : 중복 제거
     if keyword:
         all_questions = all_questions.filter(Q(title__icontains=keyword)|Q(content__icontains=keyword)).distinct()
-            
-    # Paginator 객체를 이용한 보여줄 페이지 결정
-    paginator = Paginator(all_questions, 10)
-
-    questions = paginator.get_page(page)
 
     return render(request, 'boardapp/question_list.html', {"questions":questions, "page":page, "keyword":keyword, "so":so})
 
