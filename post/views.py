@@ -43,7 +43,7 @@ class HomeView(APIView):
                 payload = jwt.decode(headers, settings.SECRET_KEY, algorithms=['HS256'])
                 user = User.objects.get(id=JWTDecoding.Jwt_decoding(request=request))
             except jwt.ExpiredSignatureError: # 토큰이 만료되었을 때 나오는 것
-                return RefreshJWTtoken.post(request=request)
+                return RefreshJWTtoken.post(self, request=request)
             except jwt.InvalidTokenError:
                 raise Exception("Invalid token")
 
@@ -146,14 +146,12 @@ def comment_create(request,post_id):
     return render(request,"post/post_detail.html",{"form":form,"post":post})
 
 
-class PostEventView(TemplateView):
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = "post/event_list.html"
 
-    def get(self, req):
-        post_serializer = PostSerializer()
-        return render(req, "post/event_list.html")
         
 def profile_view(request):
     return render(request, 'profile.html')
+
+
+
+
 

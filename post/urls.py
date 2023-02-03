@@ -9,9 +9,4 @@ urlpatterns = [
     path("detail/", PostDetailView.as_view(), name="post_detail"),
     path("<int:pk>/", detail, name="detail"),
 
-    # 이벤트 리스트 
-    path("events/", PostEventView.as_view(), name="event_list"),
-
-    # 이벤트 작성 폼
-    # path("events/forms/", PostDetailView.as_view(), name="event_detail")
 ]

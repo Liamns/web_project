@@ -6,7 +6,6 @@
 // This file is intentionally blank
 // Use this file to add JavaScript to your project
 
-
 fetch("http://127.0.0.1:8000", {
   method: "GET",
   headers: {
@@ -73,4 +72,3 @@ window.onload = function () {
       });
   });
 };
-

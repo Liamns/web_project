@@ -1,0 +1,15 @@
+#contents {
+  outline: 1px solid black;
+  width: 100%x;
+  height: 500px;
+  resize: none;
+  margin-bottom: 20px;
+}
+body {
+  overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+.py-5 {
+  padding-top: 3rem !important;
+  padding-bottom: 3rem !important;
+  width: 100%;
+}
