@@ -28,8 +28,8 @@ class Event(BaseModel):
     start_event = models.CharField(verbose_name="이벤트 시작일", max_length=50)
     end_event = models.CharField(verbose_name="이벤트 종료일", max_length=50)
 
-    EVENT_CATEGORY = [(0,"운동"), (1,"여행"), (2,"문화관람"), (3,"게임"), (4,"음악"), (5,"사교/인맥"), (6,"봉사"), (7,"자유주제")]
-    category = models.CharField(max_length=20, choices=EVENT_CATEGORY, default=7)
+    EVENT_CATEGORY = [("운동","운동"), ("여행","여행"), ("문화관람","문화관람"), ("게임","게임"), ("음악","음악"), ("사교/인맥","사교/인맥"), ("봉사","봉사"), ("자유주제","자유주제")]
+    category = models.CharField(max_length=20, choices=EVENT_CATEGORY, default="자유주제")
 
 
     class Meta:
