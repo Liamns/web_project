@@ -1,4 +1,5 @@
 {% load static %}
+{% load post_filter %}
 {% load rest_framework %}
 <!DOCTYPE html>
 <html lang="en">
@@ -26,116 +27,57 @@
     <link rel="stylesheet" href="{% static 'css/event_list.css' %}">
     <!-- Example single danger button -->
     <div class="met_category mt-5 category" style="display: inline-block; margin-left: 30rem;">
-      <button type="button" class="btn btn-danger dropdown-toggle mr-3 " data-bs-toggle="dropdown" aria-expanded="false">
+      <button type="button" id="address" class="btn btn-danger dropdown-toggle mr-3 " data-bs-toggle="dropdown" aria-expanded="false">
         지역
       </button>
-      <ul class="dropdown-menu">
-        <li>
-          <a class="dropdown-item seoul" href="#">서울</a>
-        </li>
-        <li>
-          <a class="dropdown-item gyunggi" href="#">경기</a>
-        </li>
-        <li>
-          <a class="dropdown-item incheon" href="#">인천</a>
-        </li>
-        <li>
-          <a class="dropdown-item gangwon" href="#">강원</a>
-        </li>
-        <li>
-          <a class="dropdown-item chungbuk" href="#">충북</a>
-        </li>
-        <li>
-          <a class="dropdown-item chungnam" href="#">충남</a>
-        </li>
-        <li>
-          <a class="dropdown-item daejeon" href="#">대전</a>
-        </li>
-        <li>
-          <a class="dropdown-item seajong" href="#">세종특별자치시</a>
-        </li>
-        <li>
-          <a class="dropdown-item jeonbuk" href="#">전북</a>
-        </li>
-        <li>
-          <a class="dropdown-item jeonnam" href="#">전남</a>
-        </li>
-        <li>
-          <a class="dropdown-item gwangju" href="#">광주</a>
-        </li>
-        <li>
-          <a class="dropdown-item gyeongbuk" href="#">경북</a>
-        </li>
-        <li>
-          <a class="dropdown-item daegu" href="#">대구</a>
-        </li>
-        <li>
-          <a class="dropdown-item ulsan" href="#">울산</a>
-        </li>
-        <li>
-          <a class="dropdown-item gyeongnam" href="#">경남</a>
-        </li>
-        <li>
-          <a class="dropdown-item busan" href="#">부산</a>
-        </li>
-        <li>
-          <a class="dropdown-item jeaju" href="#">제주</a>
-        </li>
-      </ul>
-      <button type="button" class="btn btn-danger dropdown-toggle mr-3" data-bs-toggle="dropdown" aria-expanded="false">
+      <select class="dropdown-menu">
+        <option class="dropdown-item seoul">전체</option>
+        <option class="dropdown-item seoul">서울</option>
+        <option class="dropdown-item gyunggi">경기</option>
+        <option class="dropdown-item incheon">인천</option>
+        <option class="dropdown-item gangwon">강원</option>
+        <option class="dropdown-item chungbuk">충북</option>
+        <option class="dropdown-item chungnam">충남</option>
+        <option class="dropdown-item daejeon">대전</option>
+        <option class="dropdown-item seajong">세종특별자치시</option>
+        <option class="dropdown-item jeonbuk">전북</option>
+        <option class="dropdown-item jeonnam">전남</option>
+        <option class="dropdown-item gwangju">광주</option>
+        <option class="dropdown-item gyeongbuk">경북</option>
+        <option class="dropdown-item daegu">대구</option>
+        <option class="dropdown-item ulsan">울산</option>
+        <option class="dropdown-item gyeongnam">경남</option>
+        <option class="dropdown-item busan">부산</option>
+        <option class="dropdown-item jeaju">제주</option>
+      </select>
+      <button type="button" name="address_detail" id="address_detail" class="btn btn-danger dropdown-toggle mr-3" data-bs-toggle="dropdown" aria-expanded="false">
         세부지역
       </button>
-      <ul class="dropdown-menu">
-        <li>
-          <a class="dropdown-item address_detail" href="#">세부지역</a>
-        </li>
-      </ul>
+      <select class="dropdown-menu">
+        <option class="dropdown-item seoul">전체</option>
+      </select>
       <button type="button" class="btn btn-danger dropdown-toggle mr-3" data-bs-toggle="dropdown" aria-expanded="false">
         어떤모임
       </button>
-      <ul class="dropdown-menu">
-        <li>
-          <a class="dropdown-item all" href="#">전체</a>
-        </li>
-        <li>
-          <a class="dropdown-item exercise" href="#">운동</a>
-        </li>
-        <li>
-          <a class="dropdown-item tour" href="#">여행</a>
-        </li>
-        <li>
-          <a class="dropdown-item cultural_viewing" href="#">문화관람</a>
-        </li>
-        <li>
-          <a class="dropdown-item game" href="#">게임</a>
-        </li>
-        <li>
-          <a class="dropdown-item music" href="#">음악</a>
-        </li>
-        <li>
-          <a class="dropdown-item relationship" href="#">사교/인맥</a>
-        </li>
-        <li>
-          <a class="dropdown-item volunteer" href="#">봉사</a>
-        </li>
-        <li>
-          <a class="dropdown-item free_subject" href="#">자유주제</a>
-        </li>
-      </ul>
-      <button type="button" class="btn btn-danger dropdown-toggle mr-3" data-bs-toggle="dropdown" aria-expanded="false">
+      <select class="dropdown-menu">
+        <option class="dropdown-item seoul">전체</option>
+        <option class="dropdown-item seoul">운동</option>
+        <option class="dropdown-item gyunggi">여행</option>
+        <option class="dropdown-item incheon">문화관람</option>
+        <option class="dropdown-item gangwon">게임</option>
+        <option class="dropdown-item chungbuk">음악</option>
+        <option class="dropdown-item chungnam">사교/인맥</option>
+        <option class="dropdown-item daejeon">봉사</option>
+        <option class="dropdown-item seajong">자유주제</option>
+      </select>
+      <button type="button" name="so" id="so" class="btn btn-danger dropdown-toggle mr-3" data-bs-toggle="dropdown" aria-expanded="false">
         정렬
       </button>
-      <ul class="dropdown-menu">
-        <li>
-          <a class="dropdown-item" href="#">전체</a>
-        </li>
-        <li>
-          <a class="dropdown-item latest" href="#">최신순</a>
-        </li>
-        <li>
-          <a class="dropdown-item inquiry" href="#">조회순</a>
-        </li>
-      </ul>
+      <select class="dropdown-menu">
+        <option class="dropdown-item seoul">전체</option>
+        <option class="dropdown-item seoul">최신순</option>
+        <option class="dropdown-item gyunggi">조회순</option>
+      </select>
       <div class="met_category input-group col-4 entsearchForm" style="float: right;">
         <input type="text" name="keyword" id="keyword" class="form-control" value="{{keyword|default_if_none:''}}">
         <div class="input-group-append" style="float:right;">
