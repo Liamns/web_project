@@ -1,14 +1,16 @@
-import React from 'react';
-import { ChatEngine } from 'react-chat-engine';
+import { useState } from "react";
+
+import AuthPage from "./authPage";
+import ChatsPage from "./chatsPage";
 
 function App() {
-	return (
-		<ChatEngine
-			projectID='4acc951d-8a3f-44c6-ad6b-603ba77c3929'
-			userName='admin'
-			userSecret='admin'
-		/>
-	);
+  const [user, setUser] = useState();
+
+  if (!user) {
+    return <AuthPage onAuth={(user) => setUser(user)} />;
+  } else {
+    return <ChatsPage user={user} />;
+  }
 }
 
 export default App;
