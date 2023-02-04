@@ -1,97 +1,64 @@
 {% load static %}
-<link rel="stylesheet" href="{% static 'css/leadmark.css' %}" />
+
+<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="{% static 'css/leadmark.css' %}"/>
 <!-- page Navigation -->
-<nav
-  class="navbar custom-navbar navbar-expand-md navbar-light fixed-top"
-  data-spy="affix"
-  data-offset-top="10"
->
+<nav class="navbar custom-navbar navbar-expand-md navbar-light fixed-top" data-spy="affix" data-offset-top="10">
   <div class="container">
     <a class="navbar-brand" href="#">
-      <img src="{% static 'imgs/logo.png' %}" alt="" />
+      <img src="{% static 'imgs/logo.png' %}" alt=""/>
     </a>
-    <button
-      class="navbar-toggler ml-auto"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
         {% if user.nickname != None %}
-        <li class="nav-item">
-          <a class="nav-link" href="#recommend">추천모임</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#ranking">랭킹</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#event">이벤트</a>
-        </li>
-        <li class="nav-item">
-          <a
-            href="#"
-            class="ml-4 nav-link btn btn btn-signature2 rounded active"
-            >채팅하기</a
-          >
-        </li>
-        <li class="nav-item">
-          <a
-            href="{% url 'profile_view' pk=user.pk %}"
-            aria-current="page"
-            class="ml-4 nav-link active btn btn-signature6 rounded"
-            id="nickname"
-            >{{user.nickname}}님</a
-          >
-        </li>
-        <li class="nav-item">
-          <a
-            href="#"
-            aria-current="page"
-            class="ml-4 nav-link active btn btn-sm btn-signature5 rounded"
-            id="logout"
-            >로그아웃</a
-          >
-        </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#recommend">추천모임</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#ranking">랭킹</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#event">이벤트</a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'inbox' %}" class="ml-6 nav-link btn btn btn-signature2 rounded active">
+              <i class="fa-solid fa-paper-plane"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="ml-4 nav-link btn btn btn-signature2 rounded active">채팅하기</a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'profile_view' pk=user.pk %}" aria-current="page" class="ml-4 nav-link active btn btn-signature6 rounded" id="nickname">{{user.nickname}}님</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" aria-current="page" class="ml-4 nav-link active btn btn-sm btn-signature5 rounded" id="logout">로그아웃</a>
+          </li>
         {% else %}
-        <li class="nav-item">
-          <a class="nav-link" href="#service">서비스</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#about">회사소개</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#howuse">이용방법</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#donation">후원</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#contact">컨택트</a>
-        </li>
-        <li class="nav-item">
-          <a
-            href="#"
-            aria-current="page"
-            class="ml-4 nav-link active btn btn-signature2 btn-sm rounded"
-            id="login"
-            >로그인</a
-          >
-        </li>
-        <li class="nav-item">
-          <a
-            href="{% url 'register' %}"
-            aria-current="page"
-            class="ml-4 nav-link active btn btn-signature2 btn-sm rounded"
-            id="register"
-            >회원가입</a
-          >
-        </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#service">서비스</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about">회사소개</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#howuse">이용방법</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#donation">후원</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contact">컨택트</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" aria-current="page" class="ml-4 nav-link active btn btn-signature2 btn-sm rounded" id="login">로그인</a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'register' %}" aria-current="page" class="ml-4 nav-link active btn btn-signature2 btn-sm rounded" id="register">회원가입</a>
+          </li>
         {% endif %}
       </ul>
     </div>

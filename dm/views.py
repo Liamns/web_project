@@ -5,15 +5,12 @@ from .models import ThreadModel, MessageModel
 from django.views import View
 from django.db.models import Q
 
-
 import jwt
 
+# from django.contrib.auth.models import User
 from user.models import User
-
 from .forms import ThreadForm, MessageForm
 from .models import MessageModel
-
-
 
 
 class ListThreads(View):
@@ -23,7 +20,6 @@ class ListThreads(View):
         context = {
             'threads': threads
         }
-
         return render(request, 'dm/inbox.html', context)
     
 class CreateThread(View):
@@ -34,19 +30,24 @@ class CreateThread(View):
         context = {
             'form': form
         }
-
         return render(request, 'dm/create-thread.html', context)
 
-    def post(self, request, *args, **kwargs):
-        form = ThreadForm(request.POST)
 
+    def post(self, request, *args, **kwargs):
+        
+        form = ThreadForm(request.POST)
         username = request.POST.get('username')
+        
+        print("create post")
 
         try:
-            receiver = User.objects.get(name=username)
+            receiver = User.objects.get(email=username)
+
+            print(receiver)
             
             if ThreadModel.objects.filter(user=request.user, receiver=receiver).exists():
                 thread = ThreadModel.objects.filter(user=request.user, receiver=receiver)[0]
+                print(thread)
                 return redirect('thread', pk=thread.pk)
             
             elif ThreadModel.objects.filter(user=receiver, receiver=request.user).exists():
@@ -75,7 +76,7 @@ class ThreadView(View):
             'message_list': message_list
         }
 
-        return render(request, 'social/thread.html', context)
+        return render(request, 'dm/thread.html', context)
     
     
 class CreateMessage(View):

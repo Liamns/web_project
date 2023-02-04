@@ -15,4 +15,4 @@ class MessageModel(models.Model):
 	body = models.CharField(max_length=1000)
 	image = models.ImageField(upload_to='uploads/message_photos', blank=True, null=True)
 	date = models.DateTimeField(default=timezone.now)
-	is_read = models.BooleanField(default=False)
+	is_read = models.BooleanField(default=False) 

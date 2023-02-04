@@ -51,7 +51,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'channels',
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -64,12 +64,12 @@ INSTALLED_APPS = [
     'rest_framework',
     "taggit",
     "apis",
-    'jazzmin',
     'corsheaders', # <- 추가
-    'chat',
     'chat2',
     'message',
- 
+    'dm',
+    'chatengine',
+    'crispy_forms',
 ]
 
 INSTALLED_APPS += [    
@@ -255,4 +255,8 @@ AUTHENTICATION_BACKENDS = [
 
 # 이름, 별명 자동짓기
 SOCIALACCOUNT_ADAPTER = 'user.adapter.SocialUserSignUp'
-# 이름, 별명 자동짓기
+
+
+# crispy_forms 적용 ys
+CRISPY_TEMPLATE_PACK = 'bootstrap4' 
+
