@@ -188,11 +188,11 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        'apis.authenticate.SafeJWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         # postman test용
         # 'rest_framework.authentication.BasicAuthentication',
         # postman test용
-        'apis.authenticate.SafeJWTAuthentication',
     ),
 }
 

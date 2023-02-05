@@ -29,7 +29,6 @@ from django.db.models import Q, Count
 class HomeView(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = "home.html"
-    permission_classes = [IsAuthenticated]
 
 
     def get(self, request):
