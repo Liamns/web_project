@@ -27,57 +27,55 @@
     <link rel="stylesheet" href="{% static 'css/event_list.css' %}">
     <link rel="stylesheet" href="{% static 'css/post.css' %}">
     <!-- Example single danger button -->
-    <form method="get">
-      <div class="met_category mt-5 category" style="display: inline-block; margin-left: 30rem;">
-        <select id="address" class="btn dropdown-toggle mr-3" aria-expanded="false">
-          <option class="dropdown-item">지역</option>
-          <option class="dropdown-item seoul">전체</option>
-          <option class="dropdown-item seoul">서울</option>
-          <option class="dropdown-item gyunggi">경기</option>
-          <option class="dropdown-item incheon">인천</option>
-          <option class="dropdown-item gangwon">강원</option>
-          <option class="dropdown-item chungbuk">충북</option>
-          <option class="dropdown-item chungnam">충남</option>
-          <option class="dropdown-item daejeon">대전</option>
-          <option class="dropdown-item seajong">세종</option>
-          <option class="dropdown-item jeonbuk">전북</option>
-          <option class="dropdown-item jeonnam">전남</option>
-          <option class="dropdown-item gwangju">광주</option>
-          <option class="dropdown-item gyeongbuk">경북</option>
-          <option class="dropdown-item daegu">대구</option>
-          <option class="dropdown-item ulsan">울산</option>
-          <option class="dropdown-item gyeongnam">경남</option>
-          <option class="dropdown-item busan">부산</option>
-          <option class="dropdown-item jeaju">제주</option>
-        </select>
-        <select id="address_detail" class="btn dropdown-toggle mr-3">
-          <option class="dropdown-item seoul">세부지역</option>
-          <option class="dropdown-item seoul">전체</option>
-        </select>
-        <select class="btn dropdown-toggle mr-3">
-          <option class="dropdown-item seoul">어떤모임</option>
-          <option class="dropdown-item seoul">전체</option>
-          <option class="dropdown-item seoul">운동</option>
-          <option class="dropdown-item gyunggi">여행</option>
-          <option class="dropdown-item incheon">문화관람</option>
-          <option class="dropdown-item gangwon">게임</option>
-          <option class="dropdown-item chungbuk">음악</option>
-          <option class="dropdown-item chungnam">사교/인맥</option>
-          <option class="dropdown-item daejeon">봉사</option>
-          <option class="dropdown-item seajong">자유주제</option>
-        </select>
-        <select id="so" class="btn dropdown-toggle mr-3">
-          <option class="dropdown-item seoul">최신순</option>
-          <option class="dropdown-item gyunggi">조회순</option>
-        </select>
-        <div class="met_category input-group col-4 entsearchForm" style="float: right;">
-          <input type="text" name="keyword" id="keyword" class="form-control" value="{{keyword|default_if_none:''}}">
-          <div class="input-group-append" style="float:right;">
-            <button type="button" class="btn btn-outline-secondary">찾기</button>
-          </div>
+    <div class="met_category mt-5 category" style="display: inline-block; margin-left: 30rem;">
+      <select id="address" class="btn dropdown-toggle mr-3" aria-expanded="false">
+        <option class="dropdown-item">지역</option>
+        <option class="dropdown-item address1" value="전체">전체</option>
+        <option class="dropdown-item address1" value="서울">서울</option>
+        <option class="dropdown-item address1" value="경기">경기</option>
+        <option class="dropdown-item address1" value="인천">인천</option>
+        <option class="dropdown-item address1" value="강원">강원</option>
+        <option class="dropdown-item address1" value="충북">충북</option>
+        <option class="dropdown-item address1" value="충남">충남</option>
+        <option class="dropdown-item address1" value="대전">대전</option>
+        <option class="dropdown-item address1" value="세종">세종</option>
+        <option class="dropdown-item address1" value="전북">전북</option>
+        <option class="dropdown-item address1" value="전남">전남</option>
+        <option class="dropdown-item address1" value="광주">광주</option>
+        <option class="dropdown-item address1" value="경북">경북</option>
+        <option class="dropdown-item address1" value="대구">대구</option>
+        <option class="dropdown-item address1" value="울산">울산</option>
+        <option class="dropdown-item address1" value="경남">경남</option>
+        <option class="dropdown-item address1" value="부산">부산</option>
+        <option class="dropdown-item address1" value="제주">제주</option>
+      </select>
+      <select id="address_detail" class="btn dropdown-toggle mr-3">
+        <option class="dropdown-item address2">세부지역</option>
+        <option class="dropdown-item address2">전체</option>
+      </select>
+      <select class="btn dropdown-toggle mr-3">
+        <option class="dropdown-item seoul">어떤모임</option>
+        <option class="dropdown-item seoul">전체</option>
+        <option class="dropdown-item seoul">운동</option>
+        <option class="dropdown-item gyunggi">여행</option>
+        <option class="dropdown-item incheon">문화관람</option>
+        <option class="dropdown-item gangwon">게임</option>
+        <option class="dropdown-item chungbuk">음악</option>
+        <option class="dropdown-item chungnam">사교/인맥</option>
+        <option class="dropdown-item daejeon">봉사</option>
+        <option class="dropdown-item seajong">자유주제</option>
+      </select>
+      <select id="so" class="btn dropdown-toggle mr-3">
+        <option class="dropdown-item seoul">최신순</option>
+        <option class="dropdown-item gyunggi">조회순</option>
+      </select>
+      <div class="met_category input-group col-4 entsearchForm" style="float: right;">
+        <input type="text" name="keyword" id="keyword" class="form-control" value="{{keyword|default_if_none:''}}">
+        <div class="input-group-append" style="float:right;">
+          <button type="button" class="btn btn-outline-secondary search">찾기</button>
         </div>
       </div>
-    </form>
+    </div>
     <section>
       <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
@@ -106,6 +104,9 @@
         </div>
       </div>
     </section>
+    <form action="{% url 'post_main' %}" id="searchForm">
+      <input type="hidden" name="address" class="address" value="{{address|default_if_none:''}}">
+    </form>
     <!-- Footer-->
     <footer class="py-5 bg-dark">
       <div class="container">

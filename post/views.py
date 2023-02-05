@@ -106,7 +106,7 @@ def index(request):
     so = request.GET.get('so','latest') # sort 기준 : latest(기본)
 
     # 주소 가져오기
-    address = request.GET.get('address')
+    address = request.GET.get('address', '')
 
     # 전체 게시물 추출
     if so == "latest":
@@ -114,12 +114,13 @@ def index(request):
     elif so == "inquiry":
         all_posts = Post.objects.annotate(num_answer=Count('view_cnt')).order_by('-view_cnt','-created_at')
 
-    # 전체 리스트에서 검색어가 들어간 리스트만 추출(질문 제목, 질문 내용, 질문 작성자, 답변 작성자)
+    # 전체 리스트에서 검색어가 들어간 리스트만 추출(질문 제목, 질문 내용)
     # Q : OR 조건으로 데이터 조회, distinct() : 중복 제거
     if keyword:
         all_posts = all_posts.filter(Q(title__icontains=keyword)|Q(content__icontains=keyword)).distinct()
-
-    return render(request, 'post/post_main.html', {"address_total":address_total, "keyword":keyword, "so":so})
+    if address:
+        all_posts = all_posts.filter(Q(location_tags__icontains=address))
+    return render(request, 'post/post_main.html', {"address":address, "keyword":keyword, "so":so})
 
 @login_required(login_url="login")
 def detail(request, post_id):
