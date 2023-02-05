@@ -15,4 +15,4 @@ urlpatterns = [
     # 이벤트 디데일 뷰
     path("detail/", PostEventDetailView.as_view(), name="event_detail")
 
-]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]

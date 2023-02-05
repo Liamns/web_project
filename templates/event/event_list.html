@@ -63,14 +63,11 @@
               <div class="card h-100">
                 <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">모집중</div>
                 <!-- 모임 이미지 -->
-                {% for event_len in event_lens %}
-                  {% if events_img[event_len].event.id == event.id %}
-
-                    <img class="card-img-top" src="{{event_img[event_len].event_img.url}}" alt="..."/>
-
-                  {% endif %}
-                {% endfor %}
-                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."/>
+                {% if event.event_imgage %}
+                  <img class="card-img-top" src="{{event.event_imgage.url}}" alt="..."/>
+                {% else %}
+                  <img class="card-img-top" src="" alt="..."/>
+                {% endif %}
                 <!-- 모임 내용 디테일-->
                 <div class="card-body p-4">
                   <div class="text-center">

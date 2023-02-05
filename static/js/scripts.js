@@ -6,17 +6,28 @@
 // This file is intentionally blank
 // Use this file to add JavaScript to your project
 
-let data = 5;
+let pager = 1;
 
-fetch("/events/", {
-  method: "GET",
-})
-  .then((response) => response.json())
-  .then((data) => console.log(data));
-
-window.addEventListener("scroll", infiniteScroll);
+window.addEventListener("scroll", infiniteScroll, { passive: true });
 
 let timer = null;
+
+function getCookie(key) {
+  var result = null;
+  var cookie = document.cookie.split(";");
+  cookie.some(function (item) {
+    // 공백을 제거
+    item = item.replace(" ", "");
+
+    var dic = item.split("=");
+
+    if (key === dic[0]) {
+      result = dic[1];
+      return true; // break;
+    }
+  });
+  return result;
+}
 
 function infiniteScroll() {
   const currentScroll = window.scrollY;
@@ -28,8 +39,19 @@ function infiniteScroll() {
     if (!timer) {
       timer = setTimeout(() => {
         timer = null;
-
+        pager++;
         // -- fetch API --
+        fetch("http://127.0.0.1:8000/events/", {
+          method: "POST",
+          headers: {
+            "X-CSRFToken": getCookie("csrftoken"),
+          },
+          body: JSON.stringify({
+            page: pager,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => console.log(data));
       }, 200);
     }
   }

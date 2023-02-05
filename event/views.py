@@ -30,18 +30,30 @@ class PostEventDetailView(TemplateView):
         return render(req, 'event/event_detail.html')
 
 @permission_classes([AllowAny])       
-class PostEventView(APIView):
+class PostEventView(TemplateView):
     template_name = "event/event_list.html"
-    renderer_classes = [TemplateHTMLRenderer]
+
 
     def get(self, req):
+
 
 
         events = Event.objects.all()
 
 
 
-        return Response({"events" : events})
+        return render(req, "event/event_list.html",{"events" : events})
+
+    def post(self, request):
+        event_list = Event.objects.all()
+        paginator = Paginator(event_list, 8)
+        page = request.POST.get('page')
+
+       
+
+        event_list = paginator.page(page)
+
+        return Response({"events" : event_list})
 
 
         
