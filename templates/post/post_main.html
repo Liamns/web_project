@@ -30,7 +30,6 @@
     <div class="met_category mt-5 category" style="display: inline-block; margin-left: 30rem;">
       <select id="address" class="btn dropdown-toggle mr-3" aria-expanded="false">
         <option class="dropdown-item">지역</option>
-        <option class="dropdown-item address1" value="전체">전체</option>
         <option class="dropdown-item address1" value="서울">서울</option>
         <option class="dropdown-item address1" value="경기">경기</option>
         <option class="dropdown-item address1" value="인천">인천</option>
@@ -66,8 +65,8 @@
         <option class="dropdown-item seajong">자유주제</option>
       </select>
       <select id="so" class="btn dropdown-toggle mr-3">
-        <option class="dropdown-item seoul">최신순</option>
-        <option class="dropdown-item gyunggi">조회순</option>
+        <option class="dropdown-item" value="latest">최신순</option>
+        <option class="dropdown-item" value="inquiry">조회순</option>
       </select>
       <div class="met_category input-group col-4 entsearchForm" style="float: right;">
         <input type="text" name="keyword" id="keyword" class="form-control" value="{{keyword|default_if_none:''}}">
@@ -76,34 +75,37 @@
         </div>
       </div>
     </div>
-    <section>
-      <div class="container px-4 px-lg-5 mt-5">
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-          <div class="col mb-5">
-            <div class="card h-100">
-              <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">모집중</div>
-              <!-- 모임 이미지 -->
-              <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."/>
-              <!-- 모임 내용 디테일-->
-              <div class="card-body p-4">
-                <div class="text-center">
-                  <!-- 모임 제목 -->
-                  <h5 class="fw-bolder">모임 제목</h5>
-                  <!-- Product price-->
-                  카테고리
+    <!-- 게시물 시작 -->
+    {% for post in all_posts %}
+      <section>
+        <div class="container px-4 px-lg-5 mt-5">
+          <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <div class="col mb-5">
+              <div class="card h-100">
+                <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">{{post.location_tags}}</div>
+                <!-- 게시물 이미지 -->
+                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."/>
+                <!-- 게시물 내용 디테일-->
+                <div class="card-body p-4">
+                  <div class="text-center">
+                    <!-- 게시물 제목 -->
+                    <h5 class="fw-bolder">{{post.title}}</h5>
+                    <!-- Product price-->
+                    {{post.EVENT_CATEGORY}}
+                  </div>
                 </div>
-              </div>
-              <!-- Product actions-->
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center">
-                  <a class="btn btn-outline-dark mt-auto" href="#">자세히 보기</a>
+                <!-- Product actions-->
+                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                  <div class="text-center">
+                    <a class="btn btn-outline-dark mt-auto" href="#">자세히 보기</a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    {% endfor %}
     <form action="{% url 'post_main' %}" id="searchForm">
       <input type="hidden" name="address" class="address" value="{{address|default_if_none:''}}">
     </form>
