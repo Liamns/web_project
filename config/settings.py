@@ -232,8 +232,8 @@ REFRESH_TOKEN_SECRET = get_secret("REFRESH_TOKEN_SECRET")
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
          "APP": {
-            "client_id": os.environ.get("SOCIAL_AUTH_GOOGLE_CLIENT_ID"),
-            "secret": os.environ.get("SOCIAL_AUTH_GOOGLE_SECRET"),
+            "client_id": get_secret("SOCIAL_AUTH_GOOGLE_CLIENT_ID"),
+            "secret": get_secret("SOCIAL_AUTH_GOOGLE_SECRET"),
         },
         'SCOPE': [
             'profile',
