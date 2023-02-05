@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from django.views.generic.base import TemplateView
-from .models import Post,Comment,PostImage
-from .forms import PostForm,CommentForm,PostImageForm
+from .models import Post,Comment
+from .forms import PostForm,CommentForm
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 
@@ -86,7 +86,7 @@ def index(request):
     {"강원":["춘천시","원주시","강릉시","동해시","태백시","속초시","삼척시","홍천군","횡성군","영월군","평창군","정선군","철원군","화천군","양구군","인제군","고성군","양양군"]}, 
     {"충북":["청주시","충주시","제천시","보은군","옥천군","영동군","증평군","진천군","괴산군","음성군","단양군"]}, 
     {"충남":["천안시","공주시","보령시","아산시","서산시","논산시","계룡시","당진시","금산군","부여군","서천군","청양군","홍성군","예산군","태안군"]}, 
-    {"대전":["동구","중구","서구","유성구","대덕구"]}, 
+    {"대전":["동구","중구","서구","유성구","대덕구"]},
     {"세종특별자치시":["조치원읍","연기면","연동면","부강면","금남면","장군면","연서면","전의면","전동면","소정면","한솔동","도담동","아름동","종촌종","고운동","보람동","새롬동","대평동","소담동","다정동","해밀동","반곡동"]}, 
     {"전북":["전주시","군산시","익산시","정읍시","남원시","김제시","완주군","진안군","무주군","장수군","임실군","순창군","고창군","부안군"]}, 
     {"전남":["목포시","여수시","순천시","나주시","광양시","담양군","곡성군","구례군","고흥군","보성군","화순군","장흥군","강진군","해남군","영암군","무안군","함평군","영광군","장성군","완도군","진도군","신안군"]}, 
@@ -106,7 +106,7 @@ def index(request):
     so = request.GET.get('so','latest') # sort 기준 : latest(기본)
 
     # 주소 가져오기
-    address = request.GET.get
+    address = request.GET.get('address')
 
     # 전체 게시물 추출
     if so == "latest":

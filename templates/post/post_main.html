@@ -20,70 +20,64 @@
 
   <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home" style="width:1520px">
     <!-- Navigation-->
-    {% include 'nav.html' %}
+    {% include 'post/nav.html' %}
     <!-- Header-->
     <!-- Section-->
     <link href="{% static 'css/styles.css' %}" rel="stylesheet"/>
     <link rel="stylesheet" href="{% static 'css/event_list.css' %}">
+    <link rel="stylesheet" href="{% static 'css/post.css' %}">
     <!-- Example single danger button -->
-    <div class="met_category mt-5 category" style="display: inline-block; margin-left: 30rem;">
-      <button type="button" class="btn btn-danger dropdown-toggle mr-3 " data-bs-toggle="dropdown" aria-expanded="false">
-        지역
-      </button>
-      <select class="dropdown-menu">
-        <option class="dropdown-item seoul">전체</option>
-        <option class="dropdown-item seoul">서울</option>
-        <option class="dropdown-item gyunggi">경기</option>
-        <option class="dropdown-item incheon">인천</option>
-        <option class="dropdown-item gangwon">강원</option>
-        <option class="dropdown-item chungbuk">충북</option>
-        <option class="dropdown-item chungnam">충남</option>
-        <option class="dropdown-item daejeon">대전</option>
-        <option class="dropdown-item seajong">세종특별자치시</option>
-        <option class="dropdown-item jeonbuk">전북</option>
-        <option class="dropdown-item jeonnam">전남</option>
-        <option class="dropdown-item gwangju">광주</option>
-        <option class="dropdown-item gyeongbuk">경북</option>
-        <option class="dropdown-item daegu">대구</option>
-        <option class="dropdown-item ulsan">울산</option>
-        <option class="dropdown-item gyeongnam">경남</option>
-        <option class="dropdown-item busan">부산</option>
-        <option class="dropdown-item jeaju">제주</option>
-      </select>
-      <button type="button" class="btn btn-danger dropdown-toggle mr-3" data-bs-toggle="dropdown" aria-expanded="false">
-        세부지역
-      </button>
-      <select class="dropdown-menu">
-        <option class="dropdown-item seoul">전체</option>
-      </select>
-      <button type="button" class="btn btn-danger dropdown-toggle mr-3" data-bs-toggle="dropdown" aria-expanded="false">
-        어떤모임
-      </button>
-      <select class="dropdown-menu">
-        <option class="dropdown-item seoul">전체</option>
-        <option class="dropdown-item seoul">운동</option>
-        <option class="dropdown-item gyunggi">여행</option>
-        <option class="dropdown-item incheon">문화관람</option>
-        <option class="dropdown-item gangwon">게임</option>
-        <option class="dropdown-item chungbuk">음악</option>
-        <option class="dropdown-item chungnam">사교/인맥</option>
-        <option class="dropdown-item daejeon">봉사</option>
-        <option class="dropdown-item seajong">자유주제</option>
-      </select>
-      <button type="button" name="so" id="so" class="btn btn-danger dropdown-toggle mr-3" data-bs-toggle="dropdown" aria-expanded="false">
-        정렬
-      </button>
-      <select id="so" class="dropdown-menu">
-        <option class="dropdown-item seoul">최신순</option>
-        <option class="dropdown-item gyunggi">조회순</option>
-      </select>
-      <div class="met_category input-group col-4 entsearchForm" style="float: right;">
-        <input type="text" name="keyword" id="keyword" class="form-control" value="{{keyword|default_if_none:''}}">
-        <div class="input-group-append" style="float:right;">
-          <button type="button" class="btn btn-outline-secondary">찾기</button>
+    <form method="get">
+      <div class="met_category mt-5 category" style="display: inline-block; margin-left: 30rem;">
+        <select id="address" class="btn dropdown-toggle mr-3" aria-expanded="false">
+          <option class="dropdown-item">지역</option>
+          <option class="dropdown-item seoul">전체</option>
+          <option class="dropdown-item seoul">서울</option>
+          <option class="dropdown-item gyunggi">경기</option>
+          <option class="dropdown-item incheon">인천</option>
+          <option class="dropdown-item gangwon">강원</option>
+          <option class="dropdown-item chungbuk">충북</option>
+          <option class="dropdown-item chungnam">충남</option>
+          <option class="dropdown-item daejeon">대전</option>
+          <option class="dropdown-item seajong">세종</option>
+          <option class="dropdown-item jeonbuk">전북</option>
+          <option class="dropdown-item jeonnam">전남</option>
+          <option class="dropdown-item gwangju">광주</option>
+          <option class="dropdown-item gyeongbuk">경북</option>
+          <option class="dropdown-item daegu">대구</option>
+          <option class="dropdown-item ulsan">울산</option>
+          <option class="dropdown-item gyeongnam">경남</option>
+          <option class="dropdown-item busan">부산</option>
+          <option class="dropdown-item jeaju">제주</option>
+        </select>
+        <select id="address_detail" class="btn dropdown-toggle mr-3">
+          <option class="dropdown-item seoul">세부지역</option>
+          <option class="dropdown-item seoul">전체</option>
+        </select>
+        <select class="btn dropdown-toggle mr-3">
+          <option class="dropdown-item seoul">어떤모임</option>
+          <option class="dropdown-item seoul">전체</option>
+          <option class="dropdown-item seoul">운동</option>
+          <option class="dropdown-item gyunggi">여행</option>
+          <option class="dropdown-item incheon">문화관람</option>
+          <option class="dropdown-item gangwon">게임</option>
+          <option class="dropdown-item chungbuk">음악</option>
+          <option class="dropdown-item chungnam">사교/인맥</option>
+          <option class="dropdown-item daejeon">봉사</option>
+          <option class="dropdown-item seajong">자유주제</option>
+        </select>
+        <select id="so" class="btn dropdown-toggle mr-3">
+          <option class="dropdown-item seoul">최신순</option>
+          <option class="dropdown-item gyunggi">조회순</option>
+        </select>
+        <div class="met_category input-group col-4 entsearchForm" style="float: right;">
+          <input type="text" name="keyword" id="keyword" class="form-control" value="{{keyword|default_if_none:''}}">
+          <div class="input-group-append" style="float:right;">
+            <button type="button" class="btn btn-outline-secondary">찾기</button>
+          </div>
         </div>
       </div>
-    </div>
+    </form>
     <section>
       <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
@@ -125,7 +119,7 @@
     <script nomodule="nomodule" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <!-- Core theme JS-->
     <script src="{% static 'js/scripts.js' %}"></script>
-
+    <script src="{% static 'js/post_main.js' %}"></script>
   </body>
 
 </html>
