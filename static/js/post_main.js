@@ -274,7 +274,7 @@ const secondSelect = document.getElementById("address_detail");
 
 firstSelect.addEventListener("change", function () {
   const selectedValue = firstSelect.value;
-  let options = '<option class="dropdown-item seoul">세부지역</option>' + '<option class="dropdown-item seoul">전체</option>';
+  let options = '<option class="dropdown-item address2">세부지역</option>' + '<option class="dropdown-item address2">전체</option>';
 
   if (selectedValue in address_total) {
     address_total[selectedValue].forEach(function (option) {
@@ -283,4 +283,14 @@ firstSelect.addEventListener("change", function () {
   }
 
   secondSelect.innerHTML = options;
+});
+
+const searchForm = document.querySelector("#searchForm");
+
+document.querySelector(".address1").addEventListener("change", () => {
+  let address1 = document.querySelector(".address1").value;
+
+  document.querySelector(".address").value = address1;
+
+  searchForm.submit();
 });
