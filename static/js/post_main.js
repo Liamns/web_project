@@ -254,6 +254,19 @@ const address_total = {
   ],
   제주: ["제주시", "서귀포시"],
 };
+
+var infinite = new Waypoint.Infinite({
+  element: $('.infinite-container')[0],
+
+  offset: 'bottom-in-view',
+  onBeforePageLoad: function () {
+    $('.loading').show();
+  },
+  onAfterPageLoad: function ($items) {
+    $('.loading').hide();
+  }
+});
+
 const firstSelect = document.getElementById("address");
 const secondSelect = document.getElementById("address_detail");
 const thirdSelect = document.getElementById("gathering");

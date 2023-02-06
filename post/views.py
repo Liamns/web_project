@@ -10,14 +10,13 @@ from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from user.models import User
-from user.serializers import UserSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import APIView, permission_classes
 from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 from django.utils.decorators import method_decorator
 
 from post.serializers import PostSerializer
-
+from django.http import HttpResponse
 from config import settings
 from apis.views import *
 from apis.jwtdecoding import JWTDecoding
@@ -71,13 +70,9 @@ class HomeView(APIView):
     #     return super().dispatch(request, *args, **kwargs)
     
 
-
-class PostCreateView(TemplateView):
-    template_name = "post/post_create.html"
-
 class PostDetailView(TemplateView):
     template_name = "post/post_detail.html"
-    
+
 class PostView(TemplateView):
     template_name = "post/post_main.html"
 
@@ -130,6 +125,36 @@ class PostView(TemplateView):
 
         return render(request, 'post/post_main.html', {"address":address, "gathering":gathering, "keyword":keyword, "so":so, "all_posts":all_posts})
 
+class PostCreateView(APIView):
+
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = "post/post_create.html"
+
+    def get(self,req):
+        return render(req, "post/post_create.html")
+
+    def post(self, req):
+
+        user = User.objects.get(id=JWTDecoding.Jwt_decoding(request=req))
+
+        post_create = PostSerializer(data=req.data)
+    # 장고와 달리 DRF에서는 request에서 데이터를 받을 때(request.data)
+    # 반드시 .is_valid() 여부를 체크해야 한다.
+    # valid하지 않을 때는 serializer.errors를 리턴한다.
+        if post_create.is_valid():
+            # event = EventSerializer(data=post_event["event_user"])
+            # if event.is_valid():
+            post_create.save()
+            return HttpResponse(post_create.data, status = status.HTTP_201_CREATED)
+        return HttpResponse(post_create.errors, status = status.HTTP_400_BAD_REQUEST)
+
+class PostDetailView(TemplateView):
+
+    def get(self, req, pk):
+        post = get_object_or_404(Post, pk=pk)
+        return render(req, 'post/post_detail.html', {"post" : post})
+
+
 @login_required(login_url="login")
 def detail(request, post_id):
     """
@@ -139,20 +164,6 @@ def detail(request, post_id):
     post = get_object_or_404(post, id=post_id)
 
     return render(request, "post/post_detail.html",{"post":post})
-
-@login_required(login_url="login")
-def post_create(request):
-    """
-    get: 비어 있는 폼, post : 바인딩 폼
-    """
-    if request.method == "POST":
-        form = postForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("index")
-    else:
-        form = postForm()
-    return render(request, "post/post_form.html",{"form":form})
 
 
 @login_required(login_url="login")
@@ -178,15 +189,6 @@ def comment_create(request,post_id):
 
     return render(request,"post/post_detail.html",{"form":form,"post":post})
 
-
-class PostEventView(TemplateView):
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = "post/event_list.html"
-
-    def get(self, req):
-        post_serializer = PostSerializer()
-        return render(req, "post/event_list.html")
-        
 def profile_view(request):
     return render(request, 'profile.html')
 
