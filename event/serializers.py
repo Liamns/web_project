@@ -12,7 +12,7 @@ class EventImageSerializer(serializers.ModelSerializer):
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
-        fields = ["user",'title', 'content', 'deadline', 'participants_limit', 'start_event', 'end_event', 'event_imgage', 'category', 'tags', 'location_tags']
+        fields = ['title', 'content', 'deadline', 'participants_limit', 'start_event', 'end_event', 'event_imgage', 'category', 'location_tags']
 
 class EventCreateSerializer(serializers.ModelSerializer):
     event_user = EventSerializer(many=True, )
