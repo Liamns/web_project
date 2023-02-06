@@ -4,7 +4,7 @@ from event.serializers import EventSerializer
 from message.serializers import GenericFileUploadSerializer
 
 class UserSerializer(serializers.ModelSerializer):
-    events = EventSerializer(many=True, read_only=True)
+    events = EventSerializer(many=True)
 
     class Meta:
         model = User

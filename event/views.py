@@ -118,6 +118,8 @@ class ParticipatedEventView(APIView):
         user = User.objects.get(id=pk)
         print(user.email)
         serializer = UserSerializer(instance=user)
-        print(serializer.data['events'])
+        events = serializer.data.get('events')
+        for i in events:
+            print(i)
         
-        return Response({"events":serializer.data['events']})
+        return Response({"events":events})
