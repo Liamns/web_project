@@ -19,7 +19,7 @@
 
   <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
     <!-- Navigation-->
-    {% include 'nav.html' %}
+    {% include 'event/nav.html' %}
     <!-- Header-->
     <!-- Section-->
     <link href="{% static 'css/styles.css' %}" rel="stylesheet"/>
@@ -57,14 +57,19 @@
       </ul>
       <!-- evnet 리스트 나오는 곳-->
       <div class="container px-4 px-lg-5 mt-5">
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center events-list infinite-container">
           {% for event in events %}
-            <div class="col mb-5">
+            <div class="col mb-5 infinite-item">
               <div class="card h-100">
-                <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">모집중</div>
+                {% if event.deadline_compare %}
+                  <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">모집중</div>
+                {% else %}
+                  <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">마감</div>
+                {% endif %}
+
                 <!-- 모임 이미지 -->
                 {% if event.event_imgage %}
-                  <img class="card-img-top" src="{{event.event_imgage.url}}" alt="..."/>
+                  <img class="card-img-top" src="{{event.event_imgage.url}}" alt="..." style="height: 200px"/>
                 {% else %}
                   <img class="card-img-top" src="" alt="..."/>
                 {% endif %}
@@ -89,6 +94,17 @@
           {% endfor %}
         </div>
       </div>
+      <br><br>
+      <br><br>
+      {% if events.has_next %}
+        <div class="justify-content-center d-flex">
+          <div class="spinner-border text-danger loading" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+        <a href="?page={{events.next_page_number}}" class="infinite-more-link"></a>
+        <p id="sentinel" style="display: none">{{page}}</p>
+      {% endif %}
     </section>
     <!-- Footer-->
     <footer class="py-5 bg-dark">
@@ -102,6 +118,9 @@
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule="nomodule" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <!-- Core theme JS-->
+    <script defer="defer" src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'js/infinite.min.js' %}"></script>
     <script src="{% static 'js/scripts.js' %}"></script>
 
   </body>
