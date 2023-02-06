@@ -41,3 +41,18 @@ function sample5_execDaumPostcode() {
     },
   }).open();
 }
+
+const form_data = document.querySelector("form")
+
+
+document.querySelector(".submit-btn-class").addEventListener("click", (e) => {
+  // fetch("/events/forms/", {
+  //   method: "POST",
+  //   body: JSON.stringify(new FormData("event-form"))
+  // }).then((response) => response.json()).then((data) => console.log(data))
+
+  // console.log(new FormData("event-form"))
+
+  console.log("왜 안돼?")
+
+})

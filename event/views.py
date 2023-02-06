@@ -11,6 +11,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from user.models import User
 from user.serializers import UserSerializer
+from .serializers import EventSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import APIView, permission_classes
 from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
@@ -33,6 +34,15 @@ class EventPagination(CursorPagination):
 class PostEventFormView(TemplateView):
     def get(self,req):
         return render(req, "event/events_form.html")
+    def post(self, req):
+        post_event = EventSerializer(req.data)
+    # 장고와 달리 DRF에서는 request에서 데이터를 받을 때(request.data)
+    # 반드시 .is_valid() 여부를 체크해야 한다.
+    # valid하지 않을 때는 serializer.errors를 리턴한다.
+        if post_event.is_valid():
+            post_event.save()
+            return Response(post_event.data, status = status.HTTP_201_CREATED)
+        return Response(post_event.errors, status = status.HTTP_400_BAD_REQUEST)
 
 class PostEventDetailView(TemplateView):
     def get(self, req):

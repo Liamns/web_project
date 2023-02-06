@@ -24,7 +24,7 @@ const address_total = {
     "서초구",
     "강남구",
     "송파구",
-    "강동구"
+    "강동구",
   ],
   경기: [
     "수원시",
@@ -57,7 +57,7 @@ const address_total = {
     "여주시",
     "연천군",
     "가평군",
-    "양평군"
+    "양평군",
   ],
   인천: [
     "중구",
@@ -69,7 +69,7 @@ const address_total = {
     "계양구",
     "서구",
     "강화군",
-    "옹진군"
+    "옹진군",
   ],
   강원: [
     "춘천시",
@@ -89,7 +89,7 @@ const address_total = {
     "양구군",
     "인제군",
     "고성군",
-    "양양군"
+    "양양군",
   ],
   충북: [
     "청주시",
@@ -102,7 +102,7 @@ const address_total = {
     "진천군",
     "괴산군",
     "음성군",
-    "단양군"
+    "단양군",
   ],
   충남: [
     "천안시",
@@ -119,11 +119,9 @@ const address_total = {
     "청양군",
     "홍성군",
     "예산군",
-    "태안군"
+    "태안군",
   ],
-  대전: [
-    "동구", "중구", "서구", "유성구", "대덕구"
-  ],
+  대전: ["동구", "중구", "서구", "유성구", "대덕구"],
   세종: [
     "조치원읍",
     "연기면",
@@ -146,7 +144,7 @@ const address_total = {
     "소담동",
     "다정동",
     "해밀동",
-    "반곡동"
+    "반곡동",
   ],
   전북: [
     "전주시",
@@ -162,7 +160,7 @@ const address_total = {
     "임실군",
     "순창군",
     "고창군",
-    "부안군"
+    "부안군",
   ],
   전남: [
     "목포시",
@@ -186,11 +184,9 @@ const address_total = {
     "장성군",
     "완도군",
     "진도군",
-    "신안군"
+    "신안군",
   ],
-  광주: [
-    "동구", "서구", "남구", "북구", "광산구"
-  ],
+  광주: ["동구", "서구", "남구", "북구", "광산구"],
   경북: [
     "포항시",
     "경주시",
@@ -214,21 +210,10 @@ const address_total = {
     "예천군",
     "봉화군",
     "울진군",
-    "울릉군"
+    "울릉군",
   ],
-  대구: [
-    "중구",
-    "동구",
-    "서구",
-    "남구",
-    "북구",
-    "수성구",
-    "달서구",
-    "달성군"
-  ],
-  울산: [
-    "중구", "남구", "동구", "북구", "울주군"
-  ],
+  대구: ["중구", "동구", "서구", "남구", "북구", "수성구", "달서구", "달성군"],
+  울산: ["중구", "남구", "동구", "북구", "울주군"],
   경남: [
     "창원시",
     "진해구",
@@ -248,7 +233,7 @@ const address_total = {
     "산청군",
     "함양군",
     "거창군",
-    "합천군"
+    "합천군",
   ],
   부산: [
     "중구",
@@ -265,32 +250,84 @@ const address_total = {
     "금정구",
     "연제구",
     "수영구",
-    "사상구"
+    "사상구",
   ],
-  제주: ["제주시", "서귀포시"]
+  제주: ["제주시", "서귀포시"],
 };
 const firstSelect = document.getElementById("address");
 const secondSelect = document.getElementById("address_detail");
+const thirdSelect = document.getElementById("gathering");
+const btns = document.getElementById("btns");
+const addressSearchForm = document.getElementById("addressSearchForm");
+const gatheringSearchForm = document.getElementById("gatheringSearchForm");
 
-firstSelect.addEventListener("change", function () {
+firstSelect.addEventListener("change", function (e) {
+  e.preventDefault();
   const selectedValue = firstSelect.value;
-  let options = '<option class="dropdown-item address2">세부지역</option>' + '<option class="dropdown-item address2">전체</option>';
+  let options =
+    '<option class="dropdown-item address2">세부지역</option>' + '<option class="dropdown-item address2" value="">전체</option>';
 
   if (selectedValue in address_total) {
     address_total[selectedValue].forEach(function (option) {
-      options += "<option  class='dropdown-item' value='" + option + "'>" + option + "</option>";
+      options +=
+        "<option  class='dropdown-item' value='" +
+        option +
+        "'>" +
+        option +
+        "</option>";
     });
-  }
+  };
 
   secondSelect.innerHTML = options;
+
+  let addressForm = document.querySelector("#addressForm")
+
+  addressForm.value = e.target.value;
+
+  secondSelect.addEventListener("change", function (e) {
+
+    e.preventDefault();
+    addressForm.value += " "
+    addressForm.value += e.target.value;
+
+    addressSearchForm.submit();
+
+
+  });
+
 });
 
-const searchForm = document.querySelector("#searchForm");
+let gatheringForm = document.querySelector("#gatheringForm")
 
-document.querySelector(".address1").addEventListener("change", () => {
-  let address1 = document.querySelector(".address1").value;
+thirdSelect.addEventListener("change", function (e) {
 
-  document.querySelector(".address").value = address1;
+  e.preventDefault();
+  gatheringForm.value = e.target.value;
 
-  searchForm.submit();
-});
+  gatheringSearchForm.submit()
+
+})
+
+btns.scrollIntoView();
+
+// document
+//   .querySelector("#address")
+//   .addEventListener("click", (e) => {
+//     e.preventDefault();
+//     document
+//       .querySelector("#addressForm")
+//       .value = e.target.value;
+
+//     searchForm.submit()
+//   })
+
+// document
+//   .querySelector("#address_detail")
+//   .addEventListener("click", (e) => {
+//     e.preventDefault();
+//     document
+//       .querySelector("#addressForm")
+//       .value += e.target.value;
+
+//     searchForm.submit()
+//   })
