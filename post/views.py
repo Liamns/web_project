@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect, get_object_or_404, resolve_url
 from django.views.generic.base import TemplateView
 from event.models import Event
-from .models import Post,Comment
+from .models import Post,Comment, PostCount
 from .forms import PostForm,CommentForm
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
@@ -24,6 +24,7 @@ import jwt
 
 from django.db.models import Q, Count
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from tools.utils import get_client_ip
 
 @permission_classes([AllowAny])
 @method_decorator(ensure_csrf_cookie, name="dispatch")
@@ -151,20 +152,24 @@ class PostCreateView(APIView):
 class PostDetailView(TemplateView):
 
     def get(self, req, pk):
-        post = get_object_or_404(Post, pk=pk)
-        return render(req, 'post/post_detail.html', {"post" : post})
+        posts = get_object_or_404(Post, pk=pk)
 
+        # ip 받아오기
+        ip = get_client_ip(req)
+        # 현재 질문에 대한 조회수 찾기
+        cnt = PostCount.objects.filter(ip=ip, post=posts).count()
 
-@login_required(login_url="login")
-def detail(request, post_id):
-    """
-    post_id 에 맞는 질문 상세 추출
-    """
+        if cnt == 0:
+            qc = PostCount(ip=ip, post=posts)
+            qc.save()
 
-    post = get_object_or_404(post, id=post_id)
+            if posts.view_cnt:
+                posts.view_cnt += 1
+            else:
+                posts.view_cnt = 1
+            posts.save()
 
-    return render(request, "post/post_detail.html",{"post":post})
-
+        return render(req, 'post/post_detail.html', {"post" : posts})
 
 @login_required(login_url="login")
 def comment_create(request,post_id):

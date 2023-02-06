@@ -9,34 +9,23 @@
 {% endblock navbar %}
 {% block contents %}
   <div class="container my-3">
-    {% if messages %}
-      <div class="alert alert-danger my-3">
-        {% for msg in messages %}
-          <strong>{{msg.tags}}</strong>
-          <ul>
-            <li>{{msg.message}}</li>
-          </ul>
-        {% endfor %}
-      </div>
-    {% endif %}
     <h2 class="border-bottom py-2">
       <!-- 제목 -->
-      제목
+      {{posts.title}}
     </h2>
     <div class="row my-3">
       <div class="col-1">
         <div class="bg-light text-center p-3 border font-weight-bolder mb-1">
-          <!-- 추천 수 -->
-          int
+          <!-- 조회 수 -->
+          {{posts.view_cnt}}
         </div>
-        <a href="#" data-url="#" class="recommend btn btn-sm btn-secondary d-grid my-1">추천</a>
       </div>
       <div class="col-11">
         <div class="card">
           <div class="card-body">
             <div class="card-text" style="white:pre-line;">
               <!-- 내용 -->
-              내용
+              {{posts.content}}
             </div>
             <div class="card-text text-center" style="white-space: pre-line">
               <div class="d-flex justify-content-center">
@@ -47,29 +36,29 @@
             <div class="d-flex justify-content-end">
               <div class="badge bg-secondary p-2">
                 <!--글쓴이-->
-                글쓴이
+                {{posts.user.nickname}}
                 <div class="mb-2 text-start"></div>
                 <!-- 질문 작성 날짜 -->
-                작성 날짜
+                {{posts.created_at}}
               </div>
             </div>
-            <!-- {% if question.modified_dttm %} -->
-            <div class="d-flex justify-content-end pt-2">
-              <div class="badge bg-secondary p-2">
-                <!--수정-->
-                <div class="mb-2 text-start">modified at</div>
-                <!-- 수정 날짜 -->
-                수정 날짜
+            {% if posts.modified_at %}
+              <div class="d-flex justify-content-end pt-2">
+                <div class="badge bg-secondary p-2">
+                  <!--수정-->
+                  <div class="mb-2 text-start">modified at</div>
+                  <!-- 수정 날짜 -->
+                  {{posts.modified_at}}
+                </div>
               </div>
-            </div>
-            <!-- {% endif %} -->
+            {% endif %}
             <!-- 로그인 사용자와 글쓴이가 같다면 -->
-            <!-- {% if question.author == request.user %} -->
-            <div class="my-3">
-              <a href="#" class="btn btn-sm btn-outline-secondary">수정</a>
-              <a href="#" class="btn btn-sm btn-outline-danger" data-url="#">삭제</a>
-            </div>
-            <!-- {% endif %} -->
+            {% if posts.user == request.user %}
+              <div class="my-3">
+                <a href="#" class="btn btn-sm btn-outline-secondary">수정</a>
+                <a href="#" class="btn btn-sm btn-outline-danger" data-url="#">삭제</a>
+              </div>
+            {% endif %}
           </div>
           <!--질문 card body 종료-->
         </div>
