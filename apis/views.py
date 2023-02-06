@@ -72,6 +72,7 @@ class LoginApi(APIView):
 
         return response
 
+@permission_classes([AllowAny])
 @method_decorator(csrf_protect, name='dispatch')
 class RefreshJWTtoken(APIView):
     def post(self, request, *args, **kwargs):

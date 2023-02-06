@@ -15,107 +15,109 @@
     <!-- Bootstrap icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet"/>
     <!-- Core theme CSS (includes Bootstrap)-->
-
   </head>
 
-  <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home" style="width:1520px">
+  <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home" style="width: 1520px">
     <!-- Navigation-->
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet"/>
+    <link rel="stylesheet" href="{% static 'css/event_list.css' %}">
+    <link rel="stylesheet" href="{% static 'css/post.css' %}">
     {% include 'nav.html' %}
     <!-- Header-->
     <!-- Section-->
-    <link href="{% static 'css/styles.css' %}" rel="stylesheet"/>
-    <link rel="stylesheet" href="{% static 'css/event_list.css' %}">
     <!-- Example single danger button -->
-    <div class="met_category mt-5 category" style="display: inline-block; margin-left: 30rem;">
-      <button type="button" class="btn btn-danger dropdown-toggle mr-3 " data-bs-toggle="dropdown" aria-expanded="false">
-        지역
-      </button>
-      <select class="dropdown-menu">
-        <option class="dropdown-item seoul">전체</option>
-        <option class="dropdown-item seoul">서울</option>
-        <option class="dropdown-item gyunggi">경기</option>
-        <option class="dropdown-item incheon">인천</option>
-        <option class="dropdown-item gangwon">강원</option>
-        <option class="dropdown-item chungbuk">충북</option>
-        <option class="dropdown-item chungnam">충남</option>
-        <option class="dropdown-item daejeon">대전</option>
-        <option class="dropdown-item seajong">세종특별자치시</option>
-        <option class="dropdown-item jeonbuk">전북</option>
-        <option class="dropdown-item jeonnam">전남</option>
-        <option class="dropdown-item gwangju">광주</option>
-        <option class="dropdown-item gyeongbuk">경북</option>
-        <option class="dropdown-item daegu">대구</option>
-        <option class="dropdown-item ulsan">울산</option>
-        <option class="dropdown-item gyeongnam">경남</option>
-        <option class="dropdown-item busan">부산</option>
-        <option class="dropdown-item jeaju">제주</option>
+    <div id="btns" class="met_category mt-5 category" style="display: inline-block; margin-left: 30rem;">
+      <select id="address" class="btn dropdown-toggle mr-3" name="address" aria-expanded="false">
+        <option class="dropdown-item">지역</option>
+        <option class="dropdown-item address1" value="서울" {% if address == "서울" %} selected="selected" {% endif %}>서울</option>
+        <option class="dropdown-item address1" value="경기" {% if address == "경기" %} selected="selected" {% endif %}>경기</option>
+        <option class="dropdown-item address1" value="인천">인천</option>
+        <option class="dropdown-item address1" value="강원">강원</option>
+        <option class="dropdown-item address1" value="충북">충북</option>
+        <option class="dropdown-item address1" value="충남">충남</option>
+        <option class="dropdown-item address1" value="대전">대전</option>
+        <option class="dropdown-item address1" value="세종">세종</option>
+        <option class="dropdown-item address1" value="전북">전북</option>
+        <option class="dropdown-item address1" value="전남">전남</option>
+        <option class="dropdown-item address1" value="광주">광주</option>
+        <option class="dropdown-item address1" value="경북">경북</option>
+        <option class="dropdown-item address1" value="대구">대구</option>
+        <option class="dropdown-item address1" value="울산">울산</option>
+        <option class="dropdown-item address1" value="경남">경남</option>
+        <option class="dropdown-item address1" value="부산">부산</option>
+        <option class="dropdown-item address1" value="제주">제주</option>
       </select>
-      <button type="button" class="btn btn-danger dropdown-toggle mr-3" data-bs-toggle="dropdown" aria-expanded="false">
-        세부지역
-      </button>
-      <select class="dropdown-menu">
-        <option class="dropdown-item seoul">전체</option>
+      <select id="address_detail" class="btn dropdown-toggle mr-3" name="address_detail">
+        <option class="dropdown-item address2">세부지역</option>
       </select>
-      <button type="button" class="btn btn-danger dropdown-toggle mr-3" data-bs-toggle="dropdown" aria-expanded="false">
-        어떤모임
-      </button>
-      <select class="dropdown-menu">
-        <option class="dropdown-item seoul">전체</option>
-        <option class="dropdown-item seoul">운동</option>
-        <option class="dropdown-item gyunggi">여행</option>
-        <option class="dropdown-item incheon">문화관람</option>
-        <option class="dropdown-item gangwon">게임</option>
-        <option class="dropdown-item chungbuk">음악</option>
-        <option class="dropdown-item chungnam">사교/인맥</option>
-        <option class="dropdown-item daejeon">봉사</option>
-        <option class="dropdown-item seajong">자유주제</option>
+      <select id="gathering" class="btn dropdown-toggle mr-3" name="gathering">
+        <option class="dropdown-item category">어떤모임</option>
+        <option class="dropdown-item category" value="">전체</option>
+        <option class="dropdown-item category" value="운동">운동</option>
+        <option class="dropdown-item category" value="여행">여행</option>
+        <option class="dropdown-item category" value="문화관람">문화관람</option>
+        <option class="dropdown-item category" value="게임">게임</option>
+        <option class="dropdown-item category" value="음악">음악</option>
+        <option class="dropdown-item category" value="사교/인맥">사교/인맥</option>
+        <option class="dropdown-item category" value="봉사">봉사</option>
+        <option class="dropdown-item category" value="자유주제">자유주제</option>
       </select>
-      <button type="button" name="so" id="so" class="btn btn-danger dropdown-toggle mr-3" data-bs-toggle="dropdown" aria-expanded="false">
-        정렬
-      </button>
-      <select class="dropdown-menu">
-        <option class="dropdown-item seoul">최신순</option>
-        <option class="dropdown-item gyunggi">조회순</option>
+      <select id="so" class="btn dropdown-toggle mr-3" name="so">
+        <option class="dropdown-item" value="latest">최신순</option>
+        <option class="dropdown-item" value="inquiry">조회순</option>
       </select>
-      <div class="met_category input-group col-4 entsearchForm" style="float: right;">
-        <input type="text" name="keyword" id="keyword" class="form-control" value="{{keyword|default_if_none:''}}">
-        <div class="input-group-append" style="float:right;">
-          <button type="button" class="btn btn-outline-secondary">찾기</button>
+      <div class="met_category input-group col-4 entsearchForm" style="float: right">
+        <input type="text" name="keyword" id="keyword" class="form-control" value="{{keyword|default_if_none:''}}"/>
+        <div class="input-group-append" style="float: right">
+          <button type="button" class="btn btn-outline-secondary search">
+            찾기
+          </button>
         </div>
       </div>
     </div>
+    <!-- 게시물 시작 -->
     <section>
       <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-          <div class="col mb-5">
-            <div class="card h-100">
-              <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">모집중</div>
-              <!-- 모임 이미지 -->
-              <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."/>
-              <!-- 모임 내용 디테일-->
-              <div class="card-body p-4">
-                <div class="text-center">
-                  <!-- 모임 제목 -->
-                  <h5 class="fw-bolder">모임 제목</h5>
-                  <!-- Product price-->
-                  카테고리
+          {% for post in all_posts %}
+            <div class="col mb-5">
+              <div class="card h-100">
+                <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">{{post.location_tags}}</div>
+                <!-- 게시물 이미지 -->
+                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."/>
+                <!-- 게시물 내용 디테일-->
+                <div class="card-body p-4">
+                  <div class="text-center">
+                    <!-- 게시물 제목 -->
+                    <h5 class="fw-bolder">{{post.title}}</h5>
+                    <!-- Product price-->
+                    {{post.category}}
+                  </div>
                 </div>
-              </div>
-              <!-- Product actions-->
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center">
-                  <a class="btn btn-outline-dark mt-auto" href="#">자세히 보기</a>
+                <!-- Product actions-->
+                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                  <div class="text-center">
+                    <a class="btn btn-outline-dark mt-auto" href="#">자세히 보기</a>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          {% endfor %}
         </div>
       </div>
     </section>
+    <form action="{% url 'post_main' %}" id="addressSearchForm">
+      <input type="hidden" name="address" id="addressForm" value="{{address|default_if_none:''}}">
+    </form>
+    <form action="{% url 'post_main' %}" id="gatheringSearchForm">
+      <input type="hidden" name="gathering" id="gatheringForm" value="{{gathering|default_if_none:''}}">
+    </form>
     <!-- Footer-->
     <footer class="py-5 bg-dark">
       <div class="container">
-        <p class="m-0 text-center text-white">SoonYang.co &copy; LoveSolo 2023</p>
+        <p class="m-0 text-center text-white">
+          SoonYang.co &copy; LoveSolo 2023
+        </p>
       </div>
     </footer>
     <!-- Bootstrap core JS-->
@@ -124,8 +126,9 @@
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule="nomodule" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <!-- Core theme JS-->
-    <script src="{% static 'js/scripts.js' %}"></script>
 
+    <script src="{% static 'js/post_main.js' %}"></script>
+    <script src="{% static 'js/scripts.js' %}"></script>
   </body>
 
 </html>

@@ -184,16 +184,18 @@ MEDIA_URL = '/media/'
 # simple jwt 공식문서
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.AllowAny',
         'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        'apis.authenticate.SafeJWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         # postman test용
         # 'rest_framework.authentication.BasicAuthentication',
         # postman test용
-        'apis.authenticate.SafeJWTAuthentication',
     ),
+
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 8,
 }
 
 
@@ -232,8 +234,8 @@ REFRESH_TOKEN_SECRET = get_secret("REFRESH_TOKEN_SECRET")
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
          "APP": {
-            "client_id": os.environ.get("SOCIAL_AUTH_GOOGLE_CLIENT_ID"),
-            "secret": os.environ.get("SOCIAL_AUTH_GOOGLE_SECRET"),
+            "client_id": get_secret("SOCIAL_AUTH_GOOGLE_CLIENT_ID"),
+            "secret": get_secret("SOCIAL_AUTH_GOOGLE_SECRET"),
         },
         'SCOPE': [
             'profile',
