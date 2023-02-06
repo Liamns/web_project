@@ -1,9 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from user.models import User
 from user.serializers import UserSerializer
 from rest_framework import generics
 from rest_framework.response import Response
 import jwt,datetime
+from rest_framework.renderers import TemplateHTMLRenderer
 
 from rest_framework import status
 from config import settings
@@ -11,6 +12,9 @@ from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 from django.utils.decorators import method_decorator
 from rest_framework.decorators import APIView, permission_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
+from django.contrib import messages
+from django.urls import reverse_lazy
 
 #수정사항
 from rest_framework.permissions import AllowAny
@@ -64,10 +68,11 @@ class LoginApi(APIView):
         response = Response(data={"message": "Success!!"},status=status.HTTP_200_OK, headers={"Authorization": access_token})
 
         response.set_cookie(key="refreshtoken", value=refresh_token, httponly=True)
-        response.set_cookie(key="access_token", value=access_token, httponly=True)
+        response.set_cookie(key="access_token", value=access_token)
 
         return response
 
+@permission_classes([AllowAny])
 @method_decorator(csrf_protect, name='dispatch')
 class RefreshJWTtoken(APIView):
     def post(self, request, *args, **kwargs):
@@ -101,7 +106,7 @@ class RefreshJWTtoken(APIView):
         access_token = generate_access_token(user)
         response = Response(data={"message": "Success!!"},status=status.HTTP_200_OK, headers={"Authorization": access_token})
 
-        response.set_cookie(key="access_token", value=access_token, httponly=True)
+        response.set_cookie(key="access_token", value=access_token)
         
         return response
         
@@ -117,6 +122,7 @@ class LogoutApi(APIView):
             }, status=status.HTTP_202_ACCEPTED)
         response.delete_cookie('refreshtoken')
         response.delete_cookie('access_token')
+        response.delete_cookie('sessionid')
         return response
 
 def generate_access_token(user):
@@ -163,11 +169,50 @@ def jwt_login(response, user):
     response.set_cookie(key="refreshtoken", value=refresh_token, httponly=True)
     return response
 
+
+
+# 비밀번호 reset 담당 클래스 뷰
+class UserPasswordResetView(PasswordResetView):
+    # 이메일을 입력할 수 있는 화면
+    template_name = "user/password_reset_form.html"
+    # 이메일이 존재하는 경우 그 다음 작업을 진행할 경로 지정
+    success_url = reverse_lazy("password_reset_done")
+    # 이메일로 전송될 페이지 지정
+    email_template_name = "user/password_reset_email.txt"
+
+    def form_valid(self, form):
+        # 사용자가 입력한 이메일이 실제 존재하는지 확인 후 없으면 에러 메세지 전송
+        # 존재한다면 유효성 검증
+        if User.objects.filter(email=self.request.POST.get("email")).exists():
+            return super().form_valid(form)
+        else:
+            messages.info(self.request, "이메일을 확인해주세요")
+            return redirect("password_reset")
+
+
+class UserPasswordResetDoneView(PasswordResetDoneView):
+    template_name = "user/password_reset_done.html"
+
+
+class UserPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = "user/password_reset_confirm.html"
+
+
+class UserPasswordResetCompleteView(PasswordResetCompleteView):
+    template_name = "user/password_reset_complete.html"
+
+### 프로필
+class ProfileView(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'profile.html'
+
+    def get(self, req, pk):
+        user = get_object_or_404(User, pk=pk)
+        serializer = UserSerializer(user)
+
+        return Response({"user":user, "serializer":serializer})
+
 # profile update
-class profileUpdateView(generics.UpdateAPIView):
+class ProfileUpdateView(generics.UpdateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-
-
-
-

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, AbstractUser, BaseUserManager, PermissionsMixin
+from allauth.account.models import EmailAddress
 
 from django.dispatch import receiver
 from django.db.models.signals import post_save
@@ -66,6 +67,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     birth = models.CharField(verbose_name="생년월일", max_length=20)
     address = models.CharField(verbose_name="거주지역", max_length=128)
     is_staff = models.BooleanField(verbose_name="관리자여부", default=False)
+    
+    is_active = models.BooleanField(verbose_name="활성화여부", default=True)
 
     # CustomUser 를 기반으로 user 생성을 도와줄 매니저 클래스 등록
     objects = UserManager()  # User.objects.create_user() 생성
@@ -75,6 +78,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     # email, password 요소 외에 사용자 생성 시 꼭 받아야하는 필드 작성
     REQUIRED_FIELDS = ["name", "nickname", "birth", "address"]
+
+    # def is_active(self):
+    #     return self.email_address.verified
 
     def __str__(self) -> str:
         return "<%s>" % (self.email)

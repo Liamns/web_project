@@ -1,15 +1,12 @@
 from django.urls import path
-from . import views
+from .views import *
 from django.urls import reverse_lazy
 
 urlpatterns = [   
-    # http://127.0.0.1:8000/post
-    path("", views.PostView.as_view(), name="post"),
-    path("create/", views.post_create, name="post_create"),
-    path("<int:pk>/", views.detail, name="detail"),
+    # http://127.0.0.1:8000/post/
+    path("", PostView.as_view(), name="post_main"),
+    path("create/", PostCreateView.as_view(), name="post_create"),
+    path("detail/", PostDetailView.as_view(), name="post_detail"),
+    path("<int:pk>/", detail, name="detail"),
 
-    # 이벤트 리스트 
-    path("events/", views.PostEventView.as_view(), name="event_list"),
-
-    # 이벤트 작성 폼
 ]

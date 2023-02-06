@@ -8,11 +8,19 @@ from django.db.models import UniqueConstraint
 
 class Post(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="작성자")
-    view_cnt = models.SmallIntegerField()
+    post_img = models.ImageField(upload_to=image_upload_to, null=True, blank=True)
+    view_cnt = models.SmallIntegerField(default=0)
 
 
     class Meta:
         ordering = ['-created_at']
+
+class PostCount(models.Model):
+    ip = models.CharField(max_length=30)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+
+    def __unicode__(self):
+        return self.ip
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -21,14 +29,4 @@ class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="등록일자")
     modified_at = models.DateTimeField(auto_now=True, verbose_name="수정일자")
     parent_comment_id = models.ForeignKey('self', on_delete=models.CASCADE, null=True)
-
-class PostImage(models.Model):
-    UPLOAD_PATH = "post-upload"
-
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name="작성글")
-    post_img = models.ImageField(upload_to=image_upload_to)
-    order = models.SmallIntegerField()
-
-    class Meta:
-        ordering = ['order']
 
