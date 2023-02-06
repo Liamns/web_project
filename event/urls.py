@@ -13,6 +13,6 @@ urlpatterns = [
     path("forms/", PostEventFormView.as_view(), name="event_form"),
 
     # 이벤트 디데일 뷰
-    path("detail/", PostEventDetailView.as_view(), name="event_detail")
+    path("<int:pk>/detail/", PostEventDetailView.as_view(), name="event_detail")
 
 ]

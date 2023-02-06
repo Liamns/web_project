@@ -66,7 +66,7 @@ INSTALLED_APPS = [
     "apis",
     'dm',
     'corsheaders', # <- 추가
-    'chat',
+
     'chat2',
     'message',
     'crispy_forms',

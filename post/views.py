@@ -97,11 +97,14 @@ class PostView(TemplateView):
 
         # 전체 리스트에서 검색어가 들어간 리스트만 추출(질문 제목, 질문 내용)
         # Q : OR 조건으로 데이터 조회, distinct() : 중복 제거
-        if address:
+        if address == "전체":
+            all_posts = Post.objects.order_by('-created_at')
+        
+        else:
             all_posts = all_posts.filter(Q(location_tags__icontains=address))
             
         if gathering:
-            all_posts = all_posts.filter(Q(category__icontains=address))
+            all_posts = all_posts.filter(Q(category__icontains=gathering))
 
         if keyword:
             all_posts = all_posts.filter(Q(title__icontains=keyword)|Q(content__icontains=keyword)).distinct()
