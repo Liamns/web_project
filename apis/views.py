@@ -75,7 +75,7 @@ class LoginApi(APIView):
 @permission_classes([AllowAny])
 @method_decorator(csrf_protect, name='dispatch')
 class RefreshJWTtoken(APIView):
-    def post(self, request, *args, **kwargs):
+    def post(self ,request, *args, **kwargs):
         refresh_token = request.COOKIES.get('refreshtoken')
         
         if refresh_token is None:

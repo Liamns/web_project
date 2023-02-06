@@ -12,7 +12,7 @@ from rest_framework.views import APIView
 from user.models import User
 from event.models import Event, Participants
 from user.serializers import UserSerializer
-from event.serializers import EventSerializer
+from event.serializers import EventSerializer, EventPartySerializer
 from .serializers import EventSerializer
 
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -62,7 +62,9 @@ class PostEventFormView(APIView):
 class PostEventDetailView(TemplateView):
     def get(self, req, pk):
         event = get_object_or_404(Event, pk=pk)
-        return render(req, 'event/event_detail.html', {"event" : event})
+        user = User.objects.get(id=JWTDecoding.Jwt_decoding(request=req))
+
+        return render(req, 'event/event_detail.html', {"event" : event, "user" : user, "pk" : event.id})
 
 @permission_classes([AllowAny])       
 class PostEventView(TemplateView):
@@ -149,8 +151,11 @@ class PostEventView(TemplateView):
 
 
 class ParticipatedEventView(APIView):
-    def post(self, req, pk):
-        user = get_object_or_404(User, pk=pk)
-        events = Event.objects.filter(user=user)
+    def post(self, req):
+        party_event = EventPartySerializer(data = req.data)
 
-        return Response({"events":events})
+        if party_event.is_valid():
+            party_event.save()
+            return HttpResponse(party_event.data, status = status.HTTP_201_CREATED)
+        return HttpResponse(party_event.errors, status = status.HTTP_400_BAD_REQUEST)
+

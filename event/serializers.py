@@ -1,5 +1,5 @@
 from rest_framework import  serializers
-from .models import Event
+from .models import Event, Participants
 from user.serializers import UserSerializer
 from user.models import User
 
@@ -29,3 +29,8 @@ class EventCreateSerializer(serializers.ModelSerializer):
 
         event= Event.objects.create(user_id=user, **event)
         return event
+
+class EventPartySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Participants
+        fields = "__all__"
