@@ -1,7 +1,7 @@
 from django.views.generic import TemplateView
 from django.urls import path, include, re_path
 from apis.views import LoginApi, LogoutApi, UserSignupView, ProfileUpdateView, UserPasswordResetConfirmView, UserPasswordResetCompleteView, UserPasswordResetDoneView, UserPasswordResetView,ProfileView
-from dj_rest_auth.views import PasswordResetConfirmView
+from event.views import ParticipatedEventView
 from rest_framework import routers
 from rest_framework.routers import DefaultRouter
 from allauth.account import views as allauth_views
@@ -50,5 +50,6 @@ urlpatterns = [
     ### 프로필
     path("profile/<int:pk>/", ProfileView.as_view(), name='profile_view'),
     path("update/<int:pk>/", ProfileUpdateView.as_view(), name='profile_update'),
+    path("profile/<int:pk>/events/", ParticipatedEventView.as_view(), name='participated_event'),
 ]
 

@@ -10,7 +10,9 @@ from django.http import HttpRequest, HttpResponse, Http404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from user.models import User
+from event.models import Event, Participants
 from user.serializers import UserSerializer
+from event.serializers import EventSerializer
 from .serializers import EventSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import APIView, permission_classes
@@ -97,8 +99,9 @@ class PostEventView(TemplateView):
         # return HttpResponse(json.dumps(data), content_type="application/json")
 
 
+class ParticipatedEventView(APIView):
+    def post(self, req, pk):
+        user = get_object_or_404(User, pk=pk)
+        events = Event.objects.filter(user=user)
 
-        
-
-
-       
+        return Response({"events":events})
