@@ -53,7 +53,7 @@
                   </div>
                 </div>
                 <div class="justify-content-start d-flex">
-                  {% if event.d_day_calculator >= 0 %}
+                  {% if event.d_day_calculator >= 0 and user.id != event.user.id %}
                     <button type="button" class="btn btn-outline-success mb-4 mt-4">이벤트 참여하기</button>
                   {% endif %}
                   {% if user.id == event.user.id %}

@@ -28,6 +28,7 @@ from apis.jwtdecoding import JWTDecoding
 from rest_framework.pagination import PageNumberPagination, LimitOffsetPagination, CursorPagination
 from datetime import datetime
 from django.utils.dateformat import DateFormat
+from django.db.models import Q, Count
 
 class EventPagination(CursorPagination):
     page_size = 8
@@ -77,6 +78,40 @@ class PostEventView(TemplateView):
 
         now = DateFormat(datetime.now())
 
+        user = User.objects.get(id=JWTDecoding.Jwt_decoding(request=req))
+
+                # 검색어 받기
+        keyword = req.GET.get('keyword','')
+
+        # 정렬 기준 받기
+        so = req.GET.get('so','latest') # sort 기준 : latest(기본)
+
+        # 주소 가져오기
+        address = req.GET.get('address', '')
+
+        # 어떤 모임 가져오기
+        gathering = req.GET.get('gathering', '')
+
+        # 전체 게시물 추출
+        if so == "latest":
+            all_posts = Event.objects.order_by('-created_at')
+        elif so == "inquiry":
+            all_posts = Event.objects.annotate(num_answer=Count('view_cnt')).order_by('view_cnt','-created_at')
+
+        # 전체 리스트에서 검색어가 들어간 리스트만 추출(질문 제목, 질문 내용)
+        # Q : OR 조건으로 데이터 조회, distinct() : 중복 제거
+        if address == "전체":
+            all_posts = Event.objects.order_by('-created_at')
+        
+        else:
+            all_posts = all_posts.filter(Q(location_tags__icontains=address))
+            
+        if gathering:
+            all_posts = all_posts.filter(Q(category__icontains=gathering))
+
+        if keyword:
+            all_posts = all_posts.filter(Q(title__icontains=keyword)|Q(content__icontains=keyword)).distinct()
+
 
         try:
             events = paginator.page(page)
@@ -87,7 +122,7 @@ class PostEventView(TemplateView):
             
             
 
-        return render(req, "event/event_list.html",{"events" : events})
+        return render(req, "event/event_list.html",{"events" : events, "address":address, "gathering":gathering, "keyword":keyword, "so":so, "all_posts":all_posts, "user" : user})
         
 
 
