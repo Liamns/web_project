@@ -68,7 +68,7 @@ class LoginApi(APIView):
         response = Response(data={"message": "Success!!"},status=status.HTTP_200_OK, headers={"Authorization": access_token})
 
         response.set_cookie(key="refreshtoken", value=refresh_token, httponly=True)
-        response.set_cookie(key="access_token", value=access_token, httponly=True)
+        response.set_cookie(key="access_token", value=access_token)
 
         return response
 
@@ -106,7 +106,7 @@ class RefreshJWTtoken(APIView):
         access_token = generate_access_token(user)
         response = Response(data={"message": "Success!!"},status=status.HTTP_200_OK, headers={"Authorization": access_token})
 
-        response.set_cookie(key="access_token", value=access_token, httponly=True)
+        response.set_cookie(key="access_token", value=access_token)
         
         return response
         

@@ -258,44 +258,47 @@ const firstSelect = document.getElementById("address");
 const secondSelect = document.getElementById("address_detail");
 const thirdSelect = document.getElementById("gathering");
 const btns = document.getElementById("btns");
-const addressSearchForm = document.getElementById("addressSearchForm");
-const gatheringSearchForm = document.getElementById("gatheringSearchForm");
+const searchForm = document.getElementById("searchForm");
+const searchBtn = document.querySelector(".search")
 
 firstSelect.addEventListener("change", function (e) {
+
   e.preventDefault();
+
   const selectedValue = firstSelect.value;
   let options =
-    '<option class="dropdown-item address2">세부지역</option>' + '<option class="dropdown-item address2" value="">전체</option>';
+    '<option class="dropdown-item address2" value="">세부지역</option>' + '<option class="dropdown-item address2" value="">전체</option>';
 
   if (selectedValue in address_total) {
     address_total[selectedValue].forEach(function (option) {
-      options +=
-        "<option  class='dropdown-item' value='" +
-        option +
-        "'>" +
-        option +
-        "</option>";
+      options += "<option  class='dropdown-item address2' value='" + option + "' {% if '" + option + "' in address %} selected='selected' {% endif %}" + "'>" + option + "</option>";
     });
   };
 
   secondSelect.innerHTML = options;
 
-  let addressForm = document.querySelector("#addressForm")
+  let addressForm = document.querySelector("#addressForm");
 
   addressForm.value = e.target.value;
 
-  secondSelect.addEventListener("change", function (e) {
-
-    e.preventDefault();
-    addressForm.value += " "
-    addressForm.value += e.target.value;
-
-    addressSearchForm.submit();
+  if (addressForm.value == "전체") {
+    searchForm.submit()
+  }
+});
 
 
-  });
+secondSelect.addEventListener("change", function (e) {
+
+  e.preventDefault();
+
+  addressForm.value += " ";
+  addressForm.value += e.target.value;
+
+
+  searchForm.submit();
 
 });
+
 
 let gatheringForm = document.querySelector("#gatheringForm")
 
@@ -304,30 +307,31 @@ thirdSelect.addEventListener("change", function (e) {
   e.preventDefault();
   gatheringForm.value = e.target.value;
 
-  gatheringSearchForm.submit()
+  searchForm.submit();
 
 })
 
+let keywordForm = document.querySelector("#keywordForm");
+let keyword = document.querySelector("#keyword");
+
+searchBtn.addEventListener("click", function () {
+
+  keywordForm.value = keyword.value
+
+  searchForm.submit()
+
+})
+
+let so = document.querySelector("#so")
+let sortForm = document.querySelector("#sortForm")
+
+so.addEventListener("change", function () {
+
+  sortForm.value = so.value;
+
+  searchForm.submit();
+
+});
+
 btns.scrollIntoView();
 
-// document
-//   .querySelector("#address")
-//   .addEventListener("click", (e) => {
-//     e.preventDefault();
-//     document
-//       .querySelector("#addressForm")
-//       .value = e.target.value;
-
-//     searchForm.submit()
-//   })
-
-// document
-//   .querySelector("#address_detail")
-//   .addEventListener("click", (e) => {
-//     e.preventDefault();
-//     document
-//       .querySelector("#addressForm")
-//       .value += e.target.value;
-
-//     searchForm.submit()
-//   })

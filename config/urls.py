@@ -26,7 +26,7 @@ from django.urls import re_path
 from . import views
 
 
-from post.views import HomeView, profile_view, profile_edit_view
+from post.views import HomeView
  
 
 urlpatterns = [
@@ -40,8 +40,6 @@ urlpatterns = [
     
     path('chat/', include('chat.urls')),
     # path('chat2/', include('chat2.urls')),
-    path('profile/', profile_view, name='profile'),
-    path('profile_edit/', profile_edit_view, name='profile'),
     
     path('api/token/', TokenObtainSlidingView.as_view(), name='token_obtain'),
     path('api/token/refresh/', TokenRefreshSlidingView.as_view(), name='token_refresh'),

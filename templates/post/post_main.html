@@ -30,54 +30,56 @@
     </header>
     <!-- Section-->
     <!-- Example single danger button -->
-    <section style="position: relative;">
-      <div id="btns" class="met_category mt-5 category" style="display: inline-block; margin-left: 30rem;">
-        <select id="address" class="btn dropdown-toggle mr-3" name="address" aria-expanded="false">
-          <option class="dropdown-item">지역</option>
-          <option class="dropdown-item address1" value="서울" {% if address == "서울" %} selected="selected" {% endif %}>서울</option>
-          <option class="dropdown-item address1" value="경기" {% if address == "경기" %} selected="selected" {% endif %}>경기</option>
-          <option class="dropdown-item address1" value="인천">인천</option>
-          <option class="dropdown-item address1" value="강원">강원</option>
-          <option class="dropdown-item address1" value="충북">충북</option>
-          <option class="dropdown-item address1" value="충남">충남</option>
-          <option class="dropdown-item address1" value="대전">대전</option>
-          <option class="dropdown-item address1" value="세종">세종</option>
-          <option class="dropdown-item address1" value="전북">전북</option>
-          <option class="dropdown-item address1" value="전남">전남</option>
-          <option class="dropdown-item address1" value="광주">광주</option>
-          <option class="dropdown-item address1" value="경북">경북</option>
-          <option class="dropdown-item address1" value="대구">대구</option>
-          <option class="dropdown-item address1" value="울산">울산</option>
-          <option class="dropdown-item address1" value="경남">경남</option>
-          <option class="dropdown-item address1" value="부산">부산</option>
-          <option class="dropdown-item address1" value="제주">제주</option>
-        </select>
-        <select id="address_detail" class="btn dropdown-toggle mr-3" name="address_detail">
-          <option class="dropdown-item address2">세부지역</option>
-        </select>
-        <select id="gathering" class="btn dropdown-toggle mr-3" name="gathering">
-          <option class="dropdown-item category">어떤모임</option>
-          <option class="dropdown-item category" value="">전체</option>
-          <option class="dropdown-item category" value="운동">운동</option>
-          <option class="dropdown-item category" value="여행">여행</option>
-          <option class="dropdown-item category" value="문화관람">문화관람</option>
-          <option class="dropdown-item category" value="게임">게임</option>
-          <option class="dropdown-item category" value="음악">음악</option>
-          <option class="dropdown-item category" value="사교/인맥">사교/인맥</option>
-          <option class="dropdown-item category" value="봉사">봉사</option>
-          <option class="dropdown-item category" value="자유주제">자유주제</option>
-        </select>
-        <select id="so" class="btn dropdown-toggle mr-3" name="so">
-          <option class="dropdown-item" value="latest">최신순</option>
-          <option class="dropdown-item" value="inquiry">조회순</option>
-        </select>
-        <div class="met_category input-group col-4 entsearchForm" style="float: right">
-          <input type="text" name="keyword" id="keyword" class="form-control" value="{{keyword|default_if_none:''}}"/>
-          <div class="input-group-append" style="float: right">
-            <button type="button" class="btn btn-outline-secondary search">
-              찾기
-            </button>
-          </div>
+    <div id="btns" class="met_category mt-5 category" style="display: inline-block; margin-left: 25rem;">
+      <select id="address" class="btn dropdown-toggle mr-2 top_menu" name="address" aria-expanded="false">
+        <option class="dropdown-item">지역</option>
+        <option class="dropdown-item address1" value="전체" {% if "전체" in address %} selected="selected" {% endif %}>전체</option>
+        <option class="dropdown-item address1" value="서울" {% if "서울" in address %} selected="selected" {% endif %}>서울</option>
+        <option class="dropdown-item address1" value="경기" {% if "경기" in address %} selected="selected" {% endif %}>경기</option>
+        <option class="dropdown-item address1" value="인천" {% if "인천" in address %} selected="selected" {% endif %}>인천</option>
+        <option class="dropdown-item address1" value="강원" {% if "강원" in address %} selected="selected" {% endif %}>강원</option>
+        <option class="dropdown-item address1" value="충북" {% if "충북" in address %} selected="selected" {% endif %}>충북</option>
+        <option class="dropdown-item address1" value="충남" {% if "충남" in address %} selected="selected" {% endif %}>충남</option>
+        <option class="dropdown-item address1" value="대전" {% if "대전" in address %} selected="selected" {% endif %}>대전</option>
+        <option class="dropdown-item address1" value="세종" {% if "세종" in address %} selected="selected" {% endif %}>세종</option>
+        <option class="dropdown-item address1" value="전북" {% if "전북" in address %} selected="selected" {% endif %}>전북</option>
+        <option class="dropdown-item address1" value="전남" {% if "전남" in address %} selected="selected" {% endif %}>전남</option>
+        <option class="dropdown-item address1" value="광주" {% if "광주" in address %} selected="selected" {% endif %}>광주</option>
+        <option class="dropdown-item address1" value="경북" {% if "경북" in address %} selected="selected" {% endif %}>경북</option>
+        <option class="dropdown-item address1" value="대구" {% if "대구" in address %} selected="selected" {% endif %}>대구</option>
+        <option class="dropdown-item address1" value="울산" {% if "울산" in address %} selected="selected" {% endif %}>울산</option>
+        <option class="dropdown-item address1" value="경남" {% if "경남" in address %} selected="selected" {% endif %}>경남</option>
+        <option class="dropdown-item address1" value="부산" {% if "부산" in address %} selected="selected" {% endif %}>부산</option>
+        <option class="dropdown-item address1" value="제주" {% if "제주" in address %} selected="selected" {% endif %}>제주</option>
+      </select>
+      <select id="address_detail" class="btn dropdown-toggle mr-2 top_menu" name="address_detail">
+        <option class="dropdown-item address2">세부지역</option>
+        <option class="dropdown-item address2">전체</option>
+      </select>
+      <select id="gathering" class="btn dropdown-toggle mr-2 top_menu" name="gathering">
+        <option class="dropdown-item category">어떤모임</option>
+        <option class="dropdown-item category" value="">전체</option>
+        <option class="dropdown-item category" value="운동">운동</option>
+        <option class="dropdown-item category" value="여행">여행</option>
+        <option class="dropdown-item category" value="문화관람">문화관람</option>
+        <option class="dropdown-item category" value="게임">게임</option>
+        <option class="dropdown-item category" value="음악">음악</option>
+        <option class="dropdown-item category" value="사교/인맥">사교/인맥</option>
+        <option class="dropdown-item category" value="봉사">봉사</option>
+        <option class="dropdown-item category" value="자유주제">자유주제</option>
+      </select>
+      <select id="so" class="btn dropdown-toggle mr-2 top_menu" name="so">
+        <option class="dropdown-item" value="">정렬</option>
+        <option class="dropdown-item" value="latest">최신순</option>
+        <option class="dropdown-item" value="inquiry">조회순</option>
+      </select>
+      <a href="" class="btn mr-2 top_menu">모임 자랑하기</a>
+      <div class="met_category input-group col-3 entsearchForm" style="float: right">
+        <input type="text" name="keyword" id="keyword" class="form-control" value="{{keyword|default_if_none:''}}"/>
+        <div class="input-group-append" style="float: right">
+          <button type="button" class="btn btn-outline-secondary search">
+            찾기
+          </button>
         </div>
       </div>
     </section>
@@ -112,13 +114,12 @@
         </div>
       </div>
     </section>
-    <form action="{% url 'post_main' %}" id="addressSearchForm">
+    <form action="{% url 'post_main' %}" id="searchForm">
       <input type="hidden" name="address" id="addressForm" value="{{address|default_if_none:''}}">
-    </form>
-    <form action="{% url 'post_main' %}" id="gatheringSearchForm">
       <input type="hidden" name="gathering" id="gatheringForm" value="{{gathering|default_if_none:''}}">
+      <input type="hidden" name="keyword" id="keywordForm" value="{{keyword|default_if_none:''}}">
+      <input type="hidden" name="so" id="sortForm" value="{{so|default_if_none:''}}">
     </form>
-    <!-- Footer-->
     <footer class="py-5 bg-dark">
       <div class="container">
         <p class="m-0 text-center text-white">
@@ -134,7 +135,6 @@
     <!-- Core theme JS-->
 
     <script src="{% static 'js/post_main.js' %}"></script>
-    <script src="{% static 'js/scripts.js' %}"></script>
   </body>
 
 </html>
