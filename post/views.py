@@ -88,6 +88,9 @@ class PostView(TemplateView):
 
         # 어떤 모임 가져오기
         gathering = request.GET.get('gathering', '')
+        
+        # 유저 깂 가져오기
+        user = User.objects.get(id=JWTDecoding.Jwt_decoding(request))
 
         # 전체 게시물 추출
         if so == "latest":
@@ -108,7 +111,7 @@ class PostView(TemplateView):
 
         if keyword:
             all_posts = all_posts.filter(Q(title__icontains=keyword)|Q(content__icontains=keyword)).distinct()
-        return render(request, 'post/post_main.html', {"address":address, "gathering":gathering, "keyword":keyword, "so":so, "all_posts":all_posts})
+        return render(request, 'post/post_main.html', {"address":address, "gathering":gathering, "keyword":keyword, "so":so, "all_posts":all_posts, "user":user})
 
 @login_required(login_url="login")
 def detail(request, post_id):

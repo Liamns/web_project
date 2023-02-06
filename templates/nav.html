@@ -12,7 +12,7 @@
   data-offset-top="10"
 >
   <div class="container">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="{% url 'home' %}">
       <img src="{% static 'imgs/logo.png' %}" alt="" />
     </a>
     <button
@@ -47,7 +47,7 @@
             <i class="fa-solid fa-paper-plane"></i>
           </a>
         </li>
-        <li class="nav-item">{% show_notifications %}</li>
+
         <li class="nav-item">
           <a
             href="{% url 'chat2' %}"
@@ -190,19 +190,21 @@
 
   const logout = document.getElementById("logout");
 
-  logout.addEventListener("click", (e) => {
-    console.log(getCookie("csrftoken"));
+  if (check_login.innerText != "로그인") {
+    logout.addEventListener("click", (e) => {
+      console.log(getCookie("csrftoken"));
 
-    fetch("http://127.0.0.1:8000/user/jwt/logout/", {
-      method: "POST",
-      headers: {
-        "X-CSRFToken": getCookie("csrftoken"),
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        window.location.href = "http://127.0.0.1:8000";
-      });
-  });
+      fetch("http://127.0.0.1:8000/user/jwt/logout/", {
+        method: "POST",
+        headers: {
+          "X-CSRFToken": getCookie("csrftoken"),
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          window.location.href = "http://127.0.0.1:8000";
+        });
+    });
+  }
 </script>
 <!-- End Of Second Navigation -->
