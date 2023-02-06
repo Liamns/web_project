@@ -67,7 +67,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     birth = models.CharField(verbose_name="생년월일", max_length=20)
     address = models.CharField(verbose_name="거주지역", max_length=128)
     is_staff = models.BooleanField(verbose_name="관리자여부", default=False)
-    
     is_active = models.BooleanField(verbose_name="활성화여부", default=True)
 
     # CustomUser 를 기반으로 user 생성을 도와줄 매니저 클래스 등록
@@ -75,7 +74,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     # username(아이디) 으로 사용할 필드 지정
     USERNAME_FIELD = "email"
-
+#
     # email, password 요소 외에 사용자 생성 시 꼭 받아야하는 필드 작성
     REQUIRED_FIELDS = ["name", "nickname", "birth", "address"]
 

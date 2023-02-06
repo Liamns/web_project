@@ -7,12 +7,25 @@ from django.db.models import Q
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated
 
+from django.http import HttpResponse
+
 import jwt
 
 # from django.contrib.auth.models import User
 from user.models import User, Profile
 from .forms import ThreadForm, MessageForm
 from .models import MessageModel, Notification
+
+@ permission_classes([IsAuthenticated])
+class RemoveNotification(APIView):
+    def delete(self, request, notification_pk, *args, **kwargs):
+        notification = Notification.objects.get(pk=notification_pk)
+
+        notification.user_has_seen = True
+        notification.save()
+
+        return HttpResponse('Success', content_type='text/plain')
+    
 
 @ permission_classes([IsAuthenticated])
 class ThreadNotification(APIView):
@@ -99,20 +112,27 @@ class ThreadView(APIView):
 @ permission_classes([IsAuthenticated])
 class CreateMessage(APIView):
     def post(self, request, pk, *args, **kwargs):
+        
+        form = MessageForm(request.POST, request.FILES)
         thread = ThreadModel.objects.get(pk=pk)
         if thread.receiver == request.user:
             receiver = thread.user
         else:
             receiver = thread.receiver
 
-        message = MessageModel(
-            thread=thread,
-            sender_user=request.user,
-            receiver_user=receiver,
-            body=request.POST.get('message')
-        )
-
-        message.save()
+        if form.is_valid():
+            message = form.save(commit=False)
+            message.thread = thread
+            message.sender_user = request.user,
+            message.receiver_user = receiver
+            message.save()
+            
+        # message = MessageModel(
+        #     thread=thread,
+        #     sender_user=request.user,
+        #     receiver_user=receiver,
+        #     body=request.POST.get('message')
+        # )
         
         notification = Notification.objects.create(
             notification_type=4,
