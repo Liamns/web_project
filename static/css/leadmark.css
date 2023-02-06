@@ -12116,6 +12116,16 @@ textarea.form-control {
   overflow: hidden;
 }
 
+.headershort {
+  position: relative;
+  height: 10vh;
+  min-height: 80px;
+  background: no-repeat center center fixed;
+  background-size: cover;
+  background-color: #8aaae5;
+  overflow: hidden;
+}
+
 .header .overlay {
   position: absolute;
   left: 0;
