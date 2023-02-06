@@ -55,13 +55,16 @@
             <span>#</span>음악</a>
         </li class="met_category_list">
       </ul>
+      <div class="button container d-flex justify-content-center">
+        <a href="{% url 'event_form' %}" class="btn btn-outline-success">글쓰기</a>
+      </div>
       <!-- evnet 리스트 나오는 곳-->
       <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center events-list infinite-container">
           {% for event in events %}
             <div class="col mb-5 infinite-item">
               <div class="card h-100">
-                {% if event.deadline_compare %}
+                {% if event.deadline_compare%}
                   <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">모집중</div>
                 {% else %}
                   <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">마감</div>

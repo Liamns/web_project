@@ -49,9 +49,9 @@ class Event(BaseModel):
 
     @property
     def deadline_compare(self):
-        now = datetime.now()
-        result = (now - self.deadline)
-        return result
+        now = date.today()
+        result = (self.deadline - now)
+        return result.days > 0
 
 
 
