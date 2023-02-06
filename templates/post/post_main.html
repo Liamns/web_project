@@ -9,21 +9,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
-    <title>Love Solo Web</title>
+    <title>모여방</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
     <!-- Bootstrap icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet"/>
     <!-- Core theme CSS (includes Bootstrap)-->
   </head>
-
-  <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home" style="width: 1520px">
+  
+  <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home" style="width: 1520px; postion: relative; top: 100px;">
     <!-- Navigation-->
-    {% include 'post/nav.html' %}
+    {% include 'nav.html' %}
     <link href="{% static 'css/styles.css' %}" rel="stylesheet"/>
     <link rel="stylesheet" href="{% static 'css/event_list.css' %}">
     <link rel="stylesheet" href="{% static 'css/post.css' %}">
     <!-- Header-->
+    <header class="headershort">
+      <div class="overlay">
+      </div>
+    </header>
     <!-- Section-->
     <!-- Example single danger button -->
     <div id="btns" class="met_category mt-5 category" style="display: inline-block; margin-left: 25rem;">
@@ -78,7 +82,7 @@
           </button>
         </div>
       </div>
-    </div>
+    </section>
     <!-- 게시물 시작 -->
     <section>
       <div class="container px-4 px-lg-5 mt-5">
