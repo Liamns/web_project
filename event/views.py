@@ -111,10 +111,15 @@ class PostEventView(TemplateView):
         # data = serializers.serialize("json", list(events))
         # return HttpResponse(json.dumps(data), content_type="application/json")
 
-
+@permission_classes([AllowAny])
 class ParticipatedEventView(APIView):
-    def post(self, req, pk):
-        user = get_object_or_404(User, pk=pk)
-        events = Event.objects.filter(user=user)
-
+    def get(self, req):
+        pk = JWTDecoding.Jwt_decoding(req)
+        user = User.objects.get(id=pk)
+        print(user.email)
+        serializer = UserSerializer(instance=user)
+        events = serializer.data.get('events')
+        for i in events:
+            print(i)
+        
         return Response({"events":events})

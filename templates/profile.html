@@ -513,7 +513,7 @@
                                       </div>
 
                                     </div>
-                                  {% endfor %}
+                                  {% comment %} {% endfor %} {% endcomment %}
 
                                     <button class="feed-shared-button artdeco-button--tertiary artdeco-button--muted feed-shared-aggregated-content__button artdeco-button artdeco-button--tertiary artdeco-button--fluid" type="button">
                                       <span class="visually-hidden">더 보기</span>
@@ -715,27 +715,47 @@
           <iframe title="cedex beacon iframe" sandbox="allow-scripts" style="display:none;" src="//radar.cedexis.com/1/11326/radar.html"></iframe>
           <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
           <script>
-            const getCookieValue = (key) => {
-              let cookieKey = key + "="; 
-              let result = "";
-              const cookieArr = document.cookie.split(";");
-              
-              for(let i = 0; i < cookieArr.length; i++) {
-                if(cookieArr[i][0] === " ") {
-                  cookieArr[i] = cookieArr[i].substring(1);
-                }
-                
-                if(cookieArr[i].indexOf(cookieKey) === 0) {
-                  result = cookieArr[i].slice(cookieKey.length, cookieArr[i].length);
-                  return result;
-                }
+            
+              function getCookie(key) {
+                var result = null;
+                var cookie = document.cookie.split(";");
+                cookie.some(function (item) {
+                  // 공백을 제거
+                  item = item.replace(" ", "");
+  
+                  var dic = item.split("=");
+  
+                  if (key === dic[0]) {
+                    result = dic[1];
+                    return true; // break;
+                  }
+                });
+                return result;
               }
-              return result;
-            }
-            console.log(getCookieValue("access_token"))
-            window.onload = function () {
               
-            }
+              console.log(getCookie("access_token"))
+  
+              function praseJWT() {
+                var token = getCookie("access_token")
+                var base64Url = token.split('.')[1];
+                var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  
+                var jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+                  return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join(''));
+  
+                return JSON.parse(jsonPayload);
+              }
+  
+              window.onload = function () {
+                var user_id = praseJWT()['nkn']
+  
+                fetch("http://127.0.0.1:8000/user/profile/events/")
+                .then((res) => {res.json()})
+                .then((data)=>{console.log(data)})
+                
+              }
+            
           </script>
         </body>
         <style id="allow-copy_style">

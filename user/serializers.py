@@ -1,11 +1,14 @@
 from rest_framework import serializers
 from .models import User, Profile
+from event.serializers import EventSerializer
 from message.serializers import GenericFileUploadSerializer
 
 class UserSerializer(serializers.ModelSerializer):
+    events = EventSerializer(many=True)
+
     class Meta:
         model = User
-        fields = "__all__"
+        fields = ["email","name","nickname","birth","address","events"]
         # dose not return password in response json query
         extra_kwargs = {
     	    'password' : {'write_only' : True }
