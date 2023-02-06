@@ -194,6 +194,9 @@ REST_FRAMEWORK = {
         # postman test용
         'apis.authenticate.SafeJWTAuthentication',
     ),
+
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 8,
 }
 
 

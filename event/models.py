@@ -5,6 +5,7 @@ import os
 import uuid
 from django.db.models import UniqueConstraint
 from taggit.managers import TaggableManager
+from datetime import date, timedelta, datetime
 
 # contents - 작성날짜, 수정날짜, 태그, 장소태그, 내용, 제목
 class BaseModel(models.Model):
@@ -34,7 +35,7 @@ class Event(BaseModel):
     UPLOAD_PATH = "event-upload"
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="작성자")
-    deadline = models.DateTimeField(verbose_name="마감날짜")
+    deadline = models.DateField(verbose_name="마감날짜")
     participants_limit = models.SmallIntegerField(verbose_name="참여인원 제한 수")
     start_event = models.CharField(verbose_name="이벤트 시작일", max_length=50)
     end_event = models.CharField(verbose_name="이벤트 종료일", max_length=50)
@@ -45,6 +46,14 @@ class Event(BaseModel):
 
     class Meta:
         ordering = ['-created_at']
+
+    @property
+    def deadline_compare(self):
+        now = datetime.now()
+        result = (now - self.deadline)
+        return result
+
+
 
 
 
