@@ -40,9 +40,6 @@ urlpatterns = [
 
     path('chat2/', include('chat2.urls')),
     path('dm/', include('dm.urls')),
-    
-    path('profile/', profile_view, name='profile'),
-    path('profile_edit/', profile_edit_view, name='profile'),
 
     
     path('api/token/', TokenObtainSlidingView.as_view(), name='token_obtain'),
