@@ -17,7 +17,7 @@
     <!-- Core theme CSS (includes Bootstrap)-->
   </head>
 
-  <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home" style="width: 1520px; postion: relative; top: 100px;">
+  <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home" style="width: 1520px;">
     <!-- Navigation-->
     {% include 'nav.html' %}
     <link href="{% static 'css/styles.css' %}" rel="stylesheet"/>
@@ -29,7 +29,7 @@
     </header>
     <!-- Section-->
     <!-- Example single danger button -->
-    <div id="btns" class="met_category mt-5 category" style="display: inline-block; margin-left: 25rem;">
+    <div id="btns" class="met_category mt-5 category" style="display: inline-block; margin-left: 7rem;">
       <select id="address" class="btn dropdown-toggle mr-2 top_menu" name="address" aria-expanded="false">
         <option class="dropdown-item">지역</option>
         <option class="dropdown-item address1" value="전체" {% if "전체" in address %} selected="selected" {% endif %}>전체</option>
@@ -72,10 +72,10 @@
         <option class="dropdown-item" value="latest">최신순</option>
         <option class="dropdown-item" value="inquiry">조회순</option>
       </select>
-      <a href="" class="btn mr-2 top_menu">모임 자랑하기</a>
-      <div class="met_category input-group col-3 entsearchForm" style="float: right">
+      <a href="" class="btn mr-2 top_menu" style="position: relative;">모임 자랑하기</a>
+      <div class="met_category input-group col-3 entsearchForm" style="float:right; right:15%;">
         <input type="text" name="keyword" id="keyword" class="form-control" value="{{keyword|default_if_none:''}}"/>
-        <div class="input-group-append" style="float: right">
+        <div class="input-group-append">
           <button type="button" class="btn btn-outline-secondary search">
             찾기
           </button>

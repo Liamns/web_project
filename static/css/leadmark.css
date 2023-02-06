@@ -3303,8 +3303,8 @@ fieldset:disabled a.btn {
 
 .btn-success {
   color: #fff;
-  background-color: #6ab04c;
-  border-color: #6ab04c;
+  background-color: #198754;
+  border-color: #198754;
 }
 
 .btn-success:hover {
@@ -12118,11 +12118,12 @@ textarea.form-control {
 
 .headershort {
   position: relative;
-  height: 10vh;
-  min-height: 80px;
+  width: 214.3vh;
+  height: 13vh;
+  min-height: 40px;
   background: no-repeat center center fixed;
   background-size: cover;
-  background-color: #8aaae5;
+  background-color: #2bae66;
   overflow: hidden;
 }
 
@@ -12565,4 +12566,46 @@ textarea.form-control {
   100% {
     transform: translate(-50%, -50%) scale(0);
   }
+}
+
+.header .overlay2 {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 20%;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.header .overlay .subtitle {
+  font-size: calc(13px + (18 - 13) * ((100vw - 320px) / (1200 - 320)));
+  font-weight: 400;
+  margin-bottom: 0;
+  letter-spacing: 8px;
+  word-spacing: 10px;
+  text-align: center;
+  opacity: 0.8;
+}
+
+.header .overlay .title {
+  font-size: calc(30px + (70 - 30) * ((100vw - 320px) / (1200 - 320)));
+  font-weight: bold;
 }

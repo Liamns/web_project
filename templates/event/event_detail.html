@@ -35,7 +35,7 @@
               <div class="d-flex justify-content-end">
                 <div class="badge bg-secondary p-2">
                   <!--작성자-->
-                  <div class="mb-2 text-start">작성자</div>
+                  <div class="mb-2 text-start">{{event.user.email}}</div>
                   <!--이벤트 마감 날짜-->
                   {{event.deadline}}
                 </div>
@@ -52,9 +52,16 @@
 
                   </div>
                 </div>
-                {% if event.d_day_calculator >= 0 %}
-                  <button type="button" class="btn btn-primary mb-4">이벤트 참여하기</button>
-                {% endif %}
+                <div class="justify-content-start d-flex">
+                  {% if event.d_day_calculator >= 0 and user.id != event.user.id %}
+                    <button type="button" class="btn btn-outline-success mb-4 mt-4">이벤트 참여하기</button>
+                  {% endif %}
+                  {% if user.id == event.user.id %}
+                    <a href="">
+                      <button type="button" class="btn  btn-outline-danger mb-4 mt-4 ml-2">이벤트 수정하기</button>
+                    </a>
+                  {% endif %}
+                </div>
 
               </section>
 
