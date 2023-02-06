@@ -247,6 +247,8 @@
                                   </div>
                                   <div class="feed-shared-control-menu display-flex feed-shared-update-v2__control-menu absolute text-align-right"></div>
                                   <div class="feed-shared-aggregated-content full-width">
+                                  {% comment %} {% for event in events %} {% endcomment %}
+
                                     <div class="feed-shared-aggregated-content__list-item">
                                       <div class="feed-shared-update-v2 feed-shared-update-v2--minimal-padding full-height relative feed-shared-update-v2--wrapped feed-shared-update-v2--aggregated" id="ember38" data-urn="urn:li:member:40863801">
                                         <div>
@@ -255,16 +257,93 @@
                                           <div class="feed-shared-inline-show-more-text feed-shared-update-v2__description is-empty" tabindex="-1"></div>
 
                                           
-                                            <!-- 이벤트1 -->
-                                            <div class="feed-shared-feed-discovery-entity">
-                                              <div class="feed-shared-feed-discovery-entity__main-content display-flex flex-row">
-                                                <a class="app-aware-link  link-without-hover-visited" href="https://www.linkedin.com/in/amandakazzycryer?miniProfileUrn=urn%3Ali%3Afs_miniProfile%3AACoAAAJviDkBmBLA52Eq8rsHMpRE2cupOQYX4Zo" data-test-app-aware-link="">
-                                                  <div class="ivm-image-view-model    flex-shrink-zero">
-                                                    <div class="ivm-view-attr__img-wrapper ivm-view-attr__img-wrapper--use-img-tag display-flex">
+                                          <!-- 이벤트1 -->
+                                          <!-- <div class="feed-shared-feed-discovery-entity">
+                                            <div class="feed-shared-feed-discovery-entity__main-content display-flex flex-row">
+                                              <a class="app-aware-link  link-without-hover-visited" href="https://www.linkedin.com/in/amandakazzycryer?miniProfileUrn=urn%3Ali%3Afs_miniProfile%3AACoAAAJviDkBmBLA52Eq8rsHMpRE2cupOQYX4Zo" data-test-app-aware-link="">
+                                                <div class="ivm-image-view-model    flex-shrink-zero">
+                                                  <div class="ivm-view-attr__img-wrapper ivm-view-attr__img-wrapper--use-img-tag display-flex">
 
-                                                      <!-- 이미지 -->
-                                                      <img width="48" src="{{event.event_imgage.url}}" loading="lazy" height="48" alt="Amanda &quot;Kazzy&quot; Cryer" id="ember40" class="ivm-view-attr__img--centered EntityPhoto-circle-3 EntityPhoto-circle-3 ghost-person lazy-image ember-view">
-                                                    </div>
+                                                    이미지
+                                                    <img width="48" src="https://media.licdn.com/dms/image/D5603AQE25KgKDKUewQ/profile-displayphoto-shrink_100_100/0/1664478309720?e=1680739200&amp;v=beta&amp;t=ZM5SWLBxNSspp-kLs_3oNt0mbt5vK03OBmzCrcpa-jc" loading="lazy" height="48" alt="Amanda &quot;Kazzy&quot; Cryer" id="ember40" class="ivm-view-attr__img--centered EntityPhoto-circle-3 EntityPhoto-circle-3 ghost-person lazy-image ember-view">
+                                                  </div>
+                                                </div>
+                                              </a>
+                                              <div class="feed-shared-feed-discovery-entity__text-container flex-grow-1">
+                                                <a class="app-aware-link  link-without-hover-visited" href="https://www.linkedin.com/in/amandakazzycryer?miniProfileUrn=urn%3Ali%3Afs_miniProfile%3AACoAAAJviDkBmBLA52Eq8rsHMpRE2cupOQYX4Zo" data-test-app-aware-link="">
+                                                  <div>
+                                                    모임 제목
+                                                    <span class="feed-shared-feed-discovery-entity__text--body text-body-medium-bold">
+                                                      아만다 영어회화
+                                                    </span>
+                                                  </div>
+                                                </a>
+                                                <a class="app-aware-link  link-without-hover-visited" href="https://www.linkedin.com/in/amandakazzycryer?miniProfileUrn=urn%3Ali%3Afs_miniProfile%3AACoAAAJviDkBmBLA52Eq8rsHMpRE2cupOQYX4Zo" data-test-app-aware-link="">
+                                                  <div class="feed-shared-feed-discovery-entity__description feed-shared-feed-discovery-entity__text--body text-body-small">
+                                                    그림자는 열매를 예가 안고, 싶이 피부가 아름다우냐? 따뜻한 보는 뛰노는 인생에 끓는다. 군영과 가진 기관과 날카로우나 새가 것이다. 전인 힘차게 얼음이 예수는 위하여 것이 같이, 것이다. 끝까지 피가 가치를 약동하다. 이상 오아이스도 그들에게 우리의 봄바람이다. 인간이 불러 있는 어디 천지는 꽃 사막이다.
+                                                  </div>
+                                                </a>
+                                                <a class="app-aware-link  feed-shared-feed-discovery-entity__sub-description link-without-hover-visited" href="https://www.linkedin.com/in/amandakazzycryer?miniProfileUrn=urn%3Ali%3Afs_miniProfile%3AACoAAAJviDkBmBLA52Eq8rsHMpRE2cupOQYX4Zo" data-test-app-aware-link="">
+                                                  <div class="feed-shared-feed-discovery-entity__text--body text-body-xsmall">
+                                                    <span>
+                                                      <li-icon aria-hidden="true" type="comment" class="v-align-bottom" size="small">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" data-supported-dps="16x16" fill="currentColor" class="mercado-match" width="16" height="16" focusable="false">
+                                                          <path d="M5 8h5v1H5zm11-.5v.08a6 6 0 01-2.75 5L8 16v-3H5.5A5.51 5.51 0 010 7.5 5.62 5.62 0 015.74 2h4.76A5.5 5.5 0 0116 7.5zm-2 0A3.5 3.5 0 0010.5 4H5.74A3.62 3.62 0 002 7.5 3.53 3.53 0 005.5 11H10v1.33l2.17-1.39A4 4 0 0014 7.58zM5 7h6V6H5z"></path>
+                                                        </svg>
+                                                      </li-icon>
+                                                      직장인 영어동아리
+                                                    </span>
+                                                  </div>
+                                                </a>
+                                              </div>
+                                              <div class="flex-shrink-zero">
+                                                <button class="artdeco-button artdeco-button--secondary artdeco-button--2" aria-label="Follow" aria-pressed="false" type="button">
+                                                  <li-icon aria-hidden="true" type="add" class="artdeco-button__icon" size="small">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" data-supported-dps="16x16" fill="currentColor" class="mercado-match" width="16" height="16" focusable="false">
+                                                      <path d="M14 9H9v5H7V9H2V7h5V2h2v5h5z"></path>
+                                                    </svg>
+                                                  </li-icon>
+                                                  <span aria-hidden="true">팔로우</span>
+                                                </button>
+                                              </div>
+                                            </div>
+                                          </div> -->
+
+                                          <div id="ember41" class="ember-view"></div>
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    <!-- 이벤트2 -->
+                                    <!-- <div class="feed-shared-aggregated-content__list-item">
+                                      <div class="feed-shared-update-v2 feed-shared-update-v2--minimal-padding full-height relative feed-shared-update-v2--wrapped feed-shared-update-v2--aggregated" id="ember42" data-urn="urn:li:company:6476200">
+                                        <div>
+                                          <div role="status"></div>
+                                          <div class="feed-shared-control-menu display-flex feed-shared-update-v2__control-menu absolute text-align-right"></div>
+                                          <div class="feed-shared-inline-show-more-text feed-shared-update-v2__description is-empty" tabindex="-1"></div>
+                                          <div class="feed-shared-feed-discovery-entity">
+                                            <div class="feed-shared-feed-discovery-entity__main-content display-flex flex-row">
+                                              <a class="app-aware-link  link-without-hover-visited" href="https://www.linkedin.com/company/woowa-bros-/?miniCompanyUrn=urn%3Ali%3Afs_miniCompany%3A6476200" data-test-app-aware-link="">
+                                                <div class="ivm-image-view-model    flex-shrink-zero">
+                                                  <div class="ivm-view-attr__img-wrapper ivm-view-attr__img-wrapper--use-img-tag display-flex">
+
+                                                    이미지
+                                                    <img width="48" src="https://media.licdn.com/dms/image/C560BAQFXeEWM-FoApw/company-logo_100_100/0/1519881499181?e=1683158400&amp;v=beta&amp;t=1PhcVjGf75asmHieDn_M-0H17UP9c2uOyJbMoGNKodY" loading="lazy" height="48" alt="(주)우아한형제들 (Woowa Bros.)" id="ember44" class="ivm-view-attr__img--centered EntityPhoto-square-3 EntityPhoto-circle-3 ghost-person lazy-image ember-view">
+                                                  </div>
+                                                </div>
+                                              </a>
+                                              <div class="feed-shared-feed-discovery-entity__text-container flex-grow-1">
+                                                <a class="app-aware-link  link-without-hover-visited" href="https://www.linkedin.com/company/woowa-bros-/?miniCompanyUrn=urn%3Ali%3Afs_miniCompany%3A6476200" data-test-app-aware-link="">
+                                                  <div>
+                                                    <span class="feed-shared-feed-discovery-entity__text--body text-body-medium-bold">
+                                                      모임 제목
+                                                      <span dir="ltr">우아한형제들 맛집투어</span>
+                                                    </span>
+                                                  </div>
+                                                </a>
+                                                <a class="app-aware-link  link-without-hover-visited" href="https://www.linkedin.com/company/woowa-bros-/?miniCompanyUrn=urn%3Ali%3Afs_miniCompany%3A6476200" data-test-app-aware-link="">
+                                                  <div class="feed-shared-feed-discovery-entity__description feed-shared-feed-discovery-entity__text--body text-body-small">
+                                                    맛집을 찾아서~
                                                   </div>
                                                 </a>
                                                 <div class="feed-shared-feed-discovery-entity__text-container flex-grow-1">
@@ -312,15 +391,35 @@
                                         </div>
                                       </div>
 
-                                      <!-- 이벤트 copy -->
-                                      <div class="feed-shared-aggregated-content__list-item">
-                                        <div class="feed-shared-update-v2 feed-shared-update-v2--minimal-padding full-height relative feed-shared-update-v2--wrapped feed-shared-update-v2--aggregated" id="ember46" data-urn="urn:li:company:31371289">
-                                          <div>
-                                            <div role="status"></div>
-                                            <div class="feed-shared-control-menu display-flex feed-shared-update-v2__control-menu absolute text-align-right"></div>
-                                            <div class="feed-shared-inline-show-more-text feed-shared-update-v2__description is-empty" tabindex="-1"></div>
-                                            <div class="feed-shared-feed-discovery-entity">
-                                              <div class="feed-shared-feed-discovery-entity__main-content display-flex flex-row">
+                                    </div> -->
+                                    
+                                    <!-- 이벤트3 -->
+                                    <!-- <div class="feed-shared-aggregated-content__list-item">
+                                      <div class="feed-shared-update-v2 feed-shared-update-v2--minimal-padding full-height relative feed-shared-update-v2--wrapped feed-shared-update-v2--aggregated" id="ember46" data-urn="urn:li:company:31371289">
+                                        <div>
+                                          <div role="status"></div>
+                                          <div class="feed-shared-control-menu display-flex feed-shared-update-v2__control-menu absolute text-align-right"></div>
+                                          <div class="feed-shared-inline-show-more-text feed-shared-update-v2__description is-empty" tabindex="-1"></div>
+                                          <div class="feed-shared-feed-discovery-entity">
+                                            <div class="feed-shared-feed-discovery-entity__main-content display-flex flex-row">
+                                              <a class="app-aware-link  link-without-hover-visited" href="https://www.linkedin.com/company/greenlabsglobal/?miniCompanyUrn=urn%3Ali%3Afs_miniCompany%3A31371289" data-test-app-aware-link="">
+                                                <div class="ivm-image-view-model    flex-shrink-zero">
+                                                  <div class="ivm-view-attr__img-wrapper ivm-view-attr__img-wrapper--use-img-tag display-flex">
+                                                    이미지
+                                                    <img width="48" src="https://media.licdn.com/dms/image/C560BAQHxEFh4zQmlIQ/company-logo_100_100/0/1647926523642?e=1683158400&amp;v=beta&amp;t=M8a9cCweipoQ6FyxBLCB_tg0Wz47n8VNyJ64wswJ_T8" loading="lazy" height="48" alt="그린랩스 Greenlabs" id="ember48" class="ivm-view-attr__img--centered EntityPhoto-square-3 EntityPhoto-circle-3 ghost-person lazy-image ember-view">
+                                                  </div>
+                                                </div>
+                                              </a>
+                                              <div class="feed-shared-feed-discovery-entity__text-container flex-grow-1">
+                                                <a class="app-aware-link  link-without-hover-visited" href="https://www.linkedin.com/company/greenlabsglobal/?miniCompanyUrn=urn%3Ali%3Afs_miniCompany%3A31371289" data-test-app-aware-link="">
+                                                  <div>
+                                                    <span class="feed-shared-feed-discovery-entity__text--body text-body-medium-bold">
+                                                      모임 제목
+                                                      <span dir="ltr">그린랩스 Greenlabs</span>
+                                                    </span>
+                                                  </div>
+                                                </a>
+
                                                 <a class="app-aware-link  link-without-hover-visited" href="https://www.linkedin.com/company/greenlabsglobal/?miniCompanyUrn=urn%3Ali%3Afs_miniCompany%3A31371289" data-test-app-aware-link="">
                                                   <div class="ivm-image-view-model    flex-shrink-zero">
                                                     <div class="ivm-view-attr__img-wrapper ivm-view-attr__img-wrapper--use-img-tag display-flex">
@@ -365,32 +464,42 @@
                                         </div>
                                       </div>
 
-                                      <!-- event_list.html -->
-                                      <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center events-list infinite-container">
-                                        {% for event in events %}
-                                          <div class="col mb-5 infinite-item">
-                                            <div class="card h-100">
-                                              {% if event.deadline_compare%}
-                                                <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">모집중</div>
-                                              {% else %}
-                                                <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">마감</div>
-                                              {% endif %}
+                                    </div> -->
 
-                                              <!-- 모임 이미지 -->
-                                              {% if event.event_imgage %}
-                                                <img class="card-img-top" src="{{event.event_imgage.url}}" alt="..." style="height: 200px"/>
-                                              {% else %}
-                                                <img class="card-img-top" src="" alt="..."/>
-                                              {% endif %}
-                                              <!-- 모임 내용 디테일-->
-                                              <div class="card-body p-4">
-                                                <div class="text-center">
-                                                  <!-- 모임 제목 -->
-                                                  <h5 class="fw-bolder" style="display: inline-block; width: 180px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                                    {{event.title}}</h5><br>
-                                                  <!-- category-->
-                                                  {{event.category}}
+                                  {% for event in events %}
+                                    
+                                    <!-- 이벤트 copy -->
+                                    <div class="feed-shared-aggregated-content__list-item">
+                                      <div class="feed-shared-update-v2 feed-shared-update-v2--minimal-padding full-height relative feed-shared-update-v2--wrapped feed-shared-update-v2--aggregated" id="ember46" data-urn="urn:li:company:31371289">
+                                        <div>
+                                          <div role="status"></div>
+                                          <div class="feed-shared-control-menu display-flex feed-shared-update-v2__control-menu absolute text-align-right"></div>
+                                          <div class="feed-shared-inline-show-more-text feed-shared-update-v2__description is-empty" tabindex="-1"></div>
+                                          <div class="feed-shared-feed-discovery-entity">
+                                            <div class="feed-shared-feed-discovery-entity__main-content display-flex flex-row">
+                                              <a class="app-aware-link  link-without-hover-visited" href="https://www.linkedin.com/company/greenlabsglobal/?miniCompanyUrn=urn%3Ali%3Afs_miniCompany%3A31371289" data-test-app-aware-link="">
+                                                <div class="ivm-image-view-model    flex-shrink-zero">
+                                                  <div class="ivm-view-attr__img-wrapper ivm-view-attr__img-wrapper--use-img-tag display-flex">
+                                                    <!-- 이미지 -->
+                                                    <!-- <img width="48" src="https://media.licdn.com/dms/image/C560BAQHxEFh4zQmlIQ/company-logo_100_100/0/1647926523642?e=1683158400&amp;v=beta&amp;t=M8a9cCweipoQ6FyxBLCB_tg0Wz47n8VNyJ64wswJ_T8" loading="lazy" height="48" alt="그린랩스 Greenlabs" id="ember48" class="ivm-view-attr__img--centered EntityPhoto-square-3 EntityPhoto-circle-3 ghost-person lazy-image ember-view"> -->
+                                                    {% if event.event_imgage %}
+                                                      <img class="ivm-view-attr__img--centered EntityPhoto-square-3 EntityPhoto-circle-3 ghost-person lazy-image ember-view" src="{{event.event_imgage.url}}" alt="..." style="height: 200px"/>
+                                                    {% else %}
+                                                      <img class="ivm-view-attr__img--centered EntityPhoto-square-3 EntityPhoto-circle-3 ghost-person lazy-image ember-view" src="" alt="..."/>
+                                                    {% endif %}
+                                                  </div>
                                                 </div>
+                                              </a>
+                                              <div class="feed-shared-feed-discovery-entity__text-container flex-grow-1">
+                                                <a class="app-aware-link  link-without-hover-visited" href="https://www.linkedin.com/company/greenlabsglobal/?miniCompanyUrn=urn%3Ali%3Afs_miniCompany%3A31371289" data-test-app-aware-link="">
+                                                  <div>
+                                                    <span class="feed-shared-feed-discovery-entity__text--body text-body-medium-bold">
+                                                      <!-- 모임 제목 -->
+                                                      <span dir="ltr">ㅇㄹㅇㄹ{{event.title}}</span>
+                                                    </span>
+                                                  </div>
+                                                </a>
+
                                               </div>
                                               <!-- Product actions-->
                                               <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
@@ -403,17 +512,20 @@
                                         {% endfor %}
                                       </div>
 
-                                      <button class="feed-shared-button artdeco-button--tertiary artdeco-button--muted feed-shared-aggregated-content__button artdeco-button artdeco-button--tertiary artdeco-button--fluid" type="button">
-                                        <span class="visually-hidden">더 보기</span>
-                                        <span aria-hidden="true">더 보기</span>
-                                        <li-icon aria-hidden="true" type="arrow-right" class="mh1" size="small">
-                                          <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" class="mercado-match" data-supported-dps="16x16" fill="currentColor" width="16" height="16" focusable="false">
-                                            <path d="M11.45 3L15 8l-3.55 5H9l2.84-4H2V7h9.84L9 3z"></path>
-                                          </svg>
-                                        </li-icon>
-                                      </button>
                                     </div>
-                                    <div id="ember50" class="ember-view"></div>
+                                  {% endfor %}
+
+                                    <button class="feed-shared-button artdeco-button--tertiary artdeco-button--muted feed-shared-aggregated-content__button artdeco-button artdeco-button--tertiary artdeco-button--fluid" type="button">
+                                      <span class="visually-hidden">더 보기</span>
+                                      <span aria-hidden="true">더 보기</span>
+                                      <li-icon aria-hidden="true" type="arrow-right" class="mh1" size="small">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" class="mercado-match" data-supported-dps="16x16" fill="currentColor" width="16" height="16" focusable="false">
+                                          <path d="M11.45 3L15 8l-3.55 5H9l2.84-4H2V7h9.84L9 3z"></path>
+                                        </svg>
+                                      </li-icon>
+                                    </button>
+                                  
+
                                   </div>
                                 </div>
                               </div>

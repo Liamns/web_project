@@ -3,6 +3,7 @@ from django.utils import timezone
 from user.models import User
 from post.models import Post, Comment
 
+
 # Create your models here.
 
 class Notification(models.Model):
@@ -12,6 +13,7 @@ class Notification(models.Model):
 	from_user = models.ForeignKey(User, related_name='notification_from', on_delete=models.CASCADE, null=True)
 	post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='+', blank=True, null=True)
 	comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='+', blank=True, null=True)
+	thread = models.ForeignKey('ThreadModel', on_delete=models.CASCADE, related_name='+', blank=True, null=True)
 	date = models.DateTimeField(default=timezone.now)
 	user_has_seen = models.BooleanField(default=False)
 
