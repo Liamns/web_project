@@ -38,8 +38,9 @@ urlpatterns = [
     path('post/', include('post.urls')),
     path('events/', include('event.urls')),
     
-    path('chat/', include('chat.urls')),
-    # path('chat2/', include('chat2.urls')),
+    path('chat2/', include('chat2.urls')),
+    path('dm/', include('dm.urls')),
+    
     path('profile/', profile_view, name='profile'),
     path('profile_edit/', profile_edit_view, name='profile'),
     
