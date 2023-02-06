@@ -51,7 +51,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'channels',
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -64,11 +64,13 @@ INSTALLED_APPS = [
     'rest_framework',
     "taggit",
     "apis",
-    'jazzmin',
+    'dm',
     'corsheaders', # <- 추가
     'chat',
     'chat2',
     'message',
+    'crispy_forms',
+    'landing',
  
 ]
 
@@ -184,7 +186,6 @@ MEDIA_URL = '/media/'
 # simple jwt 공식문서
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.AllowAny',
         'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -259,3 +260,4 @@ AUTHENTICATION_BACKENDS = [
 # 이름, 별명 자동짓기
 SOCIALACCOUNT_ADAPTER = 'user.adapter.SocialUserSignUp'
 # 이름, 별명 자동짓기
+CRISPY_TEMPLATE_PACK = 'bootstrap4' 
