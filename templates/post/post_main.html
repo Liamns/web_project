@@ -72,7 +72,7 @@
         <option class="dropdown-item" value="latest">최신순</option>
         <option class="dropdown-item" value="inquiry">조회순</option>
       </select>
-      <<<<<<< Updated upstream <a href="" class="btn mr-2 top_menu" style="position: relative;">모임 자랑하기</a> ======= <a href="{% url 'post_create' %}" class="btn mr-2 top_menu" style="position: relative;">모임 자랑하기</a> >>>>>>> Stashed changes
+      <a href="{% url 'post_create' %}" class="btn mr-2 top_menu" style="position: relative;">모임 자랑하기</a>
       <div class="met_category input-group col-3 entsearchForm" style="float:right; right:15%;">
         <input type="text" name="keyword" id="keyword" class="form-control" value="{{keyword|default_if_none:''}}"/>
         <div class="input-group-append">
@@ -108,7 +108,7 @@
                 <!-- Product actions-->
                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                   <div class="text-center">
-                    <a class="btn btn-outline-dark mt-auto" href="#">자세히 보기</a>
+                    <a class="btn btn-outline-dark mt-auto" href="{% url 'post_detail' pk=pk %}">자세히 보기</a>
                   </div>
                 </div>
               </div>
