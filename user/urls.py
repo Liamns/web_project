@@ -1,6 +1,6 @@
 from django.views.generic import TemplateView
 from django.urls import path, include, re_path
-from apis.views import LoginApi, LogoutApi, UserSignupView, ProfileUpdateView, UserPasswordResetConfirmView, UserPasswordResetCompleteView, UserPasswordResetDoneView, UserPasswordResetView,ProfileView
+from apis.views import LoginApi, LogoutApi, UserSignupView, ProfileUpdateView, UserPasswordResetConfirmView, UserPasswordResetCompleteView, UserPasswordResetDoneView, UserPasswordResetView,ProfileView, RefreshJWTtoken
 from event.views import ParticipatedEventView
 from rest_framework import routers
 from rest_framework.routers import DefaultRouter
@@ -47,6 +47,7 @@ urlpatterns = [
         UserPasswordResetCompleteView.as_view(),
         name="password_reset_complete",
     ),
+    path("refresh/", RefreshJWTtoken.as_view(), name="refresh_access_token"),
     ### 프로필
     path("profile/<int:pk>/", ProfileView.as_view(), name='profile_view'),
     path("update/<int:pk>/", ProfileUpdateView.as_view(), name='profile_update'),
