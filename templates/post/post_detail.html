@@ -1,0 +1,169 @@
+{% extends 'post/base.html' %}
+{% load static %}
+{% load rest_framework %}
+{% block style %}
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+{% endblock style %}
+{% block navbar %}
+  {% include 'post/nav.html' %}
+{% endblock navbar %}
+{% block contents %}
+  <div class="container my-3">
+    {% if messages %}
+      <div class="alert alert-danger my-3">
+        {% for msg in messages %}
+          <strong>{{msg.tags}}</strong>
+          <ul>
+            <li>{{msg.message}}</li>
+          </ul>
+        {% endfor %}
+      </div>
+    {% endif %}
+    <h2 class="border-bottom py-2">
+      <!-- 제목 -->
+      제목
+    </h2>
+    <div class="row my-3">
+      <div class="col-1">
+        <div class="bg-light text-center p-3 border font-weight-bolder mb-1">
+          <!-- 추천 수 -->
+          int
+        </div>
+        <a href="#" data-url="#" class="recommend btn btn-sm btn-secondary d-grid my-1">추천</a>
+      </div>
+      <div class="col-11">
+        <div class="card">
+          <div class="card-body">
+            <div class="card-text" style="white:pre-line;">
+              <!-- 내용 -->
+              내용
+            </div>
+            <div class="d-flex justify-content-end">
+              <div class="badge bg-secondary p-2">
+                <!--글쓴이-->
+                글쓴이
+                <div class="mb-2 text-start"></div>
+                <!-- 질문 작성 날짜 -->
+                작성 날짜
+              </div>
+            </div>
+            <!-- {% if question.modified_dttm %} -->
+            <div class="d-flex justify-content-end pt-2">
+              <div class="badge bg-secondary p-2">
+                <!--수정-->
+                <div class="mb-2 text-start">modified at</div>
+                <!-- 수정 날짜 -->
+                수정 날짜
+              </div>
+            </div>
+            <!-- {% endif %} -->
+            <!-- 로그인 사용자와 글쓴이가 같다면 -->
+            <!-- {% if question.author == request.user %} -->
+            <div class="my-3">
+              <a href="#" class="btn btn-sm btn-outline-secondary">수정</a>
+              <a href="#" class="btn btn-sm btn-outline-danger" data-url="#">삭제</a>
+            </div>
+            <!-- {% endif %} -->
+          </div>
+          <!--질문 card body 종료-->
+        </div>
+      </div>
+    </div>
+
+    <!-- 댓글 영역 시작 -->
+    <h5 class="border-bottom my-3 py-2">
+      <!-- 댓글 갯수 -->
+      개의 답변이 있습니다.
+    </h5>
+    <!-- {% for answer in answers %} -->
+    <div class="row my-3">
+      <div class="col-11">
+        <div class="card">
+          <div class="card-body">
+            <div class="card-text" style="white:pre-line;">
+              <!-- 냇글 내용 -->
+              댓글 내용
+            </div>
+            <div class="d-flex justify-content-end">
+              <div class="badge bg-secondary p-2">
+                <!--글쓴이-->
+                <div class="mb-2 text-start">댓글 글쓴이</div>
+                <!-- 댓글 작성 날짜 -->
+                댓글 작성 날짜
+              </div>
+            </div>
+            <!-- {% if answer.modified_dttm %} -->
+            <div class="d-flex justify-content-end pt-2">
+              <div class="badge bg-secondary p-2">
+                <!--수정-->
+                <div class="mb-2 text-start">modified at</div>
+                <!-- 댓글 수정 날짜 -->
+                댓글 수정 날짜
+              </div>
+            </div>
+            <!-- {% endif %} -->
+            <!-- {% if answer.author == request.user %} -->
+            <div class="my-3">
+              <a href="#" class="btn btn-sm btn-outline-secondary">수정</a>
+              <a href="#" class="btn btn-sm btn-outline-danger" data-url="#">삭제</a>
+            </div>
+            <!-- {% endif %} -->
+          </div>
+        </div>
+      </div>
+      <!-- {% endfor %} -->
+      <!--댓글 작성 form-->
+      <form action="#" method="post">
+        {% csrf_token %}
+        <div class="form-group mb-3">
+          <textarea name="content" id="content" rows="10" class="form-control"></textarea>
+        </div>
+        <button type=" submit" class="btn btn-primary">댓글 등록</button>
+      </form>
+      <!--댓글 내용 종료-->
+    </div>
+
+  </div>
+{% endblock contents %}
+{% block script %}
+  <script>
+    // 질문 or 답변 삭제 버튼 클릭 시 confirm(정말로 삭제하시겠습니까?)
+    /*
+                              let elements = document.querySelectorAll('.btn-outline-danger')
+                              elements.forEach((ele, idx) => {
+                                .addEventListener("click", (e) => {
+                                //confirm() : 확인을 클릭하면 data-url값 가져오기 location.href -> data-url 대입
+                                  if (confirm('정말로 삭제하시겠습니까?')) {
+                                    location.href = e.target.dataset.url;
+                                    };
+                                  })
+                                })
+                              */
+
+    // 목록으로 클릭 시 listForm submit 시키기
+    /*
+                      document
+                        .querySelector(".back_to_list")
+                        .addEventListener("click", (e) => {
+                          e.preventDefault();
+                          document
+                            .querySelector("#listForm")
+                            .submit();
+                        })
+                      */
+
+    $(function () {
+      $('.btn-outline-danger, .delete').on("click", function (e) {
+        if (confirm('정말로 삭제하시겠습니까?')) {
+          location.href = $(this).data('url');
+        }
+      });
+
+      // 목록으로 클릭 시 listForm submit 시키기
+      $(".back_to_list").on("click", (e) => {
+        e.preventDefault();
+        $("#listForm").submit();
+      })
+    })
+  </script>
+{% endblock script %}
