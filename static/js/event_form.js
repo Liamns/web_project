@@ -100,7 +100,7 @@ const form_data = document.querySelector("#event-form")
 document.getElementById("submit-btn-class").addEventListener("click", (e) => {
 
   const data_obj = {
-    "user_id": user_id,
+    "user": user_id,
     "category": category.value,
     "title": title.value,
     "content": content.value,
