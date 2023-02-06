@@ -30,9 +30,9 @@
   --primary: #ff6e42;
   --signature1: #fefefe;
   --signature2: #8aaae5;
-  --signature3: #2e3c7e;
-  --signature4: #fbeaeb;
-  --signature5: #ffdfde;
+  --signature3: #2bae66;
+  --signature4: #fcf6f5;
+  --signature5: #fcf6f5;
   --signature6: #6a7ba2;
   --secondary: #6c757d;
   --success: #6ab04c;
@@ -3038,14 +3038,14 @@ fieldset:disabled a.btn {
 }
 
 .btn-signature1 {
-  color: #fff;
+  color: #1b1b1b;
   background-color: #fefefe;
   border-color: #fefefe;
 }
 
 .btn-signature1:hover {
-  color: #fff;
-  background-color: #fefefe;
+  color: #ffffff;
+  background-color: #000000;
   border-color: #fefefe;
 }
 
@@ -3114,14 +3114,14 @@ fieldset:disabled a.btn {
 }
 .btn-signature3 {
   color: #fff;
-  background-color: #2e3c7e;
-  border-color: #2e3c7e;
+  background-color: #2bae66;
+  border-color: #000000;
 }
 
 .btn-signature3:hover {
   color: #fff;
-  background-color: #2e3c7e;
-  border-color: #2e3c7e;
+  background-color: #2bae66;
+  border-color: #000000;
 }
 
 .btn-signature3:focus,
@@ -3132,16 +3132,16 @@ fieldset:disabled a.btn {
 .btn-signature3.disabled,
 .btn-signature3:disabled {
   color: #fff;
-  background-color: #2e3c7e;
-  border-color: #2e3c7e;
+  background-color: #2bae66;
+  border-color: #000000;
 }
 
 .btn-signature3:not(:disabled):not(.disabled):active,
 .btn-signature3:not(:disabled):not(.disabled).active,
 .show > .btn-signature3.dropdown-toggle {
   color: #fff;
-  background-color: #2e3c7e;
-  border-color: #2e3c7e;
+  background-color: #2bae66;
+  border-color: #000000;
 }
 
 .btn-signature3:not(:disabled):not(.disabled):active:focus,
@@ -3152,14 +3152,14 @@ fieldset:disabled a.btn {
 
 .btn-signature4 {
   color: #fff;
-  background-color: #fbeaeb;
-  border-color: #fbeaeb;
+  background-color: #fcf6f5;
+  border-color: #fcf6f5;
 }
 
 .btn-signature4:hover {
   color: #fff;
-  background-color: #fbeaeb;
-  border-color: #fbeaeb;
+  background-color: #fcf6f5;
+  border-color: #fcf6f5;
 }
 
 .btn-signature4:focus,
@@ -3169,17 +3169,17 @@ fieldset:disabled a.btn {
 
 .btn-signature4.disabled,
 .btn-signature4:disabled {
-  color: #fff;
-  background-color: #fbeaeb;
-  border-color: #fbeaeb;
+  color: #fcf6f5;
+  background-color: #fcf6f5;
+  border-color: #fcf6f5;
 }
 
 .btn-signature4:not(:disabled):not(.disabled):active,
 .btn-signature4:not(:disabled):not(.disabled).active,
 .show > .btn-signature4.dropdown-toggle {
   color: #fff;
-  background-color: #fbeaeb;
-  border-color: #fbeaeb;
+  background-color: #fcf6f5;
+  border-color: #fcf6f5;
 }
 
 .btn-signature4:not(:disabled):not(.disabled):active:focus,
@@ -11916,7 +11916,7 @@ textarea.form-control {
 .navbar.custom-navbar.affix {
   padding-top: 0.4rem;
   padding-bottom: 0.4rem;
-  background: #8aaae5;
+  background: #fcf6f5;
   border-bottom: 1px solid #dee2e6;
 }
 
@@ -12177,7 +12177,7 @@ textarea.form-control {
 }
 
 .header .shape svg path {
-  fill: #ffdfde;
+  fill: #2bae66;
 }
 
 @media (max-width: 1199.98px) {
@@ -12242,12 +12242,12 @@ textarea.form-control {
 }
 
 .section {
-  background-color: #ffdfde;
+  background-color: #2bae66;
   padding: 80px 0;
 }
 
 .section:nth-child(even) {
-  background: #8aaae5;
+  background: #2bae66;
 }
 
 .section .section-devider {
@@ -12514,5 +12514,55 @@ textarea.form-control {
   }
   100% {
     transform: scale(0.9);
+  }
+}
+
+.hometext-color {
+  color: #fcf6f5;
+}
+
+.loader {
+  width: 84px;
+  height: 84px;
+  display: block;
+  position: absolute;
+  overflow: hidden;
+  z-index: 10;
+  left: 0;
+  right: 0;
+  bottom: 100px;
+  margin: auto;
+}
+.loader:before,
+.loader:after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #fff;
+  transform: translate(-50%, 100%) scale(0);
+  animation: push 2s infinite ease-in;
+}
+.loader:after {
+  animation-delay: 1s;
+}
+@keyframes push {
+  0% {
+    transform: translate(-50%, 100%) scale(1);
+  }
+  15%,
+  25% {
+    transform: translate(-50%, 50%) scale(1);
+  }
+  50%,
+  75% {
+    transform: translate(-50%, -30%) scale(0.5);
+  }
+  80%,
+  100% {
+    transform: translate(-50%, -50%) scale(0);
   }
 }

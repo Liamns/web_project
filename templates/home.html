@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Start your development with LeadMark landing page.">
   <meta name="author" content="Devcrud">
-  <title>Love Solo Web</title>
+  <title>모여방</title>
   <!-- font icons -->
   <link rel="stylesheet" href="{% static 'vendors/themify-icons/css/themify-icons.css' %}">
   <!-- Bootstrap + LeadMark main styles -->
@@ -24,7 +24,7 @@
   <header class="header">
     <div class="overlay">
       <h1 class="subtitle">complex meeting service</h1>
-      <h1 class="title btn-signature5">Love Solo</h1>
+      <h1 class="title">모여방</h1>
     </div>
     <div class="shape">
       <svg viewbox="0 0 1500 200">
@@ -32,9 +32,7 @@
           d="m 0,240 h 1500.4828 v -71.92164 c 0,0 -286.2763,-81.79324 -743.19024,-81.79324 C 300.37862,86.28512 0,168.07836 0,168.07836 Z" />
       </svg>
     </div>
-    <div class="lds-heart">
-      <div></div>
-    </div>
+    <span class="loader"></span>
   </header>
   <!-- End Of Page Header -->
   {% if user.nickname != None %}
@@ -171,8 +169,8 @@
   <!-- Service Section -->
   <section id="service" class="section pt-0">
     <div class="container">
-      <h6 class="section-title text-center">서비스 소개</h6>
-      <h6 class="section-subtitle text-center mb-5 pb-3">새로운 만남의 시작을 함께할게요</h6>
+      <h6 class="section-title text-center hometext-color">서비스 소개</h6>
+      <h6 class="section-subtitle text-center mb-5 pb-3 hometext-color">새로운 만남의 시작을 함께할게요</h6>
 
       <div class="row">
         <div class="col-md-4">
@@ -182,7 +180,7 @@
               <h5 class="card-title mt-3">
                 회원가입
                 <h5>
-                  <p class="mb-0">구글계정와 카카오계정으로 편하게 가입하세요.
+                  <p class="mb-0">구글계정와 카카오계정으로 편하게<br> 가입하세요.
                   </p>
             </div>
           </div>
@@ -191,8 +189,8 @@
           <div class="card mb-4 mb-md-0">
             <div class="card-body">
               <small class="text-primary font-weight-bold">02</small>
-              <h5 class="card-title mt-3">키워드선택을 통한 자기소개<h5>
-                  <p class="mb-0">관심있는 키워드를 선택해서 자신을 소개하세요.
+              <h5 class="card-title mt-3">키워드를 통한 자기소개<h5>
+                  <p class="mb-0">관심있는 키워드를 선택해<br> 자신을 소개하세요.
                   </p>
             </div>
           </div>
@@ -202,7 +200,7 @@
             <div class="card-body">
               <small class="text-primary font-weight-bold">03</small>
               <h5 class="card-title mt-3">날짜선택으로 매칭시작!<h5>
-                  <p class="mb-0">키워드에 맞는 모임을 날짜선택하여 모임매칭.
+                  <p class="mb-0">키워드에 맞는 모임중<br> 날짜 선택하여 모임매칭.
                   </p>
             </div>
           </div>
@@ -217,9 +215,9 @@
     <div class="container">
       <div class="row justify-content-between">
         <div class="col-md-6 pr-md-5 mb-4 mb-md-0">
-          <h6 class="section-title mb-0">About LoveSolo Project</h6>
-          <h6 class="section-subtitle mb-4">우리는 왜 LoveSolo를 만들었나?</h6>
-          <p>이제 코로나에서 벗어날 시간. 지난 몇년간 코로나로 각종 모임과 만남이 제한되었습니다. 하지만 이제 실내 의무 마스크 규제가 풀린 지금, 여행과 만남의 연결이 필요한 시간입니다. 알파코 2조는 그러한 시대를 반영하여 키워드 미팅 어플리케이션 웹을 개발하였습니다.</p>
+          <h6 class="section-title mb-0 hometext-color">About LoveSolo Project</h6>
+          <h6 class="section-subtitle mb-4 hometext-color">우리는 왜 LoveSolo를 만들었나?</h6>
+          <p class="hometext-color">이제 코로나에서 벗어날 시간. 지난 몇년간 코로나로 각종 모임과 만남이 제한되었습니다. 하지만 이제 실내 의무 마스크 규제가 풀린 지금, 여행과 만남의 연결이 필요한 시간입니다. 알파코 2조는 그러한 시대를 반영하여 키워드 미팅 어플리케이션 웹을 개발하였습니다.</p>
           <img src="{% static 'imgs/about.jpg' %}" alt="" class="w-100 mt-3 shadow-sm">
         </div>
         <div class="col-md-6 pl-md-5">
@@ -230,13 +228,13 @@
             <div class="col-6">
               <img src="{% static 'imgs/about-2.jpg' %}" alt="" class="w-100 shadow-sm">
             </div>
-            <div class="col-12 mt-4">
+            <div class="col-12 mt-4 hometext-color">
               <p>운동, 여행, 문화관람, 게임, 음악, 사교/인맥, 봉사, 자유주제등 업데이트마다 새로운 카테고리가 생성될 것입니다. 저희 알파코2조는 새로운 만남 문화를 주도하는 회사가 되도록 노력하겠습니다.</p>
               <p>
-                <b>
+                <b class="hometext-color">
                   문화와 공간, 만남을 주도하는 알파코2조 웹프로젝트입니다.</b><br>
               </p>
-              <p>
+              <p class="hometext-color">
                 커뮤니티 웹</p>
             </div>
           </div>
@@ -247,15 +245,15 @@
   <!-- Blog Section -->
   <section class="section" id="howuse">
     <div class="container">
-      <h6 class="section-title mb-0 text-center">이용방법</h6>
-      <h6 class="section-subtitle mb-5 text-center">회원가입, 키워드설정, 모임참여</h6>
+      <h6 class="section-title mb-0 text-center hometext-color">이용방법</h6>
+      <h6 class="section-subtitle mb-5 text-center hometext-color">회원가입, 키워드설정, 모임참여</h6>
       <div class="row">
         <div class="col-md-4">
           <div class="card border-0 mb-4">
             <img src="{% static 'imgs/howuse-1.jpg' %}" alt="" class="card-img-top w-100">
             <div class="card-body">
               <h6 class="card-title">회원가입</h6>
-              <p>구글 또는 카카오 계정으로 편하게 가입하세요</p>
+              <p>구글 또는 카카오 계정으로 편하게<br> 가입하세요</p>
               <a href="javascript:void(0)" class="small text-muted">Go To The 회원가입</a>
             </div>
           </div>
@@ -286,15 +284,15 @@
   </section>
   <section class="section" id="donation">
     <div class="container">
-      <h6 class="section-title mb-0 text-center">후원</h6>
-      <h6 class="section-subtitle mb-5 text-center">3가지 후원방법을 소개합니다</h6>
+      <h6 class="section-title mb-0 text-center hometext-color">후원</h6>
+      <h6 class="section-subtitle mb-5 text-center hometext-color">3가지 후원방법을 소개합니다</h6>
       <div class="row">
         <div class="col-md-4">
           <div class="card border-0 mb-4">
             <img src="{% static 'imgs/blog-1.jpg' %}" alt="" class="card-img-top w-100">
             <div class="card-body">
               <h6 class="card-title">직접 투자</h6>
-              <p>사업팀에 직접 지분투자를 하실 수 있습니다</p>
+              <p>직접투자를 하실 수 있습니다</p>
               <a href="javascript:void(0)" class="small text-muted">Go To The Donation</a>
             </div>
           </div>
@@ -362,7 +360,7 @@
 
               </div>
               <div class="form-group col-12 mb-0">
-                <button type="submit" class="btn btn-signature6 rounded w-md mt-3">보내기</button>
+                <button type="submit" class="btn btn-signature3 rounded w-md mt-3">보내기</button>
               </div>
             </div>
         </div>
