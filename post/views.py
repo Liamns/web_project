@@ -23,6 +23,7 @@ from apis.jwtdecoding import JWTDecoding
 import jwt
 
 from django.db.models import Q, Count
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 @permission_classes([AllowAny])
 @method_decorator(ensure_csrf_cookie, name="dispatch")
@@ -108,6 +109,17 @@ class PostView(TemplateView):
 
         if keyword:
             all_posts = all_posts.filter(Q(title__icontains=keyword)|Q(content__icontains=keyword)).distinct()
+
+        page = request.GET.get('page', 1)
+        paginator = Paginator(all_posts, 4)
+
+        try:
+            all_posts = paginator.page(page)
+        except PageNotAnInteger:
+            all_posts = paginator.page(1)
+        except EmptyPage:
+            all_posts = paginator.page(paginator.num_pages)
+
         return render(request, 'post/post_main.html', {"address":address, "gathering":gathering, "keyword":keyword, "so":so, "all_posts":all_posts})
 
 @login_required(login_url="login")

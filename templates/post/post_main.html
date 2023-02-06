@@ -16,7 +16,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet"/>
     <!-- Core theme CSS (includes Bootstrap)-->
   </head>
-  
+
   <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home" style="width: 1520px; postion: relative; top: 100px;">
     <!-- Navigation-->
     {% include 'nav.html' %}
@@ -25,8 +25,7 @@
     <link rel="stylesheet" href="{% static 'css/post.css' %}">
     <!-- Header-->
     <header class="headershort">
-      <div class="overlay">
-      </div>
+      <div class="overlay"></div>
     </header>
     <!-- Section-->
     <!-- Example single danger button -->
@@ -92,7 +91,11 @@
               <div class="card h-100">
                 <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">{{post.location_tags}}</div>
                 <!-- 게시물 이미지 -->
-                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."/>
+                {% if all_posts.post_img %}
+                  <img class="card-img-top" src="{{all_posts.post_img.url}}" alt="..." style="height: 200px"/>
+                {% else %}
+                  <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."/>
+                {% endif %}
                 <!-- 게시물 내용 디테일-->
                 <div class="card-body p-4">
                   <div class="text-center">
@@ -114,12 +117,23 @@
         </div>
       </div>
     </section>
-    <form action="{% url 'post_main' %}" id="searchForm">
+    <form action="{% url 'post_home' %}" id="searchForm">
       <input type="hidden" name="address" id="addressForm" value="{{address|default_if_none:''}}">
       <input type="hidden" name="gathering" id="gatheringForm" value="{{gathering|default_if_none:''}}">
       <input type="hidden" name="keyword" id="keywordForm" value="{{keyword|default_if_none:''}}">
       <input type="hidden" name="so" id="sortForm" value="{{so|default_if_none:''}}">
     </form>
+    <br><br>
+    <br><br>
+    {% if all_posts.has_next %}
+      <div class="justify-content-center d-flex">
+        <div class="spinner-border text-danger loading" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+      <a href="?page={{all_posts.next_page_number}}" class="infinite-more-link"></a>
+      <p id="sentinel" style="display: none">{{page}}</p>
+    {% endif %}
     <footer class="py-5 bg-dark">
       <div class="container">
         <p class="m-0 text-center text-white">
