@@ -4,6 +4,7 @@ from allauth.account.models import EmailAddress
 
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+import os, uuid
 
 from message.models import GenericFileUpload
 from django.utils import timezone
@@ -67,7 +68,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     birth = models.CharField(verbose_name="생년월일", max_length=20)
     address = models.CharField(verbose_name="거주지역", max_length=128)
     is_staff = models.BooleanField(verbose_name="관리자여부", default=False)
-    
     is_active = models.BooleanField(verbose_name="활성화여부", default=True)
 
     # CustomUser 를 기반으로 user 생성을 도와줄 매니저 클래스 등록
@@ -75,7 +75,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     # username(아이디) 으로 사용할 필드 지정
     USERNAME_FIELD = "email"
-
+#
     # email, password 요소 외에 사용자 생성 시 꼭 받아야하는 필드 작성
     REQUIRED_FIELDS = ["name", "nickname", "birth", "address"]
 
@@ -85,12 +85,19 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self) -> str:
         return "<%s>" % (self.email)
 
+def image_upload_to(instance, fileName):
+
+    ext = fileName.split('.')[-1]
+    return os.path.join(instance.UPLOAD_PATH, "%s.%s" % (uuid.uuid4(), ext))
+
 class Profile(models.Model):
     """
     회원가입 시 무조건 같이 실행
     """
+    UPLOAD_PATH = "profile-upload"
+
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="회원")
-    profile_img = models.ImageField(upload_to="profile/", default="profile/default.png", verbose_name="프로필이미지")
+    profile_img = models.ImageField(upload_to=image_upload_to, default="profile-upload/default.png", verbose_name="프로필이미지")
     participations_cnt = models.SmallIntegerField(verbose_name="참여횟수", default=0)
     post_cnt = models.SmallIntegerField(verbose_name="게시글 수", default=0)
     comment_cnt = models.SmallIntegerField(verbose_name="댓글 수", default=0)
@@ -102,7 +109,8 @@ class Profile(models.Model):
 
     def __str__(self) -> str:
         return "<%s>" % (self.user)
-    
+
+        
 
 class Favorite(models.Model):
     user = models.OneToOneField(User, related_name="user_favorites", on_delete=models.CASCADE)
@@ -110,7 +118,7 @@ class Favorite(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.user.username}"
+        return f"{self.user.email}"
 
     class Meta:
         ordering = ("created_at",)

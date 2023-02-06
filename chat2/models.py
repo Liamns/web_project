@@ -1,6 +1,9 @@
 from django.db import models
 
 # Create your models here.
+from django.db import models
+
+# Create your models here.
 
 
 from datetime import datetime
@@ -18,3 +21,4 @@ class Message(models.Model):
     date = models.DateTimeField(auto_now_add=True, blank=True)
     user = models.CharField(max_length=100)
     room = models.CharField(max_length=100)
+    
