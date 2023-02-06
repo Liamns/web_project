@@ -50,6 +50,6 @@ urlpatterns = [
     ### 프로필
     path("profile/<int:pk>/", ProfileView.as_view(), name='profile_view'),
     path("update/<int:pk>/", ProfileUpdateView.as_view(), name='profile_update'),
-    path("profile/<int:pk>/events/", ParticipatedEventView.as_view(), name='participated_event'),
+    path("profile/events/", ParticipatedEventView.as_view(), name='participated_event'),
 ]
 
