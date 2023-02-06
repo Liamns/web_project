@@ -14,7 +14,7 @@ from user.models import User, Profile
 from .forms import ThreadForm, MessageForm
 from .models import MessageModel, Notification
 
-
+@ permission_classes([IsAuthenticated])
 class ThreadNotification(APIView):
     def get(self, request, notification_pk, object_pk, *args, **kwargs):
         notification = Notification.objects.get(pk=notification_pk)

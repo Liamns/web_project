@@ -37,9 +37,10 @@ urlpatterns = [
     path('user/', include('user.urls')),
     path('post/', include('post.urls')),
     path('events/', include('event.urls')),
-    
-    path('chat/', include('chat.urls')),
-    # path('chat2/', include('chat2.urls')),
+
+    path('chat2/', include('chat2.urls')),
+    path('dm/', include('dm.urls')),
+
     
     path('api/token/', TokenObtainSlidingView.as_view(), name='token_obtain'),
     path('api/token/refresh/', TokenRefreshSlidingView.as_view(), name='token_refresh'),

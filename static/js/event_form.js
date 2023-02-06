@@ -14,6 +14,8 @@ var marker = new daum.maps.Marker({
   map: map,
 });
 
+
+
 function sample5_execDaumPostcode() {
   new daum.Postcode({
     oncomplete: function (data) {
@@ -42,17 +44,69 @@ function sample5_execDaumPostcode() {
   }).open();
 }
 
-const form_data = document.querySelector("form")
+
+function getCookie(name) {
+  let matches = document.cookie.match(new RegExp(
+    "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+  ));
+  return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+
+function praseJWT() {
+  var token = getCookie("access_token")
+  var base64Url = token.split('.')[1];
+  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+
+  var jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+
+  return JSON.parse(jsonPayload);
+}
+
+var user_id = praseJWT()['nkn']
 
 
-document.querySelector(".submit-btn-class").addEventListener("click", (e) => {
-  // fetch("/events/forms/", {
-  //   method: "POST",
-  //   body: JSON.stringify(new FormData("event-form"))
-  // }).then((response) => response.json()).then((data) => console.log(data))
 
-  // console.log(new FormData("event-form"))
 
-  console.log("왜 안돼?")
+const title = document.getElementById("title")
+const content = document.getElementById("contents")
+const image = document.getElementById("image")
+const tags = document.getElementById("tags")
+const deadline_time = document.getElementById("deadline-time")
+const start_time = document.getElementById("start-time")
+const end_time = document.getElementById("end-time")
+const participants = document.getElementById("participants")
+const address = document.getElementById("sample5_address")
+const category = document.querySelector(".category_metting")
+const form_data = document.querySelector("#event-form")
+
+document.getElementById("submit-btn-class").addEventListener("click", (e) => {
+
+  const data_obj = {
+    "user": user_id,
+    "category": category.value,
+    "title": title.value,
+    "content": content.value,
+    "event_image": image.value,
+    "tags": tags.value,
+    "deadline": deadline_time.value,
+    "participants_limit": participants.value,
+    "start_event": start_time.value,
+    "end_event": end_time.value,
+    "location_tags": address.value
+  }
+
+  console.log(data_obj)
+
+  fetch("http://127.0.0.1:8000/events/forms/", {
+    method: "POST",
+    headers: {
+      "X-CSRFToken": getCookie("csrftoken"),
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data_obj)
+  }).then((response) => response.json()).then((data) => console.log(data))
+
 
 })

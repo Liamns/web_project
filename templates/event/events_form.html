@@ -1,22 +1,26 @@
-{% load static %} {% load rest_framework %}
+{% load static %}
+{% load rest_framework %}
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>LoveSolo</title>
-    <link rel="stylesheet" href="{% static 'css/event_form.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/event_form.css' %}"/>
   </head>
   <header class="headershort">{% include 'event/nav.html' %}</header>
+
   <body>
     <section class="py-5">
       <div class="container">
-        <form action="./events" method="POST" id="event-form">
+        <form action="">
+          {% csrf_token %}
           <div class="form-group mb-3">
             <label for="title" class="form-label mr-4">제목</label>
             <form>
-              <select name="category_metting">
+              <select name="category_metting" onchage="showValue(this)" class="category_metting">
                 <option value="none">=== 카테고리 선택 ===</option>
                 <option value="운동">운동</option>
                 <option value="여행">여행</option>
@@ -28,104 +32,59 @@
                 <option value="자유주제">자유주제</option>
               </select>
             </form>
-            <input type="text" name="title" id="title" class="form-control" />
+            <input type="text" name="title" id="title" class="form-control"/>
           </div>
 
           <div class="form-group mb-3">
             <label for="content">내용</label>
-            <textarea
-              name="content"
-              id="contents"
-              col="100"
-              class="form-control"
-            ></textarea>
+            <textarea name="content" id="contents" col="100" class="form-control"></textarea>
           </div>
 
           <div class="form-group mb-3">
             <label for="image" class="form-label">사진첨부</label>
-            <input
-              type="file"
-              name="image"
-              id="image"
-              class="form-control"
-              value=""
-            />
+            <input type="file" name="image" id="image" class="form-control" value=""/>
           </div>
 
           <div class="form-group">
             <label for="tags" class="form-label">태그</label>
-            <input
-              type="text"
-              name="tags"
-              id="tags"
-              class="form-control col-sm-5"
-              placeholder="태그 입력"
-            />
+            <input type="text" name="tags" id="tags" class="form-control col-sm-5" placeholder="태그 입력"/>
           </div>
 
           <div class="form-group">
-            <label for="tags" class="form-label">참여 마감일</label><br />
-            <input
-              type="datetime-local"
-              name="deadline-time"
-              id="deadline-time"
-            />
+            <label for="deadline" class="form-label">참여 마감일</label><br>
+            <input type="date" name="deadline-time" id="deadline-time">
           </div>
 
           <div class="form-group">
-            <label for="tags" class="form-label">이벤트 시작일</label><br />
-            <input type="datetime-local" name="start-time" id="start-time" />
+            <label for="start-date" class="form-label">이벤트 시작일</label><br>
+            <input type="datetime-local" name="start-time" id="start-time">
           </div>
 
           <div class="form-group">
-            <label for="tags" class="form-label">이벤트 종료일</label><br />
-            <input type="datetime-local" name="end-time" id="end-time" />
+            <label for="end-date" class="form-label">이벤트 종료일</label><br>
+            <input type="datetime-local" name="end-time" id="end-time">
           </div>
 
           <div class="form-group">
             <label for="tags" class="form-label">참여인원</label>
-            <input
-              type="number"
-              name="participants"
-              id="participants"
-              class="form-control col-sm-2"
-              placeholder="참여 인원 제한 수"
-              min="2"
-            />
+            <input type="number" name="participants" id="participants" class="form-control col-sm-2" placeholder="참여 인원 제한 수" min="2"/>
           </div>
 
           <div class="form-group mb-3">
-            <input
-              type="button"
-              onclick="sample5_execDaumPostcode()"
-              class="btn-outline-success"
-              value="주소 검색"
-            /><br />
-            <input
-              type="text"
-              id="sample5_address"
-              class="form-control col-sm-8"
-              placeholder="주소"
-              readonly="readonly"
-            />
-            <div
-              id="map"
-              style="
+            <input type="button" onclick="sample5_execDaumPostcode()" class="btn-outline-success" value="주소 검색"/><br/>
+            <input type="text" id="sample5_address" class="form-control col-sm-8" placeholder="주소" readonly="readonly"/>
+            <div id="map" style="
                 width: 300px;
                 height: 300px;
                 margin-top: 10px;
                 display: none;
-              "
-            ></div>
+              "></div>
           </div>
         </form>
-
-        <button type="button" class="btn btn-primary mb-4 submit-btn-class">
+        <button type="button" class="btn btn-primary mb-4" id="submit-btn-class">
           이벤트 등록
         </button>
-        <a href="{% url 'event_list' %}" class="btn btn-secondary mb-4"
-          >질문목록</a
-        >
+        <a href="{% url 'event_list' %}" class="btn btn-secondary mb-4">질문목록</a>
       </div>
     </section>
 
@@ -133,4 +92,5 @@
     <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a50d7f7e6ce625a29a84c501e918e47d&libraries=services"></script>
     <script src="{% static 'js/event_form.js' %}"></script>
   </body>
+
 </html>
