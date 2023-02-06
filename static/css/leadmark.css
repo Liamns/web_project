@@ -12506,3 +12506,14 @@ textarea.form-control {
     transform: scale(0.9);
   }
 }
+
+
+.headershort {
+  position: relative;
+  height: 10vh;
+  min-height: 80px;
+  background: no-repeat center center fixed;
+  background-size: cover;
+  background-color: #8aaae5;
+  overflow: hidden;
+}

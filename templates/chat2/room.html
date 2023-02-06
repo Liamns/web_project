@@ -58,11 +58,8 @@
 
   <body>
 
-    <h2 class="room_name">{{room}}
-      Room name</h2>
-    <h2 class="class">{{username}}
-      User
-    </h2>
+    <h2 class="room_name">{{room}}</h2>
+    <h2 class="class">{{username}}</h2>
     <div id="display">
 
       <!--<div class="container darker"> <b>Tom</b> <p>Hello Everyone, How Are You Guys Doing?</p> <span class="time-left">20th, April 2021</span> </div> -->
@@ -79,7 +76,7 @@
 
           setInterval(function () {
             $.ajax({
-              type: 'GET', // url: "/getMessages/{{room}}/",
+              type: 'GET', //url: "/getMessages/{{room}}/",
               url: "/chat2/getMessages/" + String(room) + "/",
               success: function (response) {
                 console.log(response);
@@ -97,10 +94,9 @@
               },
               //error: function (response) {
               //alert('An error occured')
-            }});
-        },
-        1000);
-      })
+            });
+          }, 1000);
+        })
     </script>
 
     <div class="container">
