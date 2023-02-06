@@ -12,16 +12,20 @@
   <body>
     <section class="py-5">
       <div class="container">
-        <form action="">
+        <form action="./events" method="POST" id="event-form">
           <div class="form-group mb-3">
             <label for="title" class="form-label mr-4">제목</label>
             <form>
               <select name="category_metting">
                 <option value="none">=== 카테고리 선택 ===</option>
-                <option value="korean">술</option>
-                <option value="english">운동</option>
-                <option value="chinese">여행</option>
-                <option value="spanish">독서모임</option>
+                <option value="운동">운동</option>
+                <option value="여행">여행</option>
+                <option value="문화관람">문화관람</option>
+                <option value="게임">게임</option>
+                <option value="음악">음악</option>
+                <option value="사교/인맥">사교/인맥</option>
+                <option value="봉사">봉사</option>
+                <option value="자유주제">자유주제</option>
               </select>
             </form>
             <input type="text" name="title" id="title" class="form-control" />
@@ -102,7 +106,7 @@
               id="sample5_address"
               class="form-control col-sm-8"
               placeholder="주소"
-              readonly
+              readonly="readonly"
             />
             <div
               id="map"
@@ -114,12 +118,14 @@
               "
             ></div>
           </div>
-
-          <button type="submit" class="btn btn-primary mb-4">
-            이벤트 등록
-          </button>
-          <button type="button" class="btn btn-secondary mb-4">질문목록</button>
         </form>
+
+        <button type="button" class="btn btn-primary mb-4 submit-btn-class">
+          이벤트 등록
+        </button>
+        <a href="{% url 'event_list' %}" class="btn btn-secondary mb-4"
+          >질문목록</a
+        >
       </div>
     </section>
 
