@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect, get_object_or_404, resolve_url
 from django.views.generic.base import TemplateView
+from event.models import Event
 from .models import Post,Comment
 from .forms import PostForm,CommentForm
 from django.core.paginator import Paginator
@@ -32,7 +33,7 @@ class HomeView(APIView):
 
 
     def get(self, request):
-        
+
         headers = request.COOKIES.get("access_token")
         
         if headers is None:
@@ -47,10 +48,17 @@ class HomeView(APIView):
                 raise Exception("Invalid token")
 
             if user is not None:
-                response = Response({"user" : user}, template_name="home.html")                
+                event_list = Event.objects.all().order_by('-created_at')[0:4]
+                response = Response({"user" : user, "event_list" : event_list}, template_name="home.html")                
                     
+        
+        
             return response
-
+        
+        
+        
+        
+        
     # def dispatch(self, request, *args, **kwargs):
     #     """
     #     client 요청이 들어왔을 때 로그인 정보가 있다면 contents 이동 
