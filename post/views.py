@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect, get_object_or_404
+from django.shortcuts import render,redirect, get_object_or_404, resolve_url
 from django.views.generic.base import TemplateView
 from .models import Post,Comment
 from .forms import PostForm,CommentForm
@@ -63,8 +63,6 @@ class HomeView(APIView):
     #     return super().dispatch(request, *args, **kwargs)
     
 
-class PostView(TemplateView):
-    template_name = "post/post_main.html"
 
 class PostCreateView(TemplateView):
     template_name = "post/post_create.html"
@@ -72,34 +70,43 @@ class PostCreateView(TemplateView):
 class PostDetailView(TemplateView):
     template_name = "post/post_detail.html"
     
+class PostView(TemplateView):
+    template_name = "post/post_main.html"
 
-def index(request):
-    """
-    Post 전체 추출(작성날짜 최신순)
-    """ 
-    
-    # 검색어 받기
-    keyword = request.GET.get('keyword','')
+    def get(self, request):
+        """
+        Post 전체 추출(작성날짜 최신순)
+        """ 
 
-    # 정렬 기준 받기
-    so = request.GET.get('so','latest') # sort 기준 : latest(기본)
+        # 검색어 받기
+        keyword = request.GET.get('keyword','')
 
-    # 주소 가져오기
-    address = request.GET.get('address', '')
+        # 정렬 기준 받기
+        so = request.GET.get('so','latest') # sort 기준 : latest(기본)
 
-    # 전체 게시물 추출
-    if so == "latest":
-        all_posts = Post.objects.order_by('-created_at')
-    elif so == "inquiry":
-        all_posts = Post.objects.annotate(num_answer=Count('view_cnt')).order_by('-view_cnt','-created_at')
+        # 주소 가져오기
+        address = request.GET.get('address', '')
 
-    # 전체 리스트에서 검색어가 들어간 리스트만 추출(질문 제목, 질문 내용)
-    # Q : OR 조건으로 데이터 조회, distinct() : 중복 제거
-    if keyword:
-        all_posts = all_posts.filter(Q(title__icontains=keyword)|Q(content__icontains=keyword)).distinct()
-    if address:
-        all_posts = all_posts.filter(Q(location_tags__icontains=address))
-    return render(request, 'post/post_main.html', {"address":address, "keyword":keyword, "so":so, "all_posts":all_posts})
+        # 어떤 모임 가져오기
+        gathering = request.GET.get('gathering', '')
+
+        # 전체 게시물 추출
+        if so == "latest":
+            all_posts = Post.objects.order_by('-created_at')
+        elif so == "inquiry":
+            all_posts = Post.objects.annotate(num_answer=Count('view_cnt')).order_by('view_cnt','-created_at')
+
+        # 전체 리스트에서 검색어가 들어간 리스트만 추출(질문 제목, 질문 내용)
+        # Q : OR 조건으로 데이터 조회, distinct() : 중복 제거
+        if address:
+            all_posts = all_posts.filter(Q(location_tags__icontains=address))
+            
+        if gathering:
+            all_posts = all_posts.filter(Q(category__icontains=address))
+
+        if keyword:
+            all_posts = all_posts.filter(Q(title__icontains=keyword)|Q(content__icontains=keyword)).distinct()
+        return render(request, 'post/post_main.html', {"address":address, "gathering":gathering, "keyword":keyword, "so":so, "all_posts":all_posts})
 
 @login_required(login_url="login")
 def detail(request, post_id):
