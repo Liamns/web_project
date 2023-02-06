@@ -7,19 +7,13 @@ function getCookie(name) {
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-fetch(current_url, {
-    method: "GET"
-}).then((response) => {
-    if (!response.ok) {
-        fetch("refresh/token/", {
-            method: "POST",
-            headers: {
-                "X-CSRFToken": getCookie("csrftoken"),
-                "Content-Type": "application/json"
-            },
+window.onload = () => {
+    fetch("refresh/token/", {
+        method: "POST",
+        headers: {
+            "X-CSRFToken": getCookie("csrftoken"),
+            "Content-Type": "application/json"
+        },
 
-        }).then((response) => response.json()).then(data => console.log(data))
-    } else {
-        response.json()
-    }
-}).then(data => console.log(data))
+    }).then((response) => response.json()).then(data => console.log(data))
+}

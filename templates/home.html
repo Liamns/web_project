@@ -91,43 +91,46 @@
       <div class="">
         <!-- evnet 리스트 나오는 곳-->
         <div class="container px-4 px-lg-5 mt-5">
-          <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center events-list infinite-container">
+          <div
+            class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center events-list infinite-container">
             {% for recommend_event in event_list %}
 
-              <div class="col mb-5 infinite-item">
-                <div class="card h-100">
-                  {% if recommend_event.deadline_compare%}
-                    <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">모집중</div>
-                  {% else %}
-                    <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">마감</div>
-                  {% endif %}
+            <div class="col mb-5 infinite-item">
+              <div class="card h-100">
+                {% if recommend_event.deadline_compare%}
+                <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">모집중</div>
+                {% else %}
+                <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">마감</div>
+                {% endif %}
 
-                  <!-- 모임 이미지 -->
-                  {% if recommend_event.event_imgage %}
-                    <img class="card-img-top" src="{{recommend_event.event_imgage.url}}" alt="..." style="height: 200px"/>
-                  {% else %}
-                    <img class="card-img-top" src="" alt="..."/>
-                  {% endif %}
-                  <!-- 모임 내용 디테일-->
-                  <div class="card-body p-4">
-                    <div class="text-center">
-                      <!-- 모임 제목 -->
-                      <h5 class="fw-bolder" style="display: inline-block; width: 180px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                        {{recommend_event.title}}</h5><br>
-                      <!-- category-->
-                      {{recommend_event.category}}
-                    </div>
+                <!-- 모임 이미지 -->
+                {% if recommend_event.event_imgage %}
+                <img class="card-img-top" src="{{recommend_event.event_imgage.url}}" alt="..." style="height: 200px" />
+                {% else %}
+                <img class="card-img-top" src="" alt="..." />
+                {% endif %}
+                <!-- 모임 내용 디테일-->
+                <div class="card-body p-4">
+                  <div class="text-center">
+                    <!-- 모임 제목 -->
+                    <h5 class="fw-bolder"
+                      style="display: inline-block; width: 180px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                      {{recommend_event.title}}</h5><br>
+                    <!-- category-->
+                    {{recommend_event.category}}
                   </div>
-                  <!-- Product actions-->
-                  <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                    <div class="text-center">
-                      <a class="btn btn-outline-dark mt-auto" href="{% url 'event_detail' pk=recommend_event.id %}">자세히 보기</a>
-                    </div>
+                </div>
+                <!-- Product actions-->
+                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                  <div class="text-center">
+                    <a class="btn btn-outline-dark mt-auto" href="{% url 'event_detail' pk=recommend_event.id %}">자세히
+                      보기</a>
                   </div>
                 </div>
               </div>
-              {{break}}
-              {% endfor %}
+            </div>
+            {{break}}
+            {% endfor %}
           </div>
         </div>
 
@@ -188,7 +191,8 @@
         <div class="col-md-6 pr-md-5 mb-4 mb-md-0">
           <h6 class="section-title mb-0 hometext-color">모여방에 대해서</h6>
           <h6 class="section-subtitle mb-4 hometext-color">우리는 왜 <모여방>을 만들었나?</h6>
-          <p class="hometext-color">이제 코로나에서 벗어날 시간. 지난 몇년간 코로나로 각종 모임과 만남이 제한되었습니다. 하지만 이제 실내 의무 마스크 규제가 풀린 지금, 여행과 만남의 연결이 필요한 시간입니다. 알파코 2조는 그러한 시대를 반영하여 키워드 미팅 어플리케이션 웹을 개발하였습니다.</p>
+          <p class="hometext-color">이제 코로나에서 벗어날 시간. 지난 몇년간 코로나로 각종 모임과 만남이 제한되었습니다. 하지만 이제 실내 의무 마스크 규제가 풀린 지금, 여행과 만남의
+            연결이 필요한 시간입니다. 알파코 2조는 그러한 시대를 반영하여 키워드 미팅 어플리케이션 웹을 개발하였습니다.</p>
           <img src="{% static 'imgs/about.jpg' %}" alt="" class="w-100 mt-3 shadow-sm">
         </div>
         <div class="col-md-6 pl-md-5">
@@ -200,7 +204,8 @@
               <img src="{% static 'imgs/about-2.jpg' %}" alt="" class="w-100 shadow-sm">
             </div>
             <div class="col-12 mt-4 hometext-color">
-              <p>운동, 여행, 문화관람, 게임, 음악, 사교/인맥, 봉사, 자유주제등 업데이트마다 새로운 카테고리가 생성될 것입니다. 저희 알파코2조는 새로운 만남 문화를 주도하는 회사가 되도록 노력하겠습니다.</p>
+              <p>운동, 여행, 문화관람, 게임, 음악, 사교/인맥, 봉사, 자유주제등 업데이트마다 새로운 카테고리가 생성될 것입니다. 저희 알파코2조는 새로운 만남 문화를 주도하는 회사가 되도록
+                노력하겠습니다.</p>
               <p>
                 <b class="hometext-color">
                   문화와 공간, 만남을 주도하는 알파코2조 웹프로젝트입니다.</b><br>
@@ -407,9 +412,29 @@
     let user_id = fetch("http://127.0.0.1:8000/", { method: "GET" })
 
     user_id
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          fetch("/refresh/token/", {
+            method: "POST",
+            headers: {
+              "X-CSRFToken": getCookie("csrftoken"),
+              "Content-Type": "application/json"
+            },
+          }).then(reponse => response.json()).then(data => console.log(data))
+        } else {
+          res.json()
+        }
+      })
       .then((data) => {
         console.log(data)
+      }).catch(() => {
+        fetch("/refresh/token/", {
+          method: "POST",
+          headers: {
+            "X-CSRFToken": getCookie("csrftoken"),
+            "Content-Type": "application/json"
+          },
+        }).then(reponse => response.json()).then(data => console.log(data))
       })
 
     function getCookie(key) {
