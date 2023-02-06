@@ -87,6 +87,7 @@ INSTALLED_APPS += [
     # 소셜 로그인
     'allauth.socialaccount.providers.kakao',
     'allauth.socialaccount.providers.google',
+    'mathfilters',
     ]
 
 SITE_ID = 1

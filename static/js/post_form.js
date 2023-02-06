@@ -73,33 +73,24 @@ const title = document.getElementById("title")
 const content = document.getElementById("contents")
 const image = document.getElementById("image")
 const tags = document.getElementById("tags")
-const deadline_time = document.getElementById("deadline-time")
-const start_time = document.getElementById("start-time")
-const end_time = document.getElementById("end-time")
-const participants = document.getElementById("participants")
 const address = document.getElementById("sample5_address")
 const category = document.querySelector(".category_metting")
-const form_data = document.querySelector("#event-form")
 
 document.getElementById("submit-btn-class").addEventListener("click", (e) => {
 
   const data_obj = {
     "user": user_id,
-    "category": category.value,
     "title": title.value,
     "content": content.value,
-    "event_image": image.value,
+    "post_img": image.value,
+    "category": category.value,
     "tags": tags.value,
-    "deadline": deadline_time.value,
-    "participants_limit": participants.value,
-    "start_event": start_time.value,
-    "end_event": end_time.value,
     "location_tags": address.value
   }
 
   console.log(data_obj)
 
-  fetch("http://127.0.0.1:8000/events/forms/", {
+  fetch("http://127.0.0.1:8000/post/create/", {
     method: "POST",
     headers: {
       "X-CSRFToken": getCookie("csrftoken"),

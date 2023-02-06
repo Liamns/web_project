@@ -26,7 +26,8 @@ from django.urls import re_path
 from . import views
 
 
-from post.views import HomeView, profile_view, profile_edit_view
+from post.views import HomeView
+from apis.views import RefreshJWTtoken
  
 
 urlpatterns = [
@@ -37,16 +38,17 @@ urlpatterns = [
     path('user/', include('user.urls')),
     path('post/', include('post.urls')),
     path('events/', include('event.urls')),
-    
+
     path('chat2/', include('chat2.urls')),
     path('dm/', include('dm.urls')),
-    
-    path('profile/', profile_view, name='profile'),
-    path('profile_edit/', profile_edit_view, name='profile'),
+
     
     path('api/token/', TokenObtainSlidingView.as_view(), name='token_obtain'),
     path('api/token/refresh/', TokenRefreshSlidingView.as_view(), name='token_refresh'),
     path('schedule/', TemplateView.as_view(template_name = "schedule.html"), name='schedule'),
+
+    # 토큰 재발급
+    path("refresh/token/", RefreshJWTtoken.as_view(), name="re_refresh"),
     
     re_path('login', views.login),
     re_path('signup', views.signup),

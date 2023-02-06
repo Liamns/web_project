@@ -7,6 +7,8 @@ from django.db.models import UniqueConstraint
 
 
 class Post(BaseModel):
+    UPLOAD_PATH = "post-upload"
+
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="작성자")
     post_img = models.ImageField(upload_to=image_upload_to, null=True, blank=True)
     view_cnt = models.SmallIntegerField(default=0)

@@ -68,14 +68,14 @@ class LoginApi(APIView):
         response = Response(data={"message": "Success!!"},status=status.HTTP_200_OK, headers={"Authorization": access_token})
 
         response.set_cookie(key="refreshtoken", value=refresh_token, httponly=True)
-        response.set_cookie(key="access_token", value=access_token, httponly=True)
+        response.set_cookie(key="access_token", value=access_token)
 
         return response
 
 @permission_classes([AllowAny])
 @method_decorator(csrf_protect, name='dispatch')
 class RefreshJWTtoken(APIView):
-    def post(self, request, *args, **kwargs):
+    def post(self ,request, *args, **kwargs):
         refresh_token = request.COOKIES.get('refreshtoken')
         
         if refresh_token is None:
@@ -106,7 +106,7 @@ class RefreshJWTtoken(APIView):
         access_token = generate_access_token(user)
         response = Response(data={"message": "Success!!"},status=status.HTTP_200_OK, headers={"Authorization": access_token})
 
-        response.set_cookie(key="access_token", value=access_token, httponly=True)
+        response.set_cookie(key="access_token", value=access_token)
         
         return response
         
@@ -129,7 +129,7 @@ def generate_access_token(user):
     access_token_payload = {
         'nkn': user.id,
         'exp': datetime.datetime.utcnow() + datetime.timedelta(
-            days=0, minutes=30
+            days=0, minutes=31
         ),
         'iat': datetime.datetime.utcnow(),
     }
