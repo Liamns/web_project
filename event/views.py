@@ -33,7 +33,6 @@ class EventPagination(CursorPagination):
     page_size = 8
 
 
-# Create your views here.
 
 class PostEventFormView(APIView):
 
@@ -58,10 +57,12 @@ class PostEventFormView(APIView):
             return HttpResponse(post_event.data, status = status.HTTP_201_CREATED)
         return HttpResponse(post_event.errors, status = status.HTTP_400_BAD_REQUEST)
 
+
 class PostEventDetailView(TemplateView):
     def get(self, req, pk):
         event = get_object_or_404(Event, pk=pk)
-        return render(req, 'event/event_detail.html', {"event" : event})
+        user = User.objects.get(id=JWTDecoding.Jwt_decoding(request=req))
+        return render(req, 'event/event_detail.html', {"event" : event, "user" : user})
 
 @permission_classes([AllowAny])       
 class PostEventView(TemplateView):
