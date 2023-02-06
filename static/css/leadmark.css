@@ -28,7 +28,7 @@
   --gray: #6c757d;
   --gray-dark: #1b1b1b;
   --primary: #ff6e42;
-  --signature1: #fefefe;
+  --signature1: #ffe67c;
   --signature2: #8aaae5;
   --signature3: #2bae66;
   --signature4: #fcf6f5;
@@ -3038,15 +3038,15 @@ fieldset:disabled a.btn {
 }
 
 .btn-signature1 {
-  color: #1b1b1b;
-  background-color: #fefefe;
-  border-color: #fefefe;
+  color: #295f2e;
+  background-color: #ffe67c;
+  border-color: #ffe67c;
 }
 
 .btn-signature1:hover {
-  color: #ffffff;
-  background-color: #000000;
-  border-color: #fefefe;
+  color: #295f2e;
+  background-color: #ffe67c;
+  border-color: #ffe67c;
 }
 
 .btn-signature1:focus,
@@ -3056,17 +3056,17 @@ fieldset:disabled a.btn {
 
 .btn-signature1.disabled,
 .btn-signature1:disabled {
-  color: #fff;
-  background-color: #fefefe;
-  border-color: #fefefe;
+  color: #295f2e;
+  background-color: #ffe67c;
+  border-color: #ffe67c;
 }
 
 .btn-signature1:not(:disabled):not(.disabled):active,
 .btn-signature1:not(:disabled):not(.disabled).active,
 .show > .btn-signature1.dropdown-toggle {
-  color: #fff;
-  background-color: #fefefe;
-  border-color: #fefefe;
+  color: #295f2e;
+  background-color: #ffe67c;
+  border-color: #ffe67c;
 }
 
 .btn-signature1:not(:disabled):not(.disabled):active:focus,
@@ -11916,7 +11916,7 @@ textarea.form-control {
 .navbar.custom-navbar.affix {
   padding-top: 0.4rem;
   padding-bottom: 0.4rem;
-  background: #fcf6f5;
+  background: #2aa66294;
   border-bottom: 1px solid #dee2e6;
 }
 
@@ -12109,8 +12109,8 @@ textarea.form-control {
 
 .header {
   position: relative;
-  height: 100vh;
-  min-height: 500px;
+  height: 20vh;
+  min-height: 100px;
   background: url(../imgs/header.jpg) no-repeat center center fixed;
   background-size: cover;
   overflow: hidden;
@@ -12122,7 +12122,6 @@ textarea.form-control {
   min-height: 80px;
   background: no-repeat center center fixed;
   background-size: cover;
-  background-color: #8aaae5;
   overflow: hidden;
 }
 
@@ -12131,7 +12130,7 @@ textarea.form-control {
   left: 0;
   top: 0;
   width: 100%;
-  height: 100%;
+  height: 10%;
   background: rgba(0, 0, 0, 0.7);
   color: #fff;
   display: -webkit-box;

@@ -16,6 +16,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
         {% if user.nickname != None %}
+
           <li class="nav-item">
             <a class="nav-link" href="#recommend">추천모임</a>
           </li>
@@ -42,6 +43,7 @@
           <li class="nav-item">
             <a href="#" aria-current="page" class="ml-4 nav-link active btn btn-sm btn-signature3 rounded" id="logout">로그아웃</a>
           </li>
+
         {% else %}
           <li class="nav-item">
             <a class="nav-link" href="#service">서비스</a>

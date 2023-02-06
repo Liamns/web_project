@@ -53,6 +53,12 @@ class Event(BaseModel):
         result = (self.deadline - now)
         return result.days > 0
 
+    @property
+    def d_day_calculator(self):
+        now = date.today()
+        d_day = (self.deadline - now)
+        return d_day.days
+
 
 
 
