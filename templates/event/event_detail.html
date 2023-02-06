@@ -1,5 +1,6 @@
 {% load static %}
 {% load rest_framework %}
+{% load mathfilters %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,7 +14,7 @@
 
   <body>
 
-    {% include 'nav.html' %}
+    {% include 'event/nav.html' %}
     <link rel="stylesheet" href="{% static 'css/event_detail.css' %}">
 
     <section class="py-5">
@@ -48,19 +49,35 @@
                   {% else %}
                     <div class="badge bg-secondary p-2">
                       <div class="mb-2 text-start">D-{{event.d_day_calculator}}</div>
+
                     {% endif %}
 
                   </div>
                 </div>
+                {% if event.participants_limit | sub: event.participants_set.count > 1 %}
+                  <div class="badge bg-danger p-2">
+                    <div class="mb-2 text-start">{{event.participants_set.count|add:1}}/{{event.participants_limit}}</div>
+                  </div>
+                {% endif %}
                 <div class="justify-content-start d-flex">
+
                   {% if event.d_day_calculator >= 0 and user.id != event.user.id %}
-                    <button type="button" class="btn btn-outline-success mb-4 mt-4">이벤트 참여하기</button>
+                    <button type="button" class="btn btn-outline-success mb-4 mt-4" id="event_parti">이벤트 참여하기</button>
+                  {% elif event.participants_limit | sub: event.participants_set.count > 1 and user.id != event.user.id %}
+                    <button type="button" class="btn btn-outline-success mb-4 mt-4" disabled="disabled">이벤트 참여하기</button>
                   {% endif %}
                   {% if user.id == event.user.id %}
                     <a href="">
                       <button type="button" class="btn  btn-outline-danger mb-4 mt-4 ml-2">이벤트 수정하기</button>
                     </a>
                   {% endif %}
+                </div>
+
+                <div id="user_id" style="display: none;">
+                  {{user.id}}
+                </div>
+                <div id="event_id" style="display: none;">
+                  {{event.id}}
                 </div>
 
               </section>
@@ -125,6 +142,9 @@
                     }
                   });
               </script>
+              <script src="{% static 'js/event_detail.js' %}"></script>
+              <script src="{% static 'js/refresh.js' %}"></script>
+
             </body>
 
           </html>
