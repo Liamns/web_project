@@ -20,9 +20,4 @@ def main():
 
 
 if __name__ == '__main__':
-    dotenv.read_dotenv()
     main()
-
-SOCIAL_AUTH_GOOGLE_CLIENT_ID = "949693815197-cb42o1niev0rnved93kpt90vtqiurpub.apps.googleusercontent.com"
-SOCIAL_AUTH_GOOGLE_SECRET = "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"
-STATE = "idjNEIe2kNGE0vs0vnw"

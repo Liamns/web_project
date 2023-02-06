@@ -29,7 +29,6 @@ from django.db.models import Q, Count
 class HomeView(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = "home.html"
-    permission_classes = [IsAuthenticated]
 
 
     def get(self, request):
@@ -43,7 +42,7 @@ class HomeView(APIView):
                 payload = jwt.decode(headers, settings.SECRET_KEY, algorithms=['HS256'])
                 user = User.objects.get(id=JWTDecoding.Jwt_decoding(request=request))
             except jwt.ExpiredSignatureError: # 토큰이 만료되었을 때 나오는 것
-                return RefreshJWTtoken.post(request=request)
+                return RefreshJWTtoken.post(self, request=request)
             except jwt.InvalidTokenError:
                 raise Exception("Invalid token")
 

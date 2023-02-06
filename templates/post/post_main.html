@@ -15,11 +15,11 @@
     <!-- Bootstrap icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet"/>
     <!-- Core theme CSS (includes Bootstrap)-->
-
   </head>
 
-  <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home" style="width:1520px">
+  <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home" style="width: 1520px">
     <!-- Navigation-->
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet"/>
     {% include 'post/nav.html' %}
     <!-- Header-->
     <!-- Section-->
@@ -68,10 +68,12 @@
         <option class="dropdown-item" value="latest">최신순</option>
         <option class="dropdown-item" value="inquiry">조회순</option>
       </select>
-      <div class="met_category input-group col-4 entsearchForm" style="float: right;">
-        <input type="text" name="keyword" id="keyword" class="form-control" value="{{keyword|default_if_none:''}}">
-        <div class="input-group-append" style="float:right;">
-          <button type="button" class="btn btn-outline-secondary search">찾기</button>
+      <div class="met_category input-group col-4 entsearchForm" style="float: right">
+        <input type="text" name="keyword" id="keyword" class="form-control" value="{{keyword|default_if_none:''}}"/>
+        <div class="input-group-append" style="float: right">
+          <button type="button" class="btn btn-outline-secondary search">
+            찾기
+          </button>
         </div>
       </div>
     </div>
@@ -115,7 +117,9 @@
     <!-- Footer-->
     <footer class="py-5 bg-dark">
       <div class="container">
-        <p class="m-0 text-center text-white">SoonYang.co &copy; LoveSolo 2023</p>
+        <p class="m-0 text-center text-white">
+          SoonYang.co &copy; LoveSolo 2023
+        </p>
       </div>
     </footer>
     <!-- Bootstrap core JS-->
