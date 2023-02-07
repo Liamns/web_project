@@ -107,8 +107,8 @@
 
   login_btn.addEventListener("click", () => {
     const login_object = {
-      email: email.value,
-      password: password.value
+      "email": email.value,
+      "password": password.value
     };
 
     fetch("http://127.0.0.1:8000/user/jwt/login/", {
