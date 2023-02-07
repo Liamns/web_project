@@ -37,10 +37,8 @@ def send(request):
     username = request.POST['username']
     room_id = request.POST['room_id']
     
-    
     new_message = Message.objects.create(value=message, user=username, room=room_id)
     new_message.save()
-    
     return HttpResponse('Message snet successfully')
 
 

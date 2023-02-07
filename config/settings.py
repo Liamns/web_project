@@ -66,7 +66,6 @@ INSTALLED_APPS = [
     "apis",
     'dm',
     'corsheaders', # <- 추가
-
     'chat2',
     'message',
     'crispy_forms',
@@ -262,3 +261,5 @@ AUTHENTICATION_BACKENDS = [
 SOCIALACCOUNT_ADAPTER = 'user.adapter.SocialUserSignUp'
 # 이름, 별명 자동짓기
 CRISPY_TEMPLATE_PACK = 'bootstrap4' 
+
+APPEND_SLASH=False
