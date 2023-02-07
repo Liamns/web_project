@@ -1,120 +1,72 @@
-{% load static %} {% load custom_tags %} {% include 'user/login.html' %}
-<script
-  src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
-  crossorigin="anonymous"
-></script>
-<link rel="stylesheet" href="{% static 'css/leadmark.css' %}" />
+{% load static %}
+{% load custom_tags %}
+{% include 'user/login.html' %}
+<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="{% static 'css/leadmark.css' %}"/>
 
 <!-- page Navigation -->
-<nav
-  class="navbar custom-navbar navbar-expand-md navbar-light fixed-top affix"
-  data-spy="affix"
-  data-offset-top="10"
->
+<nav class="navbar custom-navbar navbar-expand-md navbar-light fixed-top affix" data-spy="affix" data-offset-top="10">
   <div class="container">
     <a class="navbar-brand" href="#">
-      <img src="{% static 'imgs/logo.png' %}" alt="" />
+      <img src="{% static 'imgs/logo.png' %}" alt=""/>
     </a>
-    <button
-      class="navbar-toggler ml-auto"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
         {% if user.nickname != None %}
 
-        <li class="nav-item">
-          <a class="nav-link" href="#recommend">추천모임</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'post_home' %}">게시판</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'event_list' %}">모임</a>
-        </li>
-        <li class="nav-item">
-          <a
-            href="{% url 'inbox' %}"
-            class="ml-6 nav-link btn btn btn-signature2 rounded active"
-          >
-            <i class="fa-solid fa-paper-plane"></i>
-          </a>
-        </li>
-        <li class="nav-item">{% show_notifications %}</li>
-        <li class="nav-item">
-          <a
-            href="{% url 'chat2' %}"
-            class="ml-4 nav-link btn btn btn-signature2 rounded active"
-            >채팅하기</a
-          >
-        </li>
-        <li class="nav-item">
-          <a
-            href="{% url 'profile_view' pk=user.pk %}"
-            aria-current="page"
-            class="ml-4 nav-link active btn btn-signature3 rounded"
-            id="nickname"
-            >{{user.nickname}}님</a
-          >
-        </li>
-        <li class="nav-item">
-          <a
-            href="#"
-            aria-current="page"
-            class="ml-4 nav-link active btn btn-sm btn-signature3 rounded"
-            id="logout"
-            >로그아웃</a
-          >
-        </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#recommend">추천모임</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'post_home' %}">게시판</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'event_list' %}">모임</a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'inbox' %}" class="ml-6 nav-link btn btn btn-signature2 rounded active">
+              <i class="fa-solid fa-paper-plane"></i>
+            </a>
+          </li>
+          <li class="nav-item">{% show_notifications %}</li>
+          <li class="nav-item">
+            <a href="{% url 'chat2' %}" class="ml-4 nav-link btn btn btn-signature2 rounded active">채팅하기</a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'profile_view' pk=user.pk %}" aria-current="page" class="ml-4 nav-link active btn btn-signature3 rounded" id="nickname">{{user.nickname}}님</a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'logout' %}" aria-current="page" class="ml-4 nav-link active btn btn-sm btn-signature3 rounded" id="logout">로그아웃</a>
+          </li>
 
         {% else %}
-        <li class="nav-item">
-          <a class="nav-link" href="#service">서비스</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#about">회사소개</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#howuse">이용방법</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#donation">후원</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#contact">컨택트</a>
-        </li>
-        <li class="nav-item">
-          <a
-            href="{% url 'chat2' %}"
-            class="ml-4 nav-link btn btn btn-signature2 rounded active"
-            >채팅하기</a
-          >
-        </li>
-        <li class="nav-item">
-          <a
-            href="#"
-            aria-current="page"
-            class="ml-4 nav-link active btn btn-signature3 btn-sm rounded"
-            id="login"
-            >로그인</a
-          >
-        </li>
-        <li class="nav-item">
-          <a
-            href="{% url 'register' %}"
-            aria-current="page"
-            class="ml-4 nav-link active btn btn-signature3 btn-sm rounded"
-            id="register"
-            >회원가입</a
-          >
-        </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#service">서비스</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about">회사소개</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#howuse">이용방법</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#donation">후원</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contact">컨택트</a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'chat2' %}" class="ml-4 nav-link btn btn btn-signature2 rounded active">채팅하기</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" aria-current="page" class="ml-4 nav-link active btn btn-signature3 btn-sm rounded" id="login">로그인</a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'register' %}" aria-current="page" class="ml-4 nav-link active btn btn-signature3 btn-sm rounded" id="register">회원가입</a>
+          </li>
         {% endif %}
       </ul>
     </div>
@@ -122,19 +74,31 @@
 </nav>
 <script>
   const open = () => {
-    document.querySelector(".modal").classList.remove("hidden");
+    document
+      .querySelector(".modal")
+      .classList
+      .remove("hidden");
   };
 
   const close = () => {
-    document.querySelector(".modal").classList.add("hidden");
+    document
+      .querySelector(".modal")
+      .classList
+      .add("hidden");
   };
 
   const check_login = document.querySelector(".btn-sm");
 
   if (check_login.innerText == "로그인") {
-    document.getElementById("login").addEventListener("click", open);
-    document.querySelector(".close").addEventListener("click", close);
-    document.querySelector(".bg").addEventListener("click", close);
+    document
+      .getElementById("login")
+      .addEventListener("click", open);
+    document
+      .querySelector(".close")
+      .addEventListener("click", close);
+    document
+      .querySelector(".bg")
+      .addEventListener("click", close);
   }
 
   const email = document.getElementById("email");
@@ -144,15 +108,15 @@
   login_btn.addEventListener("click", () => {
     const login_object = {
       email: email.value,
-      password: password.value,
+      password: password.value
     };
 
     fetch("http://127.0.0.1:8000/user/jwt/login/", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
-      body: JSON.stringify(login_object),
+      body: JSON.stringify(login_object)
     })
       .then((res) => res.json())
       .then((data) => {
@@ -163,7 +127,7 @@
         }
       });
   });
-  let user_id = fetch("http://127.0.0.1:8000/", { method: "GET" });
+  let user_id = fetch("http://127.0.0.1:8000/", {method: "GET"});
 
   user_id
     .then((res) => res.json())
@@ -173,7 +137,9 @@
 
   function getCookie(key) {
     var result = null;
-    var cookie = document.cookie.split(";");
+    var cookie = document
+      .cookie
+      .split(";");
     cookie.some(function (item) {
       // 공백을 제거
       item = item.replace(" ", "");
@@ -196,8 +162,8 @@
     fetch("http://127.0.0.1:8000/user/jwt/logout/", {
       method: "POST",
       headers: {
-        "X-CSRFToken": getCookie("csrftoken"),
-      },
+        "X-CSRFToken": getCookie("csrftoken")
+      }
     })
       .then((response) => response.json())
       .then((data) => {

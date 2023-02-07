@@ -160,8 +160,8 @@ class PostDetailView(TemplateView):
         cnt = PostCount.objects.filter(ip=ip, post=posts).count()
 
         if cnt == 0:
-            qc = PostCount(ip=ip, post=posts)
-            qc.save()
+            pc = PostCount(ip=ip, post=posts)
+            pc.save()
 
             if posts.view_cnt:
                 posts.view_cnt += 1

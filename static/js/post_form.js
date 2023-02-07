@@ -82,7 +82,6 @@ document.getElementById("submit-btn-class").addEventListener("click", (e) => {
     "user": user_id,
     "title": title.value,
     "content": content.value,
-    "post_img": image.value,
     "category": category.value,
     "tags": tags.value,
     "location_tags": address.value
