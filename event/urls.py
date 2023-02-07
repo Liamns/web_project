@@ -18,4 +18,5 @@ urlpatterns = [
     # 이벤트 참여
     path("party/", ParticipatedEventView.as_view(), name="event_party"),
 
+
 ]

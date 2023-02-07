@@ -24,9 +24,9 @@
         <li class="nav-item">
           <a href="{% url 'event_list' %}" style="text-decoration-line: none" class="nav-link">모임</a>
         </li>
-        {% if post.user.nickname != "" %}
+        {% if user.nickname != "" %}
           <li class="nav-item">
-            <a href="#" aria-current="page" class="ml-4 nav-link active btn btn-signature3 rounded" id="login">{{post.user.nickname}}</a>
+            <a href="{% url 'profile_view' pk=user.id %}" aria-current="page" class="ml-4 nav-link active btn btn-signature3 rounded" id="login">{{user.nickname}}님</a>
           </li>
           <li class="nav-item">
             <a href="{% url 'logout' %}" aria-current="page" class="ml-4 nav-link active btn btn-sm btn-signature3 rounded" id="logout">로그아웃</a>

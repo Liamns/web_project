@@ -106,7 +106,12 @@ document.getElementById("submit-btn-class").addEventListener("click", (e) => {
       "Content-Type": "application/json"
     },
     body: JSON.stringify(data_obj)
-  }).then((response) => response.json()).then((data) => console.log(data))
+  }).then((response) => {
+    response.json()
+    window.location.href = "http://127.0.0.1:8000/events";
+  }).then((data) => {
+    window.location.href = "http://127.0.0.1:8000/events";
+  })
 
 
 })
