@@ -15,6 +15,7 @@ from rest_framework.decorators import APIView, permission_classes
 from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 from django.utils.decorators import method_decorator
 
+
 from post.serializers import PostSerializer
 from django.http import HttpResponse
 from config import settings
@@ -124,7 +125,9 @@ class PostView(TemplateView):
         except EmptyPage:
             all_posts = paginator.page(paginator.num_pages)
 
-        return render(request, 'post/post_main.html', {"address":address, "gathering":gathering, "keyword":keyword, "so":so, "all_posts":all_posts})
+        user = User.objects.get(id=JWTDecoding.Jwt_decoding(request=request))
+
+        return render(request, 'post/post_main.html', {"address":address, "gathering":gathering, "keyword":keyword, "so":so, "all_posts":all_posts, "user":user})
 
 class PostCreateView(APIView):
 
@@ -159,6 +162,8 @@ class PostDetailView(TemplateView):
         # 현재 질문에 대한 조회수 찾기
         cnt = PostCount.objects.filter(ip=ip, post=posts).count()
 
+        user = User.objects.get(id=JWTDecoding.Jwt_decoding(request=req))
+
         if cnt == 0:
             pc = PostCount(ip=ip, post=posts)
             pc.save()
@@ -169,7 +174,7 @@ class PostDetailView(TemplateView):
                 posts.view_cnt = 1
             posts.save()
 
-        return render(req, 'post/post_detail.html', {"post" : posts})
+        return render(req, 'post/post_detail.html', {"post" : posts, "user" : user})
 
 @login_required(login_url="login")
 def comment_create(request,post_id):

@@ -66,6 +66,13 @@ class PostEventDetailView(TemplateView):
 
         return render(req, 'event/event_detail.html', {"event" : event, "user" : user, "pk" : event.id})
 
+    def delete(request,pk):
+        events = get_object_or_404(Event, pk=pk)
+        events.delete()
+        print(events)
+
+        return redirect('event_list')
+
 @permission_classes([AllowAny])       
 class PostEventView(TemplateView):
     template_name = "event/event_list.html"
@@ -158,4 +165,22 @@ class ParticipatedEventView(APIView):
             party_event.save()
             return HttpResponse(party_event.data, status = status.HTTP_201_CREATED)
         return HttpResponse(party_event.errors, status = status.HTTP_400_BAD_REQUEST)
+
+
+
+class EventUpdateView(TemplateView):
+    def patch(request):
+        post_create = EventSerializer(data=request.data)
+    # 장고와 달리 DRF에서는 request에서 데이터를 받을 때(request.data)
+    # 반드시 .is_valid() 여부를 체크해야 한다.
+    # valid하지 않을 때는 serializer.errors를 리턴한다.
+        if post_create.is_valid():
+            # event = EventSerializer(data=post_event["event_user"])
+            # if event.is_valid():
+            post_create.save()
+            return HttpResponse(post_create.data, status = status.HTTP_201_CREATED)
+        return HttpResponse(post_create.errors, status = status.HTTP_400_BAD_REQUEST)
+
+
+
 
