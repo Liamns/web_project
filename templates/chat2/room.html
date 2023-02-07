@@ -80,32 +80,17 @@
               type: 'GET', // url: "/getMessages/{{room}}/",
               url: "/chat2/getMessages/" + String(room) + "/",
               success: function (response) {
-
+                console.log(response);
                 $("#display").empty();
                 for (var key in response.messages) {
-
-                  console.log(request.user.name);
-                  if (response.messages[key].user == request.user.name) {
-                    var temp = "<div class='container darker light'><b>" + response
-                      .messages[key]
-                      .user + "</b><p>" + response
-                      .messages[key]
-                      .value + "</p><span class='time-left'>" + response
-                      .messages[key]
-                      .date + "</span></div>";
-                    console.log("11111");
-                  } else {
-                    var temp = "<div class='container darker left'><b>" + response
-                      .messages[key]
-                      .user + "</b><p>" + response
-                      .messages[key]
-                      .value + "</p><span class='time-left'>" + response
-                      .messages[key]
-                      .date + "</span></div>";
-                  }
-                  document
-                    .querySelector("#display")
-                    .innerHTML = temp;
+                  var temp = "<div class='container darker'><b>" + response
+                    .messages[key]
+                    .user + "</b><p>" + response
+                    .messages[key]
+                    .value + "</p><span class='time-left'>" + response
+                    .messages[key]
+                    .date + "</span></div>";
+                  $("#display").append(temp);
                 }
               },
               //error: function (response) {

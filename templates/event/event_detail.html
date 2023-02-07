@@ -63,8 +63,12 @@
 
               {% if event.d_day_calculator >= 0 and event.user.id != user.id %}
               <button type="button" class="btn btn-outline-success mb-4 mt-4" id="event_parti">이벤트 참여하기</button>
+                <a href="{% url 'chat2' %}">
+                <button type="button" class="btn  btn-outline-success mb-4 mt-4 ml-2">채팅</button>
+              </a>
               {% elif event.participants_limit|sub:event.participants_set.count > 1 and user.id != event.user.id %}
               <button type="button" class="btn btn-outline-success mb-4 mt-4" disabled="disabled">이벤트 참여하기</button>
+
               {% endif %}
               {% if user.id == event.user.id %}
               <a href="">
@@ -73,8 +77,9 @@
               <a href="">
                 <button type="button" class="btn  btn-danger mb-4 mt-4 ml-2" id="event_delete">이벤트 삭제하기</button>
               </a>
+              
               {% endif %}
-            </div>
+            </div> 
 
             <div id="user_id" style="display: none;">
               {{user.id}}
