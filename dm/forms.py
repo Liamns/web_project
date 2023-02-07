@@ -1,6 +1,5 @@
 
 from django import forms
-from  .models import ThreadModel
 
 
 class ThreadForm(forms.Form):

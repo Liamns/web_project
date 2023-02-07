@@ -1,12 +1,7 @@
-from allauth.account.forms import SignupForm, PasswordField
+from allauth.account.forms import SignupForm
 from django import forms
-from django.contrib.sites.shortcuts import get_current_site
-from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from allauth.account.adapter import get_adapter
-from allauth.utils import set_form_field_order, build_absolute_uri
-from allauth.account.utils import get_user_model, setup_user_email, user_email
-from config import settings
+from allauth.account.utils import setup_user_email
 from .models import User
 
 from django.contrib.auth.hashers import make_password

@@ -1,6 +1,5 @@
 from django.urls import path
 from .views import *
-from django.urls import reverse_lazy
 
 urlpatterns = [   
     # http://127.0.0.1:8000/post/

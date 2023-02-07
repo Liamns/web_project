@@ -1,5 +1,4 @@
 from django.urls import path, include
-from apis.views import UserViewSet
 from rest_framework import routers
 
 from .views import GenericFileUploadView, MessageView

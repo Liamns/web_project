@@ -1,31 +1,24 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from django.views.generic.base import TemplateView
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.contrib.auth.decorators import login_required
-from django.core import serializers
-from rest_framework.decorators import api_view
 
 from rest_framework.renderers import TemplateHTMLRenderer
-from django.http import HttpRequest, HttpResponse, Http404
+from django.http import HttpResponse, Http404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from user.models import User
-from event.models import Event, Participants
-from user.serializers import UserSerializer
+from event.models import Event
 from event.serializers import EventSerializer, EventPartySerializer
 from .serializers import EventSerializer
 
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import AllowAny
 from rest_framework.decorators import APIView, permission_classes
-from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
-from django.utils.decorators import method_decorator
 
 from .models import *
 
-from config import settings
 from apis.views import *
 from apis.jwtdecoding import JWTDecoding
-from rest_framework.pagination import PageNumberPagination, LimitOffsetPagination, CursorPagination
+from rest_framework.pagination import CursorPagination
 from datetime import datetime
 from django.utils.dateformat import DateFormat
 from django.db.models import Q, Count

@@ -1,5 +1,4 @@
 import jwt
-from user.models import User
 from config import settings
 from apis.views import * 
 

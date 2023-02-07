@@ -3,9 +3,8 @@ from user.models import User
 
 import os
 import uuid
-from django.db.models import UniqueConstraint
 from taggit.managers import TaggableManager
-from datetime import date, timedelta, datetime
+from datetime import date
 
 # contents - 작성날짜, 수정날짜, 태그, 장소태그, 내용, 제목
 class BaseModel(models.Model):

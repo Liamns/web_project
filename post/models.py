@@ -2,8 +2,6 @@ from django.db import models
 from user.models import User
 from event.models import BaseModel, image_upload_to
 
-from django.db.models import UniqueConstraint
-
 
 
 class Post(BaseModel):

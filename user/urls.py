@@ -2,10 +2,8 @@ from django.views.generic import TemplateView
 from django.urls import path, include, re_path
 from apis.views import LoginApi, LogoutApi, UserSignupView, ProfileUpdateView, UserPasswordResetConfirmView, UserPasswordResetCompleteView, UserPasswordResetDoneView, UserPasswordResetView,ProfileView
 from event.views import ParticipatedEventView
-from rest_framework import routers
 from rest_framework.routers import DefaultRouter
 from allauth.account import views as allauth_views
-from rest_framework.urlpatterns import format_suffix_patterns
 from django.contrib.auth import views as auth_views
 router = DefaultRouter(trailing_slash=False)
 

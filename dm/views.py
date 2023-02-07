@@ -9,10 +9,8 @@ from rest_framework.permissions import IsAuthenticated
 
 from django.http import HttpResponse
 
-import jwt
-
 # from django.contrib.auth.models import User
-from user.models import User, Profile
+from user.models import User
 from .forms import ThreadForm, MessageForm
 from .models import MessageModel, Notification
 

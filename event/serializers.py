@@ -1,6 +1,5 @@
 from rest_framework import  serializers
 from .models import Event, Participants
-from user.serializers import UserSerializer
 from user.models import User
 
 class EventImageSerializer(serializers.ModelSerializer):

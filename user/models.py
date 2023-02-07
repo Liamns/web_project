@@ -1,13 +1,9 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, AbstractUser, BaseUserManager, PermissionsMixin
-from allauth.account.models import EmailAddress
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 import os, uuid
-
-from message.models import GenericFileUpload
-from django.utils import timezone
 
 
 # AbstracUser
