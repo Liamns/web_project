@@ -66,12 +66,15 @@ class PostEventDetailView(TemplateView):
 
         return render(req, 'event/event_detail.html', {"event" : event, "user" : user, "pk" : event.id})
 
-    def delete(request,pk):
-        events = get_object_or_404(Event, pk=pk)
-        events.delete()
-        print(events)
+    def delete(self, request, **kwargs):
+        if kwargs.get('pk') is None:
+            return Response("invalid request", status=status.HTTP_400_BAD_REQUEST)
+        else:
+            event_id = kwargs.get('pk')
+            event_object = Event.objects.get(id=event_id)
+            event_object.delete()
+            return redirect("event_list")
 
-        return redirect('event_list')
 
 @permission_classes([AllowAny])       
 class PostEventView(TemplateView):

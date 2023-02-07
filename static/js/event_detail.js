@@ -43,5 +43,7 @@ delete_event.addEventListener("click", () => {
             "X-CSRFToken": getCookie("csrftoken"),
             "Content-Type": "application/json"
         },
-    })
+    }).then(response => window.location.href = "http://127.0.0.1:8000/events/")
+
+    window.location.href = "http://127.0.0.1:8000/events/"
 })
