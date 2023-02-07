@@ -9,11 +9,11 @@ class ThreadForm(forms.Form):
 class MessageForm(forms.Form):
     message = forms.CharField(label='', max_length=1000)
     
-    image = forms.ImageField(required=False)
+    # image = forms.ImageField(required=False)
     
     
-    class Meta:
-        model = ThreadModel
-        fields = ['message','image']
+    # class Meta:
+    #     model = ThreadModel
+    #     fields = ['message','image']
         
         
