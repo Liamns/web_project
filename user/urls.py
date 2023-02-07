@@ -51,5 +51,6 @@ urlpatterns = [
     path("profile/<int:pk>/", ProfileView.as_view(), name='profile_view'),
     path("update/<int:pk>/", ProfileUpdateView.as_view(), name='profile_update'),
     path("profile/<int:pk>/events/", ParticipatedEventView.as_view(), name='participated_event'),
+    path("profile/<int:pk>/calendar/", TemplateView.as_view(template_name="schedule.html"), name='calendar'),
 ]
 

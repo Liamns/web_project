@@ -55,6 +55,19 @@
 
     <div class="row justify-content-center mt-5">
       <div class="card shadow-sm col-md-8 col-sm-12 border-bottom px-5 py-3">
+        <div class="text-center">
+          <h3>Calendar</h3>
+          <p class="nav-item">
+            <a href="{% url 'calendar' pk=user.id %}" class="ml-6 nav-link btn btn btn-signature2 rounded active">
+              <i class="fa-solid fa-paper-plane"></i>
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center mt-5">
+      <div class="card shadow-sm col-md-8 col-sm-12 border-bottom px-5 py-3">
 
         {% if user.address %}
           <p>address:
