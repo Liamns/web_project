@@ -1,754 +1,97 @@
-<!DOCTYPE html>
-{% load static %}
-<html lang="en" class="theme theme--mercado artdeco windows">
+{% extends 'base.html' %}
+{% load custom_tags %}
 
-  <body>
-    <!-- nav바 -->
-    {% include 'nav.html' %}
-    {% include 'user/login.html' %}
-    <style>
-      .navbar.custom-navbar.affix {
-        background: none;
-        border-bottom: none;
-      }
-    </style>
-  </body>
-  <script type="text/javascript" async="" charset="utf-8" id="utag_128" src="https://platform.linkedin.com/litms/vendor/google/gtag-adwords.js?id=AW-867846157"></script>
-  <script src="{% static 'vendors/jquery/jquery-3.4.1.js' %}" id="allow-copy_script"></script>
+<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 
-  <head>
-    <title>남의 프로필</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="asset-url" class="mercado-icons-sprite" id="artdeco-icons/static/images/sprite-asset" content="https://static.licdn.com/sc/h/a3fv0js27x827vhq3lbw2zll9">
-    <meta name="description" content="">
-    <meta name="google" content="notranslate">
-    <meta name="service" content="voyager-web">
-    <meta name="theme-color" content="#ffffff" id="theme-color-meta-tag">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <meta name="baseCDNUrl" content="https://static.licdn.com/sc/h">
-    <link rel="icon" type="image/svg+xml" href="https://static.licdn.com/sc/h/akt4ae504epesldzj74dzred8" id="favicon-svg">
-    <link rel="alternate icon" href="https://static.licdn.com/sc/h/8s162nmbcnfkg7a0k8nq9wwqo" id="favicon-png" sizes="any">
-    <link rel="mask-icon" href="https://static.licdn.com/sc/h/8a1a8xqjolkyjbf9n3i40oimj" color="#0a66c2">
-    <link id="ui-theme" rel="stylesheet" href="{% static 'css/profile-ui-theme.css' %}">
-    <link id="ui-theme-dark" rel="stylesheet" href="{% static 'css/profile-ui-theme-dark.css' %}" disabled="">
-    <link rel="stylesheet" href="{% static 'css/profile-main.css' %}">
-    <!--%SSR_HEAD*[]%-->
-    <link rel="stylesheet" href="{% static 'css/profile-searchbar.css' %}">
-    <link rel="stylesheet" href="{% static 'css/profile-body.css' %}">
-    <link rel="stylesheet" href="https://static.licdn.com/sc/h/6cf3cbvfc1qcr1qqt0ieul169">
-    <link rel="stylesheet" href="https://static.licdn.com/sc/h/a8g67zmka1rzgy4rlym4ipz99">
-    <link rel="stylesheet" href="https://static.licdn.com/sc/h/2qs5f7htdbsyk4pm6s0vpt9tb">
-    <link rel="stylesheet" href="{% static 'css/profile-voyager.css' %}">
-  </head>
+{% block contents %}
+  <div class="container">
+    <div class="row mt-5">
+      <div class="col-md-3 col-sm-6">
+        <a href="{% url 'home' %}" class="btn btn-light">Back to Home</a>
+      </div>
+    </div>
 
-  <body dir="ltr" class="render-mode-BIGPIPE nav-v2 ember-application icons-loaded boot-complete" data-t-link-to-event-attached="true">
-    <div id="a11y-notification" class="visually-hidden" role="region" aria-live="polite"></div>
-    <div class="application-outlet">
+    <div class="row justify-content-center mt-5">
+      <div class="card shadow-sm col-md-8 col-sm-12 border-bottom px-5 pt-3">
+        <div class="text-center">
 
-      <!-- 검색 바 -->
-      <div class="global-nav__a11y-menu">
-        <div class="global-nav__a11y-menu-container">
-          <!-- 미구현 입니다 안내메시지 출력 -->
-          <button id="ember9" class="mr4 artdeco-button artdeco-button--muted artdeco-button--2 artdeco-button--secondary ember-view">
-            <span class="artdeco-button__text">
-              Skip to search
+          <img src="{{user.profile.profile_img.url}}" class="rounded-circle" width="100" height="100"/>
+          <h3 class="py-4">{{ user.name }}
+
+            <span>
+              <a href="#" class="edit-color">
+                <i class="far fa-edit"></i>
+              </a>
             </span>
-          </button>
-          <button id="ember10" class="artdeco-button artdeco-button--muted artdeco-button--2 artdeco-button--secondary ember-view">
-            <span class="artdeco-button__text">
-              Skip to main content
-            </span>
-          </button>
-          <button id="ember11" class="global-nav__a11y-menu-close artdeco-button artdeco-button--circle artdeco-button--muted artdeco-button--2 artdeco-button--tertiary ember-view">
-            <li-icon aria-hidden="true" type="close" class="artdeco-button__icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" class="mercado-match" width="24" height="24" focusable="false">
-                <path d="M13.42 12L20 18.58 18.58 20 12 13.42 5.42 20 4 18.58 10.58 12 4 5.42 5.42 4 12 10.58 18.58 4 20 5.42z"></path>
-              </svg>
-            </li-icon>
-            <span class="artdeco-button__text">
-              Close jump menu
-            </span>
-          </button>
+            <h3 class="py-4">{{ user.nickname }}
+              <span>
+                <a href="#" class="edit-color">
+                  <i class="far fa-edit"></i>
+                </a>
+              </span>
+            </h3>
+          </h3>
+        </div>
+        <div class="mb-3">
+          <a href="#" class="post-link">Followers:</a>
         </div>
       </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+      <div class="card shadow-sm col-md-8 col-sm-12 border-bottom px-5 py-3">
+        <div class="text-center">
+          <h3>to DM</h3>
+          <p class="nav-item">
+            <a href="{% url 'inbox' %}" class="ml-6 nav-link btn btn btn-signature2 rounded active">
+              <i class="fa-solid fa-paper-plane"></i>
+            </a>
+          </p>
+          <p class="nav-item">
+            {% show_notifications %}
+          </p>
+        </div>
+      </div>
+    </div>
 
-      <!-- 기존 nav바 -->
-      <!-- <header id="global-nav" class="global-nav global-alert-offset-top global-nav--visible"> <div class="global-nav__content"> <a class="app-aware-link " href="https://www.linkedin.com/feed/?doFeedRefresh=true&amp;nis=true" data-test-app-aware-link=""> <div class="ivm-image-view-model global-nav__branding-logo"> <div class="ivm-view-attr__img-wrapper ivm-view-attr__img-wrapper--use-img-tag display-flex"> <li-icon type="app-linkedin-bug-color-icon" size="large" role="img" aria-label="LinkedIn"> svg 로고 변경 필요 <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="854.000000pt" height="744.000000pt" viewBox="0 0 854.000000 744.000000" preserveAspectRatio="xMidYMid meet"> <g transform="translate(0.000000,744.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none"></g> </svg> </li-icon> </div> </div> </a> <div id="global-nav-search" class="global-nav__search"> <div class="search-global-typeahead global-nav__search-typeahead"> <div id="global-nav-typeahead" class="search-typeahead-v2 search-global-typeahead__typeahead"> <input class="search-global-typeahead__input" placeholder="Search" role="combobox" aria-autocomplete="list" aria-label="Search" aria-activedescendant="" aria-expanded="false" type="text"> <div aria-hidden="true" class="search-global-typeahead__search-icon-container"> <li-icon aria-hidden="true" type="search" class="search-global-typeahead__search-icon" size="small"> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" data-supported-dps="16x16" fill="currentColor" class="mercado-match" width="16" height="16" focusable="false"> <path d="M14.56 12.44L11.3 9.18a5.51 5.51 0 10-2.12 2.12l3.26 3.26a1.5 1.5 0 102.12-2.12zM3 6.5A3.5 3.5 0 116.5 10 3.5 3.5 0 013 6.5z"></path> </svg> </li-icon> </div> <div class="search-box__overlay--hidden global-alert-offset-top"></div> </div> <button class="search-global-typeahead__collapsed-search-button" aria-label="Click to start a search" type="button"> <li-icon aria-hidden="true" type="search" class="search-global-typeahead__collapsed-search-button-icon t-black--light" size="medium"> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" class="mercado-match" width="24" height="24" focusable="false"> <path d="M21.41 18.59l-5.27-5.28A6.83 6.83 0 0017 10a7 7 0 10-7 7 6.83 6.83 0 003.31-.86l5.28 5.27a2 2 0 002.82-2.82zM5 10a5 5 0 115 5 5 5 0 01-5-5z"></path> </svg> </li-icon> <div class="search-global-typeahead__collapsed-search-button-text t-black--light t-12 t-normal"> Search </div> </button> <div id="ember13" class="ember-view"></div> </div> </div> <nav class="global-nav__nav" aria-label="Primary Navigation"> <ul class="global-nav__primary-items"> <li class="global-nav__primary-item"> <a class="app-aware-link global-nav__primary-link--active global-nav__primary-link" target="_self" aria-current="page" href="https://www.linkedin.com/feed/?doFeedRefresh=true&amp;nis=true&amp;" data-test-app-aware-link=""> <div class="ivm-image-view-model global-nav__icon-ivm"> <div class="ivm-view-attr__img-wrapper ivm-view-attr__img-wrapper--use-img-tag display-flex"> <li-icon aria-hidden="true" type="home-active" active="true" size="large"> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" class="mercado-match" width="24" height="24" focusable="false"> <path d="M23 9v2h-2v7a3 3 0 01-3 3h-4v-6h-4v6H6a3 3 0 01-3-3v-7H1V9l11-7 5 3.18V2h3v5.09z"></path> </svg> </li-icon> </div> </div> <span class="t-12 break-words block t-black--light t-normal global-nav__primary-link-text" title="Home"> Home </span> </a> </li> <li class="global-nav__primary-item"> <a class="app-aware-link global-nav__primary-link" target="_self" href="https://www.linkedin.com/mynetwork/?" data-test-app-aware-link=""> <div class="ivm-image-view-model global-nav__icon-ivm"> <div class="ivm-view-attr__img-wrapper ivm-view-attr__img-wrapper--use-img-tag display-flex"> <li-icon aria-hidden="true" type="people" size="large"> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" class="mercado-match" width="24" height="24" focusable="false"> <path d="M12 16v6H3v-6a3 3 0 013-3h3a3 3 0 013 3zm5.5-3A3.5 3.5 0 1014 9.5a3.5 3.5 0 003.5 3.5zm1 2h-2a2.5 2.5 0 00-2.5 2.5V22h7v-4.5a2.5 2.5 0 00-2.5-2.5zM7.5 2A4.5 4.5 0 1012 6.5 4.49 4.49 0 007.5 2z"></path> </svg> </li-icon> </div> </div> <span class="t-12 break-words block t-black--light t-normal global-nav__primary-link-text" title="My Network"> 사람 찾기 </span> </a> </li> <li class="global-nav__primary-item"> <a class="app-aware-link global-nav__primary-link" target="_self" href="https://www.linkedin.com/messaging/?" data-test-app-aware-link=""> <div class="ivm-image-view-model global-nav__icon-ivm"> <div class="ivm-view-attr__img-wrapper ivm-view-attr__img-wrapper--use-img-tag display-flex"> <li-icon aria-hidden="true" type="nav-small-messaging-icon" size="large"> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" class="mercado-match" width="24" height="24" focusable="false"> <path d="M16 4H8a7 7 0 000 14h4v4l8.16-5.39A6.78 6.78 0 0023 11a7 7 0 00-7-7zm-8 8.25A1.25 1.25 0 119.25 11 1.25 1.25 0 018 12.25zm4 0A1.25 1.25 0 1113.25 11 1.25 1.25 0 0112 12.25zm4 0A1.25 1.25 0 1117.25 11 1.25 1.25 0 0116 12.25z"></path> </svg> </li-icon> </div> </div> <span class="t-12 break-words block t-black--light t-normal global-nav__primary-link-text" title="Messaging"> 채팅 </span> </a> </li> <li class="global-nav__primary-item"> <a class="app-aware-link global-nav__primary-link" target="_self" href="https://www.linkedin.com/notifications/?" data-test-app-aware-link=""> <div class="ivm-image-view-model global-nav__icon-ivm"> <div class="ivm-view-attr__img-wrapper ivm-view-attr__img-wrapper--use-img-tag display-flex"> <li-icon aria-hidden="true" type="bell-fill" size="large"> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" class="mercado-match" width="24" height="24" focusable="false"> <path d="M22 19h-8.28a2 2 0 11-3.44 0H2v-1a4.52 4.52 0 011.17-2.83l1-1.17h15.7l1 1.17A4.42 4.42 0 0122 18zM18.21 7.44A6.27 6.27 0 0012 2a6.27 6.27 0 00-6.21 5.44L5 13h14z"></path> </svg> </li-icon> </div> </div> <span class="t-12 break-words block t-black--light t-normal global-nav__primary-link-text" title="Notifications"> 알림 </span> </a> </li> <li class="global-nav__primary-item"> <div id="ember14" class="global-nav__me artdeco-dropdown artdeco-dropdown--placement-bottom artdeco-dropdown--justification-left ember-view"> <button aria-expanded="false" id="ember15" class="global-nav__primary-link artdeco-dropdown__trigger artdeco-dropdown__trigger--placement-bottom ember-view" type="button" tabindex="0"> <img width="24" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" height="24" alt="M.G. Matthew" id="ember16" class="global-nav__me-photo ghost-person ember-view"> <span class="global-nav__primary-link-text"> 내 정보 <li-icon aria-hidden="true" type="caret" class="global-nav__icon global-nav__icon--small" size="small"> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" data-supported-dps="16x16" fill="currentColor" class="mercado-match" width="16" height="16" focusable="false"> <path d="M8 11L3 6h10z" fill-rule="evenodd"></path> </svg> </li-icon> </span> </button> <div tabindex="-1" aria-hidden="true" id="ember17" class="global-nav__me-content artdeco-dropdown__content artdeco-dropdown--is-dropdown-element artdeco-dropdown__content--justification-right artdeco-dropdown__content--placement-bottom ember-view"></div> </div> </li> <li class="global-nav__primary-item"></li> </ul> </nav> </div> </header> -->
+    <div class="row justify-content-center mt-5">
+      <div class="card shadow-sm col-md-8 col-sm-12 border-bottom px-5 py-3">
 
-      <div class="authentication-outlet">
-        <div id="voyager-feed" class="feed-container-theme feed-outlet">
-          <div id="ember23" class="self-focused ember-view">
-            <div class="scaffold-layout__tracking-element"></div>
-            <div class="scaffold-layout scaffold-layout--breakpoint-xl scaffold-layout--sidebar-main-aside scaffold-layout--reflow">
-              <div class="scaffold-layout__inner scaffold-layout-container scaffold-layout-container--reflow">
-                <div class="scaffold-layout__row scaffold-layout__content scaffold-layout__content--sidebar-main-aside scaffold-layout__content--has-sidebar scaffold-layout__content--has-aside">
-                  <div class="scaffold-layout__sidebar" tabindex="-1">
-                    <div class="feed-identity-module artdeco-card overflow-hidden mb2">
-                      <div class="feed-identity-module__actor-meta break-words">
-                        <div class="feed-identity-module__member-bg-image feed-identity-module__default-bg" style=""></div>
-                        <a href="/in/m-g-matthew-434723189/" id="ember164" class="ember-view block">
-                          <div>
-                            <img src="/img/조나단.jpg" height="200" width="150">
-                          </div>
-                          <div class="t-16 t-black t-bold">
-                            {{user.name}}({{user.nickname}})
-                          </div>
-                        </a>
+        {% if user.address %}
+          <p>address:
+            {{ user.address }}</p>
+        {% endif %}
 
-                        <!-- 개인정보 수정 -->
-                        <div id="artdeco-modal-outlet" style="display:none;">
-                          <div data-test-modal-container="" aria-hidden="false" id="ember336" class="artdeco-modal-overlay artdeco-modal-overlay--layer-default artdeco-modal-overlay--is-top-layer  ember-view">
-                            <div data-test-modal="" role="dialog" tabindex="-1" class="artdeco-modal artdeco-modal--layer-default pe-edit-form-page__modal pe-edit-form-page__modal--large" size="large" aria-labelledby="profile-edit-form-page-header">
-                              <span class="a11y-text">Dialog content start.</span>
-                              <button data-test-modal-close-btn="" aria-label="Dismiss" id="ember337" class="artdeco-modal__dismiss artdeco-button artdeco-button--circle artdeco-button--muted artdeco-button--2 artdeco-button--tertiary ember-view">
-                                <li-icon aria-hidden="true" type="cancel-icon" class="artdeco-button__icon">
-                                  <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" class="mercado-match" width="24" height="24" focusable="false">
-                                    <path d="M13.42 12L20 18.58 18.58 20 12 13.42 5.42 20 4 18.58 10.58 12 4 5.42 5.42 4 12 10.58 18.58 4 20 5.42z"></path>
-                                  </svg>
-                                </li-icon>
-                                <span class="artdeco-button__text"></span>
-                              </button>
-                              <div id="ember338" class="artdeco-modal__header ember-view">
-                                <h2 id="profile-edit-form-page-header">
-                                  개인정보 수정
-                                </h2>
-                              </div>
-                              <div id="profile-edit-form-page-content-wrapper" class="pe-edit-form-page__content-wrapper">
-                                <div id="profile-edit-form-page-content" class="artdeco-modal__content pe-edit-form-page__content  ember-view">
-                                  <div class="pt2 pb4 ph5">
-                                    <p class="t-12 t-black--light">
-                                      * 필수 입력 항목
-                                    </p>
-                                    <div data-test-form-section="" class="pt5">
-                                      <div class="fb-dash-form-element-group" data-test-form-element-group="">
-                                        <div class="fb-dash-form-element-group-elements fb-dash-form-element-group-elements--horizontal" data-test-form-element-group-elements="">
-                                          <div class="fb-dash-form-element" style="width:100%" tabindex="-1" aria-invalid="false" data-test-form-element="">
-                                            <div data-test-single-line-text-form-component="">
-                                              <div id="ember344" class="artdeco-text-input artdeco-text-input--type-text artdeco-text-input--color-default ember-view">
-                                                <div id="ember345" class="artdeco-text-input--container ember-view">
-                                                  <label for="single-line-text-form-component-profileEditFormElement-TOP-CARD-profile-ACoAACxsXKgBxZxZan4pwwg1KvAkhomUjpMqoDM-maidenName" class="artdeco-text-input--label">닉네임</label>
-                                                  <input class=" artdeco-text-input--input" id="single-line-text-form-component-profileEditFormElement-TOP-CARD-profile-ACoAACxsXKgBxZxZan4pwwg1KvAkhomUjpMqoDM-maidenName" value="{{user.nickname}}" aria-describedby="single-line-text-form-component-profileEditFormElement-TOP-CARD-profile-ACoAACxsXKgBxZxZan4pwwg1KvAkhomUjpMqoDM-maidenName-error" type="text" wfd-id="id2">
-                                                </div>
-                                              </div>
-                                              <div id="single-line-text-form-component-profileEditFormElement-TOP-CARD-profile-ACoAACxsXKgBxZxZan4pwwg1KvAkhomUjpMqoDM-maidenName-error"></div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div id="ember347" class="ember-view">
-                                      <div id="ember348" class="ember-view"></div>
-                                    </div>
-                                    <div data-test-form-section="" class="pt6">
-                                      <h4 data-test-form-group-title="" class="mb1">
-                                        지역
-                                      </h4>
-                                      <div class="fb-dash-form-element-group" data-test-form-element-group="">
-                                        <div class="fb-dash-form-element-group-elements fb-dash-form-element-group-elements--horizontal" data-test-form-element-group-elements="">
-                                          <div class="fb-dash-form-element" style="width:100%" tabindex="-1" aria-invalid="false" data-test-form-element="">
-                                            <div data-test-location-form-component="">
-                                              <div class="relative " data-test-single-typeahead-entity-form-component="country">
-                                                <label for="single-typeahead-entity-form-component-profileEditFormElement-TOP-CARD-profile-ACoAACxsXKgBxZxZan4pwwg1KvAkhomUjpMqoDM-geoLocation-countryField" class="fb-dash-form-element__label fb-form-element-label__title--is-required" data-test-single-typeahead-entity-form-title="true"></label>
-                                                <div id="single-typeahead-entity-form-component-profileEditFormElement-TOP-CARD-profile-ACoAACxsXKgBxZxZan4pwwg1KvAkhomUjpMqoDM-geoLocation-countryField-ta" class="search-basic-typeahead search-vertical-typeahead">
-                                                  <input id="single-typeahead-entity-form-component-profileEditFormElement-TOP-CARD-profile-ACoAACxsXKgBxZxZan4pwwg1KvAkhomUjpMqoDM-geoLocation-countryField" placeholder="예: 서울시 성동구 구의동" required="" role="combobox" aria-autocomplete="list" aria-activedescendant="" aria-expanded="false" type="text" wfd-id="id5">
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div id="ember354" class="artdeco-modal__actionbar display-flex justify-space-between flex-row-reverse pv4 ember-view">
-                                <button id="ember355" class="artdeco-button artdeco-button--2 artdeco-button--primary ember-view" type="button">
-                                  <span class="artdeco-button__text" style="color:white;">
-                                    저장
-                                  </span>
-                                </button>
-                              </div>
-                              <span class="a11y-text">Dialog content end.</span>
-                            </div>
-                          </div>
-                        </div>
-                        <botton id="ember166" class="ember-view feed-identity-module__action">
-                          <div id="ember167" class="ember-view t-12 t-normal mt1">
-                            <span style="cursor: pointer;">프로필 수정</span>
-                          </div>
-                        </button>
-                        <script>
-                          const modal = document.getElementById("artdeco-modal-outlet");
-                          const btnModal = document.getElementById("ember167");
-                          btnModal.addEventListener("click", (e) => {
-                            modal.style.display = "flex";
-                          });
-                          const closeBtn = modal.querySelector(".artdeco-modal__dismiss");
-                          closeBtn.addEventListener("click", (e) => {
-                            modal.style.display = "none";
-                          });
-                        </script>
-                      </div>
-                    </div>
-                    <!-- 프로필 더보기 -->
-                    <!-- <div class="scaffold-layout__sticky scaffold-layout__sticky--is-active scaffold-layout__sticky--md"> <div class="scaffold-layout__sticky-content"> <div class="community-panel artdeco-card mb2"> <div class="community-panel-interest-package"> <section class="community-panel-interest-package__section-header" aria-labelledby="ember173-label"> <header class="community-panel-interest-package__header-container"> <h2 class="community-panel-interest-package__header t-12 pv1" id="ember173-label"> <a class="app-aware-link community-panel-interest-package__header-link community-panel-interest-package--hoverable t-black t-bold block pv1" href="https://www.linkedin.com/groups" data-test-app-aware-link=""> <span aria-hidden="true"> 그룹 </span> <span class="visually-hidden"> 모든 그룹 보기 </span> </a> </h2> </header> <div class="community-panel-interest-package__actions"></div> </section> </div> <div class="community-panel-interest-package"> <section class="community-panel-interest-package__section-header" aria-labelledby="ember174-label"> <header class="community-panel-interest-package__header-container"> <h2 class="community-panel-interest-package__header t-12 pv1" id="ember174-label"> <a class="app-aware-link community-panel-interest-package__header-link community-panel-interest-package--hoverable t-black t-bold block pv1" href="https://www.linkedin.com/events/" data-test-app-aware-link=""> <span aria-hidden="true"> 이벤트 </span> <span class="visually-hidden"> 모든 이벤트 보기 </span> </a> </h2> </header> <div class="community-panel-interest-package__actions"> <button title="Create an event" aria-label="Create an event" id="ember175" class="artdeco-button artdeco-button--circle artdeco-button--1 artdeco-button--tertiary ember-view community-panel-interest-package__event-cta community-panel-interest-package--hoverable"> <li-icon aria-hidden="true" type="add" class="artdeco-button__icon" size="small"> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" data-supported-dps="16x16" fill="currentColor" class="mercado-match" width="16" height="16" focusable="false"> <path d="M14 9H9v5H7V9H2V7h5V2h2v5h5z"></path> </svg> </li-icon> <span class="artdeco-button__text"></span> </button> <div id="ember176" class="step-manager-container"> <div></div> <div></div> <div></div> </div> </div> </section> </div> <div class="community-panel-interest-package"> <section class="community-panel-interest-package__section-header" aria-labelledby="ember177-label"> <header class="community-panel-interest-package__header-container"> <h2 class="community-panel-interest-package__header t-12 pv1" id="ember177-label"> <a class="app-aware-link community-panel-interest-package__header-link community-panel-interest-package--hoverable t-black t-bold block pv1" href="https://www.linkedin.com/feed/following?filterType=channel&amp;focused=true" data-test-app-aware-link=""> <span aria-hidden="true"> 키워드 알림 </span> <span class="visually-hidden"> 모든 키워드 알림 보기(해시태그) </span> </a> </h2> </header> <div class="community-panel-interest-package__actions"></div> </section> </div> <a href="/mynetwork/discover-hub/" id="ember178" class="ember-view community-panel__discover-cta p3 full-width artdeco-button artdeco-button--1 artdeco-button--muted artdeco-button--tertiary"> 더 알아보기 </a> </div> </div> </div> -->
-                  </div>
-                  <main id="main" class="scaffold-layout__main" aria-label="Main Feed">
-                    <div>
-                      <div class="share-box-feed-entry__closed-share-box artdeco-card">
-                        <div class="display-flex align-items-center mt2 mr4 ml4">
-                          <a href="/in/m-g-matthew-434723189/" id="ember24" class="ember-view">
-                            <div class="share-box-feed-entry__avatar">
-                              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Visit profile for M.G. Matthew" id="ember25" class="EntityPhoto-circle-3 ghost-person ember-view">
-                            </div>
-                          </a>
-                          <button id="ember26" class="artdeco-button artdeco-button--muted artdeco-button--4 artdeco-button--tertiary ember-view share-box-feed-entry__trigger">
-                            <span class="artdeco-button__text">
-                              기능1
-                            </span>
-                          </button>
-                        </div>
-                        <!-- 공감 기능 -->
-                        <!-- <div class="share-box-feed-entry-toolbar__wrapper pb1"> <button aria-label="Add a photo" id="ember27" class="artdeco-button artdeco-button--muted artdeco-button--4 artdeco-button--tertiary ember-view share-box-feed-entry-toolbar__item"> <li-icon aria-hidden="true" type="image" class="artdeco-button__icon"> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" class="mercado-match" width="24" height="24" focusable="false"> <path d="M19 4H5a3 3 0 00-3 3v10a3 3 0 003 3h14a3 3 0 003-3V7a3 3 0 00-3-3zm1 13a1 1 0 01-.29.71L16 14l-2 2-6-6-4 4V7a1 1 0 011-1h14a1 1 0 011 1zm-2-7a2 2 0 11-2-2 2 2 0 012 2z"></path> </svg> </li-icon> <span class="artdeco-button__text"> 채팅 보내기 </span> </button> <button aria-label="Add a video" id="ember28" class="artdeco-button artdeco-button--muted artdeco-button--4 artdeco-button--tertiary ember-view share-box-feed-entry-toolbar__item"> <li-icon aria-hidden="true" type="video" class="artdeco-button__icon"> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" class="mercado-match" width="24" height="24" focusable="false"> <path d="M19 4H5a3 3 0 00-3 3v10a3 3 0 003 3h14a3 3 0 003-3V7a3 3 0 00-3-3zm-9 12V8l6 4z"></path> </svg> </li-icon> <span class="artdeco-button__text"> 좋아요 </span> </button> <a id="ember29" class="ember-view share-box-feed-entry-toolbar__item artdeco-button artdeco-button--muted artdeco-button--tertiary artdeco-button--4" aria-label="Create an event" href="/feed/?createEvent=true"> <li-icon aria-hidden="true" type="calendar" size="medium"> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" class="mercado-match" width="24" height="24" focusable="false"> <path d="M3 3v15a3 3 0 003 3h12a3 3 0 003-3V3zm13 1.75A1.25 1.25 0 1114.75 6 1.25 1.25 0 0116 4.75zm-8 0A1.25 1.25 0 116.75 6 1.25 1.25 0 018 4.75zM19 18a1 1 0 01-1 1H6a1 1 0 01-1-1V9h14zm-5.9-3a1 1 0 00-1-1H12a3.12 3.12 0 00-1 .2l-1-.2v-3h3.9v1H11v1.15a3.7 3.7 0 011.05-.15 1.89 1.89 0 012 1.78V15a1.92 1.92 0 01-1.84 2H12a1.88 1.88 0 01-2-1.75 1 1 0 010-.25h1a.89.89 0 001 1h.1a.94.94 0 001-.88z"></path> </svg> </li-icon> <span class="share-box-feed-entry-toolbar__item-text"> 선물하기 </span> </a> <a href="/post/new/" id="ember30" class="ember-view share-box-feed-entry-toolbar__item artdeco-button artdeco-button--muted artdeco-button--tertiary artdeco-button--4" aria-label="Write an article on LinkedIn"> <li-icon aria-hidden="true" type="content-align-left" size="medium"> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" class="mercado-match" width="24" height="24" focusable="false"> <path d="M21 3v2H3V3zm-6 6h6V7h-6zm0 4h6v-2h-6zm0 4h6v-2h-6zM3 21h18v-2H3zM13 7H3v10h10z"></path> </svg> </li-icon> <span class="share-box-feed-entry-toolbar__item-text"> 신고하기 </span> </a> </div> -->
-                        <span></span>
-                      </div>
-                    </div>
-                    <div id="ember31" class="mb2 artdeco-dropdown artdeco-dropdown--placement-bottom artdeco-dropdown--justification-right ember-view">
-                      <button aria-expanded="false" id="ember32" class="display-flex full-width artdeco-dropdown__trigger artdeco-dropdown__trigger--placement-bottom ember-view" type="button" tabindex="0">
-                        <hr class="flex-grow-1 mr2 mvA feed-index-sort-border">
-                        <!-- 정렬 기준 -->
-                        <!-- <div class="display-flex"> <span class="t-12 t-black--light t-normal"> 정렬 기준: </span> <span class="t-12 t-black t-bold mh1"> 최신순 </span> <li-icon type="caret" class="t-black" size="small" role="img" aria-label="Sort order dropdown button"> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" data-supported-dps="16x16" fill="currentColor" class="mercado-match" width="16" height="16" focusable="false"> <path d="M8 11L3 6h10z" fill-rule="evenodd"></path> </svg> </li-icon> </div> -->
-                      </button>
-                      <div tabindex="-1" aria-hidden="true" id="ember33" class="artdeco-dropdown__content artdeco-dropdown--is-dropdown-element artdeco-dropdown__content--justification-right artdeco-dropdown__content--placement-bottom ember-view"></div>
-                    </div>
-                    <div>
-                      <h1 class="visually-hidden">
-                        Feed Updates
-                      </h1>
-                      <div class="scaffold-finite-scroll scaffold-finite-scroll--infinite">
-                        <div class="scaffold-finite-scroll__content">
+        {% if user.birth %}
+          <p>Birthday:
+            {{ user.birth }}</p>
+        {% endif %}
 
-                          <!-- 참여 예정 이벤트 -->
-                          <div>
-                            <div data-id="urn:li:aggregate:(urn:li:member:40863801,urn:li:company:6476200,urn:li:company:31371289)" class="relative">
-                              <div class="feed-shared-update-v2 feed-shared-update-v2--minimal-padding full-height relative artdeco-card" id="ember36" data-urn="urn:li:aggregate:(urn:li:member:40863801,urn:li:company:6476200,urn:li:company:31371289)">
-                                <div>
-                                  <div role="status"></div>
-                                  <h2 class="visually-hidden">
-                                    Feed post number 1
-                                  </h2>
-                                  <div class="update-components-header t-12 t-black--light t-normal pt3 update-components-header__emphasized-style t-14 pv4">
-                                    <div class="update-components-header__text-wrapper">
-                                      <span class="update-components-header__text-view">
-                                        <div class="update-components-text-view white-space-pre-wrap break-words"><span><span>참여 예정 이벤트</span></span></div>
-                                      </span>
-                                    </div>
-                                  </div>
-                                  <div class="feed-shared-control-menu display-flex feed-shared-update-v2__control-menu absolute text-align-right"></div>
-                                  <div class="feed-shared-aggregated-content full-width">
-                                  {% comment %} {% for event in events %} {% endcomment %}
+        {% if profile.participations_cnt %}
+          <p>participations_cnt:
+            {{ profile.participations_cnt }}</p>
+        {% endif %}
 
-                                    <div class="feed-shared-aggregated-content__list-item">
-                                      <div class="feed-shared-update-v2 feed-shared-update-v2--minimal-padding full-height relative feed-shared-update-v2--wrapped feed-shared-update-v2--aggregated" id="ember38" data-urn="urn:li:member:40863801">
-                                        <div>
-                                          <div role="status"></div>
-                                          <div class="feed-shared-control-menu display-flex feed-shared-update-v2__control-menu absolute text-align-right"></div>
-                                          <div class="feed-shared-inline-show-more-text feed-shared-update-v2__description is-empty" tabindex="-1"></div>
+        {% if user == request.user %}
+        {% else %}
+          {% if is_following %}
+            <form method="POST" action="#">
+              {% csrf_token %}
+              <button class="btn btn-outline-danger" type="submit">Unfollow</button>
+            </form>
+          {% else %}
+            <form method="POST" action="#">
+              {% csrf_token %}
+              <button class="btn btn-outline-success" type="submit">Follow</button>
+            </form>
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
 
-                                          
-                                          <!-- 이벤트1 -->
-                                          <!-- <div class="feed-shared-feed-discovery-entity">
-                                            <div class="feed-shared-feed-discovery-entity__main-content display-flex flex-row">
-                                              <a class="app-aware-link  link-without-hover-visited" href="https://www.linkedin.com/in/amandakazzycryer?miniProfileUrn=urn%3Ali%3Afs_miniProfile%3AACoAAAJviDkBmBLA52Eq8rsHMpRE2cupOQYX4Zo" data-test-app-aware-link="">
-                                                <div class="ivm-image-view-model    flex-shrink-zero">
-                                                  <div class="ivm-view-attr__img-wrapper ivm-view-attr__img-wrapper--use-img-tag display-flex">
-
-                                                    이미지
-                                                    <img width="48" src="https://media.licdn.com/dms/image/D5603AQE25KgKDKUewQ/profile-displayphoto-shrink_100_100/0/1664478309720?e=1680739200&amp;v=beta&amp;t=ZM5SWLBxNSspp-kLs_3oNt0mbt5vK03OBmzCrcpa-jc" loading="lazy" height="48" alt="Amanda &quot;Kazzy&quot; Cryer" id="ember40" class="ivm-view-attr__img--centered EntityPhoto-circle-3 EntityPhoto-circle-3 ghost-person lazy-image ember-view">
-                                                  </div>
-                                                </div>
-                                              </a>
-                                              <div class="feed-shared-feed-discovery-entity__text-container flex-grow-1">
-                                                <a class="app-aware-link  link-without-hover-visited" href="https://www.linkedin.com/in/amandakazzycryer?miniProfileUrn=urn%3Ali%3Afs_miniProfile%3AACoAAAJviDkBmBLA52Eq8rsHMpRE2cupOQYX4Zo" data-test-app-aware-link="">
-                                                  <div>
-                                                    모임 제목
-                                                    <span class="feed-shared-feed-discovery-entity__text--body text-body-medium-bold">
-                                                      아만다 영어회화
-                                                    </span>
-                                                  </div>
-                                                </a>
-                                                <a class="app-aware-link  link-without-hover-visited" href="https://www.linkedin.com/in/amandakazzycryer?miniProfileUrn=urn%3Ali%3Afs_miniProfile%3AACoAAAJviDkBmBLA52Eq8rsHMpRE2cupOQYX4Zo" data-test-app-aware-link="">
-                                                  <div class="feed-shared-feed-discovery-entity__description feed-shared-feed-discovery-entity__text--body text-body-small">
-                                                    그림자는 열매를 예가 안고, 싶이 피부가 아름다우냐? 따뜻한 보는 뛰노는 인생에 끓는다. 군영과 가진 기관과 날카로우나 새가 것이다. 전인 힘차게 얼음이 예수는 위하여 것이 같이, 것이다. 끝까지 피가 가치를 약동하다. 이상 오아이스도 그들에게 우리의 봄바람이다. 인간이 불러 있는 어디 천지는 꽃 사막이다.
-                                                  </div>
-                                                </a>
-                                                <a class="app-aware-link  feed-shared-feed-discovery-entity__sub-description link-without-hover-visited" href="https://www.linkedin.com/in/amandakazzycryer?miniProfileUrn=urn%3Ali%3Afs_miniProfile%3AACoAAAJviDkBmBLA52Eq8rsHMpRE2cupOQYX4Zo" data-test-app-aware-link="">
-                                                  <div class="feed-shared-feed-discovery-entity__text--body text-body-xsmall">
-                                                    <span>
-                                                      <li-icon aria-hidden="true" type="comment" class="v-align-bottom" size="small">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" data-supported-dps="16x16" fill="currentColor" class="mercado-match" width="16" height="16" focusable="false">
-                                                          <path d="M5 8h5v1H5zm11-.5v.08a6 6 0 01-2.75 5L8 16v-3H5.5A5.51 5.51 0 010 7.5 5.62 5.62 0 015.74 2h4.76A5.5 5.5 0 0116 7.5zm-2 0A3.5 3.5 0 0010.5 4H5.74A3.62 3.62 0 002 7.5 3.53 3.53 0 005.5 11H10v1.33l2.17-1.39A4 4 0 0014 7.58zM5 7h6V6H5z"></path>
-                                                        </svg>
-                                                      </li-icon>
-                                                      직장인 영어동아리
-                                                    </span>
-                                                  </div>
-                                                </a>
-                                              </div>
-                                              <div class="flex-shrink-zero">
-                                                <button class="artdeco-button artdeco-button--secondary artdeco-button--2" aria-label="Follow" aria-pressed="false" type="button">
-                                                  <li-icon aria-hidden="true" type="add" class="artdeco-button__icon" size="small">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" data-supported-dps="16x16" fill="currentColor" class="mercado-match" width="16" height="16" focusable="false">
-                                                      <path d="M14 9H9v5H7V9H2V7h5V2h2v5h5z"></path>
-                                                    </svg>
-                                                  </li-icon>
-                                                  <span aria-hidden="true">팔로우</span>
-                                                </button>
-                                              </div>
-                                            </div>
-                                          </div> -->
-
-                                          <div id="ember41" class="ember-view"></div>
-                                        </div>
-                                      </div>
-                                    </div>
-
-                                    <!-- 이벤트2 -->
-                                    <!-- <div class="feed-shared-aggregated-content__list-item">
-                                      <div class="feed-shared-update-v2 feed-shared-update-v2--minimal-padding full-height relative feed-shared-update-v2--wrapped feed-shared-update-v2--aggregated" id="ember42" data-urn="urn:li:company:6476200">
-                                        <div>
-                                          <div role="status"></div>
-                                          <div class="feed-shared-control-menu display-flex feed-shared-update-v2__control-menu absolute text-align-right"></div>
-                                          <div class="feed-shared-inline-show-more-text feed-shared-update-v2__description is-empty" tabindex="-1"></div>
-                                          <div class="feed-shared-feed-discovery-entity">
-                                            <div class="feed-shared-feed-discovery-entity__main-content display-flex flex-row">
-                                              <a class="app-aware-link  link-without-hover-visited" href="https://www.linkedin.com/company/woowa-bros-/?miniCompanyUrn=urn%3Ali%3Afs_miniCompany%3A6476200" data-test-app-aware-link="">
-                                                <div class="ivm-image-view-model    flex-shrink-zero">
-                                                  <div class="ivm-view-attr__img-wrapper ivm-view-attr__img-wrapper--use-img-tag display-flex">
-
-                                                    이미지
-                                                    <img width="48" src="https://media.licdn.com/dms/image/C560BAQFXeEWM-FoApw/company-logo_100_100/0/1519881499181?e=1683158400&amp;v=beta&amp;t=1PhcVjGf75asmHieDn_M-0H17UP9c2uOyJbMoGNKodY" loading="lazy" height="48" alt="(주)우아한형제들 (Woowa Bros.)" id="ember44" class="ivm-view-attr__img--centered EntityPhoto-square-3 EntityPhoto-circle-3 ghost-person lazy-image ember-view">
-                                                  </div>
-                                                </div>
-                                              </a>
-                                              <div class="feed-shared-feed-discovery-entity__text-container flex-grow-1">
-                                                <a class="app-aware-link  link-without-hover-visited" href="https://www.linkedin.com/company/woowa-bros-/?miniCompanyUrn=urn%3Ali%3Afs_miniCompany%3A6476200" data-test-app-aware-link="">
-                                                  <div>
-                                                    <span class="feed-shared-feed-discovery-entity__text--body text-body-medium-bold">
-                                                      모임 제목
-                                                      <span dir="ltr">우아한형제들 맛집투어</span>
-                                                    </span>
-                                                  </div>
-                                                </a>
-                                                <a class="app-aware-link  link-without-hover-visited" href="https://www.linkedin.com/company/woowa-bros-/?miniCompanyUrn=urn%3Ali%3Afs_miniCompany%3A6476200" data-test-app-aware-link="">
-                                                  <div class="feed-shared-feed-discovery-entity__description feed-shared-feed-discovery-entity__text--body text-body-small">
-                                                    맛집을 찾아서~
-                                                  </div>
-                                                </a>
-                                                <div class="feed-shared-feed-discovery-entity__text-container flex-grow-1">
-                                                  <a class="app-aware-link  link-without-hover-visited" href="https://www.linkedin.com/in/amandakazzycryer?miniProfileUrn=urn%3Ali%3Afs_miniProfile%3AACoAAAJviDkBmBLA52Eq8rsHMpRE2cupOQYX4Zo" data-test-app-aware-link="">
-                                                    <div>
-                                                      <!-- 모임 제목 -->
-                                                      <span class="feed-shared-feed-discovery-entity__text--body text-body-medium-bold">
-                                                   
-                                                      </span>
-                                                    </div>
-                                                  </a>
-                                                  <a class="app-aware-link  link-without-hover-visited" href="https://www.linkedin.com/in/amandakazzycryer?miniProfileUrn=urn%3Ali%3Afs_miniProfile%3AACoAAAJviDkBmBLA52Eq8rsHMpRE2cupOQYX4Zo" data-test-app-aware-link="">
-                                                    <div class="feed-shared-feed-discovery-entity__description feed-shared-feed-discovery-entity__text--body text-body-small">
-                                                 
-                                                    </div>
-                                                  </a>
-                                                  <a class="app-aware-link  feed-shared-feed-discovery-entity__sub-description link-without-hover-visited" href="https://www.linkedin.com/in/amandakazzycryer?miniProfileUrn=urn%3Ali%3Afs_miniProfile%3AACoAAAJviDkBmBLA52Eq8rsHMpRE2cupOQYX4Zo" data-test-app-aware-link="">
-                                                    <div class="feed-shared-feed-discovery-entity__text--body text-body-xsmall">
-                                                      <span>
-                                                        <li-icon aria-hidden="true" type="comment" class="v-align-bottom" size="small">
-                                                          <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" data-supported-dps="16x16" fill="currentColor" class="mercado-match" width="16" height="16" focusable="false">
-                                                            <path d="M5 8h5v1H5zm11-.5v.08a6 6 0 01-2.75 5L8 16v-3H5.5A5.51 5.51 0 010 7.5 5.62 5.62 0 015.74 2h4.76A5.5 5.5 0 0116 7.5zm-2 0A3.5 3.5 0 0010.5 4H5.74A3.62 3.62 0 002 7.5 3.53 3.53 0 005.5 11H10v1.33l2.17-1.39A4 4 0 0014 7.58zM5 7h6V6H5z"></path>
-                                                          </svg>
-                                                        </li-icon>
-                                                  
-                                                      </span>
-                                                    </div>
-                                                  </a>
-                                                </div>
-                                                <div class="flex-shrink-zero">
-                                                  <button class="artdeco-button artdeco-button--secondary artdeco-button--2" aria-label="Follow" aria-pressed="false" type="button">
-                                                    <li-icon aria-hidden="true" type="add" class="artdeco-button__icon" size="small">
-                                                      <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" data-supported-dps="16x16" fill="currentColor" class="mercado-match" width="16" height="16" focusable="false">
-                                                        <path d="M14 9H9v5H7V9H2V7h5V2h2v5h5z"></path>
-                                                      </svg>
-                                                    </li-icon>
-                                                    <span aria-hidden="true">채팅방</span>
-                                                  </button>
-                                                </div>
-                                              </div>
-                                            </div>
-
-                                            <div id="ember41" class="ember-view"></div>
-                                          </div>
-                                        </div>
-                                      </div>
-
-                                    </div> -->
-                                    
-                                    <!-- 이벤트3 -->
-                                    <!-- <div class="feed-shared-aggregated-content__list-item">
-                                      <div class="feed-shared-update-v2 feed-shared-update-v2--minimal-padding full-height relative feed-shared-update-v2--wrapped feed-shared-update-v2--aggregated" id="ember46" data-urn="urn:li:company:31371289">
-                                        <div>
-                                          <div role="status"></div>
-                                          <div class="feed-shared-control-menu display-flex feed-shared-update-v2__control-menu absolute text-align-right"></div>
-                                          <div class="feed-shared-inline-show-more-text feed-shared-update-v2__description is-empty" tabindex="-1"></div>
-                                          <div class="feed-shared-feed-discovery-entity">
-                                            <div class="feed-shared-feed-discovery-entity__main-content display-flex flex-row">
-                                              <a class="app-aware-link  link-without-hover-visited" href="https://www.linkedin.com/company/greenlabsglobal/?miniCompanyUrn=urn%3Ali%3Afs_miniCompany%3A31371289" data-test-app-aware-link="">
-                                                <div class="ivm-image-view-model    flex-shrink-zero">
-                                                  <div class="ivm-view-attr__img-wrapper ivm-view-attr__img-wrapper--use-img-tag display-flex">
-                                                    이미지
-                                                    <img width="48" src="https://media.licdn.com/dms/image/C560BAQHxEFh4zQmlIQ/company-logo_100_100/0/1647926523642?e=1683158400&amp;v=beta&amp;t=M8a9cCweipoQ6FyxBLCB_tg0Wz47n8VNyJ64wswJ_T8" loading="lazy" height="48" alt="그린랩스 Greenlabs" id="ember48" class="ivm-view-attr__img--centered EntityPhoto-square-3 EntityPhoto-circle-3 ghost-person lazy-image ember-view">
-                                                  </div>
-                                                </div>
-                                              </a>
-                                              <div class="feed-shared-feed-discovery-entity__text-container flex-grow-1">
-                                                <a class="app-aware-link  link-without-hover-visited" href="https://www.linkedin.com/company/greenlabsglobal/?miniCompanyUrn=urn%3Ali%3Afs_miniCompany%3A31371289" data-test-app-aware-link="">
-                                                  <div>
-                                                    <span class="feed-shared-feed-discovery-entity__text--body text-body-medium-bold">
-                                                      모임 제목
-                                                      <span dir="ltr">그린랩스 Greenlabs</span>
-                                                    </span>
-                                                  </div>
-                                                </a>
-
-                                                <a class="app-aware-link  link-without-hover-visited" href="https://www.linkedin.com/company/greenlabsglobal/?miniCompanyUrn=urn%3Ali%3Afs_miniCompany%3A31371289" data-test-app-aware-link="">
-                                                  <div class="ivm-image-view-model    flex-shrink-zero">
-                                                    <div class="ivm-view-attr__img-wrapper ivm-view-attr__img-wrapper--use-img-tag display-flex">
-                                                      <!-- 이미지 -->
-                                                      <!-- {% if event.event_imgage %}
-                                                        <img class="card-img-top" src="{{event.event_imgage.url}}" alt="..." style="height: 200px"/>
-                                                      {% else %}
-                                                        <img class="card-img-top" src="" alt="..."/>
-                                                      {% endif %} -->
-                                                    </div>
-                                                  </div>
-                                                </a>
-                                                <div class="feed-shared-feed-discovery-entity__text-container flex-grow-1">
-                                                  <a class="app-aware-link  link-without-hover-visited" href="https://www.linkedin.com/company/greenlabsglobal/?miniCompanyUrn=urn%3Ali%3Afs_miniCompany%3A31371289" data-test-app-aware-link="">
-                                                    <div>
-                                                      <span class="feed-shared-feed-discovery-entity__text--body text-body-medium-bold">
-                                                        <!-- 모임 제목 -->
-                                                        <span dir="ltr">그린랩스 Greenlabs</span>
-                                                      </span>
-                                                    </div>
-                                                  </a>
-                                                  <a class="app-aware-link  link-without-hover-visited" href="https://www.linkedin.com/company/greenlabsglobal/?miniCompanyUrn=urn%3Ali%3Afs_miniCompany%3A31371289" data-test-app-aware-link="">
-                                                    <div class="feed-shared-feed-discovery-entity__description feed-shared-feed-discovery-entity__text--body text-body-small">
-                                                      지나가는 나는 프랑시스 벌레는 내 남은 당신은 별들을 버리었습니다.
-                                                    </div>
-                                                  </a>
-                                                </div>
-                                                <div class="flex-shrink-zero">
-                                                  <button class="follow   artdeco-button artdeco-button--secondary artdeco-button--2" aria-label="Follow" aria-pressed="false" type="button">
-                                                    <li-icon aria-hidden="true" type="add" class="artdeco-button__icon" size="small">
-                                                      <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" data-supported-dps="16x16" fill="currentColor" class="mercado-match" width="16" height="16" focusable="false">
-                                                        <path d="M14 9H9v5H7V9H2V7h5V2h2v5h5z"></path>
-                                                      </svg>
-                                                    </li-icon>
-                                                    <span aria-hidden="true">팔로우</span>
-                                                  </button>
-                                                </div>
-                                              </div>
-                                            </div>
-                                            <div id="ember49" class="ember-view"></div>
-                                          </div>
-                                        </div>
-                                      </div>
-
-                                    </div> -->
-
-                                  {% for event in events %}
-                                    
-                                    <!-- 이벤트 copy -->
-                                    <div class="feed-shared-aggregated-content__list-item">
-                                      <div class="feed-shared-update-v2 feed-shared-update-v2--minimal-padding full-height relative feed-shared-update-v2--wrapped feed-shared-update-v2--aggregated" id="ember46" data-urn="urn:li:company:31371289">
-                                        <div>
-                                          <div role="status"></div>
-                                          <div class="feed-shared-control-menu display-flex feed-shared-update-v2__control-menu absolute text-align-right"></div>
-                                          <div class="feed-shared-inline-show-more-text feed-shared-update-v2__description is-empty" tabindex="-1"></div>
-                                          <div class="feed-shared-feed-discovery-entity">
-                                            <div class="feed-shared-feed-discovery-entity__main-content display-flex flex-row">
-                                              <a class="app-aware-link  link-without-hover-visited" href="https://www.linkedin.com/company/greenlabsglobal/?miniCompanyUrn=urn%3Ali%3Afs_miniCompany%3A31371289" data-test-app-aware-link="">
-                                                <div class="ivm-image-view-model    flex-shrink-zero">
-                                                  <div class="ivm-view-attr__img-wrapper ivm-view-attr__img-wrapper--use-img-tag display-flex">
-                                                    <!-- 이미지 -->
-                                                    <!-- <img width="48" src="https://media.licdn.com/dms/image/C560BAQHxEFh4zQmlIQ/company-logo_100_100/0/1647926523642?e=1683158400&amp;v=beta&amp;t=M8a9cCweipoQ6FyxBLCB_tg0Wz47n8VNyJ64wswJ_T8" loading="lazy" height="48" alt="그린랩스 Greenlabs" id="ember48" class="ivm-view-attr__img--centered EntityPhoto-square-3 EntityPhoto-circle-3 ghost-person lazy-image ember-view"> -->
-                                                    {% if event.event_imgage %}
-                                                      <img class="ivm-view-attr__img--centered EntityPhoto-square-3 EntityPhoto-circle-3 ghost-person lazy-image ember-view" src="{{event.event_imgage.url}}" alt="..." style="height: 200px"/>
-                                                    {% else %}
-                                                      <img class="ivm-view-attr__img--centered EntityPhoto-square-3 EntityPhoto-circle-3 ghost-person lazy-image ember-view" src="" alt="..."/>
-                                                    {% endif %}
-                                                  </div>
-                                                </div>
-                                              </a>
-                                              <div class="feed-shared-feed-discovery-entity__text-container flex-grow-1">
-                                                <a class="app-aware-link  link-without-hover-visited" href="https://www.linkedin.com/company/greenlabsglobal/?miniCompanyUrn=urn%3Ali%3Afs_miniCompany%3A31371289" data-test-app-aware-link="">
-                                                  <div>
-                                                    <span class="feed-shared-feed-discovery-entity__text--body text-body-medium-bold">
-                                                      <!-- 모임 제목 -->
-                                                      <span dir="ltr">ㅇㄹㅇㄹ{{event.title}}</span>
-                                                    </span>
-                                                  </div>
-                                                </a>
-
-                                              </div>
-                                              <!-- Product actions-->
-                                              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                                <div class="text-center">
-                                                  <a class="btn btn-outline-dark mt-auto" href="{% url 'event_detail' %}">자세히 보기</a>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        
-                                      </div>
-
-                                    </div>
-                                  {% endfor %}
-
-                                    <button class="feed-shared-button artdeco-button--tertiary artdeco-button--muted feed-shared-aggregated-content__button artdeco-button artdeco-button--tertiary artdeco-button--fluid" type="button">
-                                      <span class="visually-hidden">더 보기</span>
-                                      <span aria-hidden="true">더 보기</span>
-                                      <li-icon aria-hidden="true" type="arrow-right" class="mh1" size="small">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" class="mercado-match" data-supported-dps="16x16" fill="currentColor" width="16" height="16" focusable="false">
-                                          <path d="M11.45 3L15 8l-3.55 5H9l2.84-4H2V7h9.84L9 3z"></path>
-                                        </svg>
-                                      </li-icon>
-                                    </button>
-                                  
-
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-
-                            <!-- 포스팅1 -->
-                            <!-- <div> <div data-id="urn:li:activity:7021567978135592960" class="relative"> <div id="ember180" class="ember-view occludable-update "> <div class="feed-shared-update-v2 feed-shared-update-v2--minimal-padding full-height relative artdeco-card" id="ember239" data-urn="urn:li:activity:7021567978135592960"> <div> <div role="status"></div> <h2 class="visually-hidden"> Feed post number 4 </h2> <div class="feed-shared-control-menu display-flex feed-shared-update-v2__control-menu absolute text-align-right"> <div id="ember243" class="artdeco-dropdown artdeco-dropdown--placement-bottom artdeco-dropdown--justification-right ember-view"> <button aria-expanded="false" tabindex="0" id="ember244" class="feed-shared-control-menu__trigger artdeco-button artdeco-button--tertiary artdeco-button--muted artdeco-button--1 artdeco-button--circle artdeco-dropdown__trigger artdeco-dropdown__trigger--placement-bottom ember-view" type="button"> <li-icon type="overflow-web-ios" class="artdeco-button__icon" role="img" aria-label="Open control menu"> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" class="mercado-match" width="24" height="24" focusable="false"> <path d="M14 12a2 2 0 11-2-2 2 2 0 012 2zM4 10a2 2 0 102 2 2 2 0 00-2-2zm16 0a2 2 0 102 2 2 2 0 00-2-2z"></path> </svg> </li-icon> </button> <div tabindex="-1" aria-hidden="true" id="ember245" class="feed-shared-control-menu__content artdeco-dropdown__content artdeco-dropdown--is-dropdown-element artdeco-dropdown__content--has-arrow artdeco-dropdown__content--arrow-right artdeco-dropdown__content--justification-right artdeco-dropdown__content--placement-bottom ember-view" aria-label="Control Menu Options"></div> </div> </div> <div class="update-components-actor display-flex"> <a class="app-aware-link update-components-actor__container-link relative display-flex flex-grow-1" aria-label="View: LinkedIn Guide to Networking 15,764,648 followers 1 month ago" target="_self" href="https://www.linkedin.com/company/linkedin-member-guide/?miniCompanyUrn=urn%3Ali%3Afs_miniCompany%3A14041259" data-test-app-aware-link=""> <div class="update-components-actor__container absolute"></div> <div class="update-components-actor__image relative"> <span class="js-update-components-actor__avatar" data-entity-hovercard-id="urn:li:fs_miniCompany:14041259"> <div class="ivm-image-view-model update-components-actor__avatar"> <div class="ivm-view-attr__img-wrapper ivm-view-attr__img-wrapper--use-img-tag display-flex"> <img width="48" src="https://media.licdn.com/dms/image/C560BAQGoCnyxrg-bww/company-logo_100_100/0/1566604893576?e=1683158400&amp;v=beta&amp;t=xTHs-5lO8LqTg-8v6UoTk4asGUssRNq5Ni13cLcZyBI" loading="lazy" height="48" alt="LinkedIn Guide to Networking" id="ember246" class="ivm-view-attr__img--centered EntityPhoto-square-3 update-components-actor__avatar-image lazy-image ember-view"> </div> </div> </span> </div> <div class="update-components-actor__meta relative"> <span class="update-components-actor__title"> <span class="update-components-actor__name t-14 t-bold hoverable-link-text t-black" data-entity-hovercard-id="urn:li:fs_miniCompany:14041259"> <span dir="ltr">러브솔로</span> </span> </span> <span class="update-components-actor__description t-12 t-normal t-black--light"> 15,764,648 팔로워 </span> <span class="update-components-actor__sub-description t-12 t-normal t-black--light"> <div class="update-components-text-view white-space-pre-wrap break-words"><span aria-hidden="true"><span>1달 전 • </span> <li-icon aria-hidden="true" type="globe-americas" class="v-align-bottom" size="small"> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" data-supported-dps="16x16" fill="currentColor" class="mercado-match" width="16" height="16" focusable="false"> <path d="M8 1a7 7 0 107 7 7 7 0 00-7-7zM3 8a5 5 0 011-3l.55.55A1.5 1.5 0 015 6.62v1.07a.75.75 0 00.22.53l.56.56a.75.75 0 00.53.22H7v.69a.75.75 0 00.22.53l.56.56a.75.75 0 01.22.53V13a5 5 0 01-5-5zm6.24 4.83l2-2.46a.75.75 0 00.09-.8l-.58-1.16A.76.76 0 0010 8H7v-.19a.51.51 0 01.28-.45l.38-.19a.74.74 0 01.68 0L9 7.5l.38-.7a1 1 0 00.12-.48v-.85a.78.78 0 01.21-.53l1.07-1.09a5 5 0 01-1.54 9z"></path> </svg> </li-icon> <span></span> </span><span class="visually-hidden"><span>1 month ago</span> </span> </div> </span> </div> </a> </div> <div class="feed-shared-update-v2__description-wrapper" style="" tabindex="-1"> <div class="feed-shared-inline-show-more-text feed-shared-update-v2__description feed-shared-inline-show-more-text--minimal-padding" tabindex="-1"> <div class="update-components-text relative feed-shared-update-v2__commentary " dir="ltr"> <span class="break-words"> <span dir="ltr">그림자는 열매를 예가 안고, 싶이 피부가 아름다우냐? 따뜻한 보는 뛰노는 인생에 끓는다. 군영과 가진 기관과 날카로우나 새가 것이다. 전인 힘차게 얼음이 예수는 위하여 것이 같이, 것이다. 끝까지 피가 가치를 약동하다. 이상 오아이스도 그들에게 우리의 봄바람이다. 인간이 불러 있는 어디 천지는 꽃 사막이다. 꾸며 얼마나 가치를 못할 들어 살 착목한는 두기 것이다. 아니한 그들의 그들의 찾아 거선의 이것이다. 노년에게서 그들의 꽃 없으면, 끝까지 찬미를 천고에 어디 것이다. 그림자는 품으며, 위하여, 인생에 용감하고 가슴에 창공에 청춘의 황금시대다. 봄날의 놀이 붙잡아 청춘에서만 투명하되 갑 사람은 열락의 봄바람이다. 과실이 기쁘며, 피가 인생의 이상이 생명을 봄바람이다. 인류의 찾아 것이다.보라, 있는 꽃이 아니다.</span> </span> </div> </div> </div> <div class="update-components-linkedin-video feed-shared-update-v2__content"> <div id="ember251" class="social-details-social-activity update-v2-social-activity"> <div> <div id="ember253" class="ember-view"></div> </div> <div class="feed-shared-update-v2__comments-container display-flex flex-column"> <div id="ember271" class="comments-comment-box comments-comment-box--has-avatar" data-scroll-name="true"> <div class="feed-shared-avatar-image b0 member comments-comment-box__avatar-image ml0 mt1"> <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="M.G. Matthew" id="ember272" class="avatar member EntityPhoto-circle-2 ghost-person ember-view"> </div> <div class="comments-comment-box__form-container flex-grow-1"> <form class="comments-comment-box__form"> <div class="comments-comment-texteditor"> <div class="display-flex flex-wrap"> <div class="comments-comment-box-comment__text-editor"> <div> <div class="a11y-text" role="status" aria-live="polite" aria-label="0 suggestions found. "></div> <div class="editor-container"> <div> <div class="editor-content ql-container"> <div class="ql-editor ql-blank" data-gramm="false" contenteditable="true" data-placeholder="댓글 달기" aria-placeholder="댓글 달기" aria-label="Text editor for creating content" role="textbox" aria-multiline="true" data-test-ql-editor-contenteditable="true"> <p><br></p> </div> <div class="ql-clipboard" contenteditable="true" tabindex="-1"></div> </div> </div> </div> </div> </div> </div> </div> </form> </div> </div> <div id="ember278" class="comments-comments-list"> <div> <article id="ember279" class="comments-comment-item comments-highlighted-comment-item comments-comment-item--highlighted comments-comments-list__highlighted-comment-item" tabindex="-1" data-id="urn:li:comment:(ugcPost:7014311166327873536,7021567974679474176)"> <div class="comments-post-meta comments-comment-item__post-meta"> <a target="_self" href="/company/linkedin-member-guide/" id="ember281" class="ember-view tap-target comments-post-meta__actor-link"> <div class="feed-shared-avatar-image b0 company" data-entity-hovercard-id="urn:li:fs_miniCompany:14041259"> <img src="https://media.licdn.com/dms/image/C560BAQGoCnyxrg-bww/company-logo_100_100/0/1566604893576?e=1683158400&amp;v=beta&amp;t=xTHs-5lO8LqTg-8v6UoTk4asGUssRNq5Ni13cLcZyBI" alt="See profile for LinkedIn Guide to Networking" id="ember282" class="avatar company EntityPhoto-square-2 ember-view"> </div> </a> <div class="comments-post-meta__profile-info-wrapper display-flex"> <a target="_self" href="/company/linkedin-member-guide/" id="ember283" class="ember-view inline-flex overflow-hidden t-16 t-black t-bold tap-target"> <h3 class="comments-post-meta__actor t-normal t-black--light"> <span class="comments-post-meta__name text-body-small-open t-black"> <span class="comments-post-meta__name-text hoverable-link-text" data-entity-hovercard-id="urn:li:fs_miniCompany:14041259"> 이벤트1 </span> <span class="comments-post-meta__author-badge label-neutral">Author</span> </span> <span class="comments-post-meta__headline t-12 t-normal t-black--light"> 15,764,648 followers </span> </h3> </a> </div> </div> <div class="comments-comment-item__options"> <time class="comments-comment-item__timestamp t-12 t-black--light t-normal mr1">1w</time> </div> <div class="comments-highlighted-comment-item-content-body break-words"> <div> <div class="feed-shared-inline-show-more-text comments-highlighted-comment-item__show-more-text" tabindex="-1"> <span class="feed-shared-main-content--highlighted-comment t-14 t-black t-normal"> <div class="update-components-text relative" dir="ltr"> <span dir="ltr">💡Let us know your thoughts: lnkd.in/c27💡<br></span> </div> </span> </div> </div> </div> <div id="ember284" class="ember-view"></div> <div id="ember285" class="ember-view"> <div id="ember286" class="ember-view"></div> </div> <div id="ember287" class="ember-view"> <div id="ember288" class="ember-view"></div> </div> <div id="ember289" class="social-details-social-activity comment-social-activity"> <div> <div id="ember290" class="ember-view"></div> </div> <div class="comment-social-activity__comment-options-dropdown"> <div id="ember291" class="artdeco-dropdown artdeco-dropdown--placement-bottom artdeco-dropdown--justification-right ember-view"> <button aria-expanded="false" id="ember292" class="artdeco-dropdown__trigger artdeco-dropdown__trigger--placement-bottom ember-view comment-options-trigger t-black--light m0" type="button" tabindex="0"> <li-icon type="overflow-web-ios" class="t-black--light" size="small" role="img" aria-label="Open options for LinkedIn Guide to Networking’s comment"> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" data-supported-dps="16x16" fill="currentColor" class="mercado-match" width="16" height="16" focusable="false"> <path d="M3 9.5A1.5 1.5 0 114.5 8 1.5 1.5 0 013 9.5zM11.5 8A1.5 1.5 0 1013 6.5 1.5 1.5 0 0011.5 8zm-5 0A1.5 1.5 0 108 6.5 1.5 1.5 0 006.5 8z"></path> </svg> </li-icon> </button> <div tabindex="-1" aria-hidden="true" id="ember293" class="artdeco-dropdown__content artdeco-dropdown--is-dropdown-element artdeco-dropdown__content--justification-right artdeco-dropdown__content--placement-bottom ember-view dropdown-options absolute"></div> </div> </div> <div class="comments-comment-item__nested-items"></div> </div> </article> </div> <div class="comments-comments-list__show-previous-container "> <button id="ember297" class="comments-comments-list__load-more-comments-button artdeco-button artdeco-button--muted artdeco-button--1 artdeco-button--tertiary ember-view"> <span class="artdeco-button__text"> 댓글 더 보기 </span> </button> </div> </div> </div> </div> <div id="ember298" class="ember-view"></div> </div> </div> </div> </div> </div> </div> -->
-                          </div>
-                        </main>
-
-                        <!-- 채팅창 위치 -->
-                        <aside class="scaffold-layout__aside" aria-label="Add to your feed">
-                          <div id="feed-right-rail-tooltip-outlet">
-                            <div id="artdeco-hoverable-feed-follows-module__tooltip-v2" class="artdeco-hoverable-content feed-follows-module__tooltip-content artdeco-hoverable-content--inverse-theme artdeco-hoverable-content--default-spacing artdeco-hoverable-content--undefined-placement" tabindex="-1" role="tooltip" aria-hidden="true">
-                              <div class="artdeco-hoverable-content__shell">
-                                <button class="artdeco-hoverable-content__close-btn" aria-label="Dismiss" type="button">
-                                  <li-icon aria-hidden="true" type="cancel-icon" size="small">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" data-supported-dps="16x16" fill="currentColor" class="mercado-match" width="16" height="16" focusable="false">
-                                      <path d="M14 3.41L9.41 8 14 12.59 12.59 14 8 9.41 3.41 14 2 12.59 6.59 8 2 3.41 3.41 2 8 6.59 12.59 2z"></path>
-                                    </svg>
-                                  </li-icon>
-                                </button>
-                                <div class="artdeco-hoverable-content__content">
-                                  Follow things that interest you to personalize your feed.
-                                  <a href="https://www.linkedin.com/help/linkedin/answer/32504" target="_blank">Learn more</a>.
-                                </div>
-                              </div>
-                              <div class="artdeco-hoverable-content__arrow" aria-hidden="true"></div>
-                            </div>
-                          </div>
-                          <div class="mb2">
-                            <section id="ember116" class="artdeco-card ember-view">
-                              <div>
-                                <div class="feed-follows-module">
-                                  <div class="feed-follows-module__title display-flex">
-                                    <h2 class="t-16 t-black t-bold">
-                                      팔로우 한 친구
-                                    </h2>
-                                    <span tabindex="-1" id="ember118" class="artdeco-hoverable-trigger artdeco-hoverable-trigger--content-placed-left ember-view">
-                                      <button aria-controls="artdeco-hoverable-feed-follows-module__tooltip-v2" aria-expanded="false" aria-label="More information about add to your feed" type="button">
-                                        <li-icon aria-hidden="true" type="signal-notice" class="feed-follows-module__tooltip-icon" size="small">
-                                          <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" data-supported-dps="16x16" fill="currentColor" class="mercado-match" width="16" height="16" focusable="false">
-                                            <path d="M12 2H4a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2V4a2 2 0 00-2-2zm-3 8v2H7.5A1.5 1.5 0 016 10.5a1.56 1.56 0 01.1-.5l1.08-3h2.13l-1.09 3zm0-3.75A1.25 1.25 0 1110.25 5 1.25 1.25 0 019 6.25z"></path>
-                                          </svg>
-                                        </li-icon>
-                                      </button>
-                                      <div id="feed-follows-module__tooltip-v2" class="ember-view">
-                                        <div id="ember120" class="ember-view"></div>
-                                      </div>
-                                    </span>
-                                  </div>
-                                  <ul class="feed-follows-module__list">
-                                    <li class="feed-follows-module-recommendation company">
-                                      <a href="/company/naver/" id="ember122" class="ember-view feed-follows-module-recommendation__profile-link--avatar">
-                                        <img width="48" src="https://media.licdn.com/dms/image/C560BAQECT6Sd8Jz7Ug/company-logo_100_100/0/1659403404534?e=1683158400&amp;v=beta&amp;t=33tmz0tNiPZFUtjkNcujh3no22T5ZqueQNZ8AtafUl4" loading="lazy" height="48" alt="NAVER Corp" id="ember123" class="lazy-image ember-view EntityPhoto-circle-3">
-                                      </a>
-                                      <div>
-                                        <div class="feed-follows-module-recommendation__description">
-                                          <a href="/company/naver/" id="ember124" class="ember-view feed-follows-module-recommendation__profile-link--description">
-                                            <p class="feed-follows-module-recommendation__name-container break-words t-14 t-black t-bold">
-                                              <span class="feed-follows-module-recommendation__name t-14 t-black t-bold">
-                                                박서준
-                                              </span>
-                                            </p>
-                                            <div class="feed-follows-module-recommendation__subtext break-words">
-                                              <p id="ember125" style="-webkit-line-clamp: 2" class="ember-view lt-line-clamp lt-line-clamp--multi-line t-12 t-black--light t-normal">
-                                                남중 남고 컴공 대학원
-                                              </p>
-                                            </div>
-                                          </a>
-                                        </div>
-                                        <div>
-                                          <button class="follow   feed-follows-module-recommendation__follow-btn artdeco-button artdeco-button--secondary artdeco-button--2 artdeco-button--muted" aria-label="Follow" aria-pressed="false" type="button">
-                                            <li-icon aria-hidden="true" type="add" class="artdeco-button__icon" size="small">
-                                              <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" data-supported-dps="16x16" fill="currentColor" class="mercado-match" width="16" height="16" focusable="false">
-                                                <path d="M14 9H9v5H7V9H2V7h5V2h2v5h5z"></path>
-                                              </svg>
-                                            </li-icon>
-                                            <span aria-hidden="true">팔로우</span>
-                                          </button>
-                                        </div>
-                                      </div>
-                                    </li>
-                                    <li class="feed-follows-module-recommendation company">
-                                      <a href="/company/kakaocorp/" id="ember127" class="ember-view feed-follows-module-recommendation__profile-link--avatar">
-                                        <img width="48" src="https://media.licdn.com/dms/image/C560BAQH8GHN89ZynPw/company-logo_100_100/0/1662355918317?e=1683158400&amp;v=beta&amp;t=1onxKqgJ2o7SZ2VPwNRBWMYspr8NojY2CL4IqVsozMQ" loading="lazy" height="48" alt="Kakao Corp" id="ember128" class="lazy-image ember-view EntityPhoto-circle-3">
-                                      </a>
-                                      <div>
-                                        <div class="feed-follows-module-recommendation__description">
-                                          <a href="/company/kakaocorp/" id="ember129" class="ember-view feed-follows-module-recommendation__profile-link--description">
-                                            <p class="feed-follows-module-recommendation__name-container break-words t-14 t-black t-bold">
-                                              <span class="feed-follows-module-recommendation__name t-14 t-black t-bold">
-                                                김앙드레
-                                              </span>
-                                            </p>
-                                            <div class="feed-follows-module-recommendation__subtext break-words">
-                                              <p id="ember130" style="-webkit-line-clamp: 2" class="ember-view lt-line-clamp lt-line-clamp--multi-line t-12 t-black--light t-normal">
-                                                카카오 디자이너
-                                              </p>
-                                            </div>
-                                          </a>
-                                        </div>
-                                        <div>
-                                          <button class="follow   feed-follows-module-recommendation__follow-btn artdeco-button artdeco-button--secondary artdeco-button--2 artdeco-button--muted" aria-label="Follow" aria-pressed="false" type="button">
-                                            <li-icon aria-hidden="true" type="add" class="artdeco-button__icon" size="small">
-                                              <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" data-supported-dps="16x16" fill="currentColor" class="mercado-match" width="16" height="16" focusable="false">
-                                                <path d="M14 9H9v5H7V9H2V7h5V2h2v5h5z"></path>
-                                              </svg>
-                                            </li-icon>
-                                            <span aria-hidden="true">팔로우</span>
-                                          </button>
-                                        </div>
-                                      </div>
-                                    </li>
-                                    <li class="feed-follows-module-recommendation company">
-                                      <a href="/company/coupang/" id="ember132" class="ember-view feed-follows-module-recommendation__profile-link--avatar">
-                                        <img width="48" src="https://media.licdn.com/dms/image/C560BAQHlqY2ryf_2RA/company-logo_100_100/0/1629176826704?e=1683158400&amp;v=beta&amp;t=XoMUAE7ToY_jn9iJcVC3cmXMYuzj5IM8RGaocaf55L0" loading="lazy" height="48" alt="Coupang" id="ember133" class="lazy-image ember-view EntityPhoto-circle-3">
-                                      </a>
-                                      <div>
-                                        <div class="feed-follows-module-recommendation__description">
-                                          <a href="/company/coupang/" id="ember134" class="ember-view feed-follows-module-recommendation__profile-link--description">
-                                            <p class="feed-follows-module-recommendation__name-container break-words t-14 t-black t-bold">
-                                              <span class="feed-follows-module-recommendation__name t-14 t-black t-bold">
-                                                변기태
-                                              </span>
-                                            </p>
-                                            <div class="feed-follows-module-recommendation__subtext break-words">
-                                              <p id="ember135" style="-webkit-line-clamp: 2" class="ember-view lt-line-clamp lt-line-clamp--multi-line t-12 t-black--light t-normal">
-                                                주의 이름을 부르는 자는~
-                                              </p>
-                                            </div>
-                                          </a>
-                                        </div>
-                                        <div>
-                                          <button class="follow   feed-follows-module-recommendation__follow-btn artdeco-button artdeco-button--secondary artdeco-button--2 artdeco-button--muted" aria-label="Follow" aria-pressed="false" type="button">
-                                            <li-icon aria-hidden="true" type="add" class="artdeco-button__icon" size="small">
-                                              <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" data-supported-dps="16x16" fill="currentColor" class="mercado-match" width="16" height="16" focusable="false">
-                                                <path d="M14 9H9v5H7V9H2V7h5V2h2v5h5z"></path>
-                                              </svg>
-                                            </li-icon>
-                                            <span aria-hidden="true">팔로우</span>
-                                          </button>
-                                        </div>
-                                      </div>
-                                    </li>
-                                  </ul>
-                                  <a href="/mynetwork/discover-hub/" id="ember136" class="ember-view feed-follows-module__view-all artdeco-button artdeco-button--1 artdeco-button--tertiary artdeco-button--muted">
-                                    추천 더보기
-                                    <li-icon aria-hidden="true" type="arrow-right" class="v-align-middle" size="small">
-                                      <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16" class="mercado-match" data-supported-dps="16x16" fill="currentColor" width="16" height="16" focusable="false">
-                                        <path d="M11.45 3L15 8l-3.55 5H9l2.84-4H2V7h9.84L9 3z"></path>
-                                      </svg>
-                                    </li-icon>
-                                  </a>
-                                </div>
-                              </div>
-                            </section>
-                          </div>
-                          <div class="scaffold-layout__sticky scaffold-layout__sticky--is-active scaffold-layout__sticky--lg">
-                            <div class="scaffold-layout__sticky-content">
-                              <div id="feed-right-rail-tooltip-sticky-outlet"></div>
-                              <section class="ad-banner-container artdeco-card overflow-hidden">
-                                <iframe data-ad-banner="" class="ad-banner" width="300" height="250" src="about:blank" scrolling="no" title="advertisement"></iframe>
-                              </section>
-                              <footer class="global-footer-compact" aria-label="LinkedIn Footer Content">
-                                <div class="global-footer-compact__content t-12 t-normal text-align-center clear-both" id="compactfooter-copyright">
-                                  <li-icon type="linkedin-logo" class="global-footer-compact__linkedin-logo" size="14dp" color="brand" role="img" aria-label="LinkedIn">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 56 14" data-supported-dps="56x14" fill="currentColor" class="mercado-match" width="56" height="14" focusable="false">
-                                      <g></g>
-                                    </svg>
-                                  </li-icon>
-                                  LoveSolo © 2023
-                                </div>
-                                <div id="ember154" class="ember-view"></div>
-                              </footer>
-                            </div>
-                          </div>
-                        </aside>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <img src="https://px.ads.linkedin.com/collect/?pid=6883&amp;fmt=gif&amp;_t=1675142455239" alt="" role="none" class="third-party-tracking-pixel hidden" data-test-third-party-tracking-pixel="">
-          </div>
-          <iframe title="cedex beacon iframe" sandbox="allow-scripts" style="display:none;" src="//radar.cedexis.com/1/11326/radar.html"></iframe>
-          <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-          <script>
-            const getCookieValue = (key) => {
-              let cookieKey = key + "="; 
-              let result = "";
-              const cookieArr = document.cookie.split(";");
-              
-              for(let i = 0; i < cookieArr.length; i++) {
-                if(cookieArr[i][0] === " ") {
-                  cookieArr[i] = cookieArr[i].substring(1);
-                }
-                
-                if(cookieArr[i].indexOf(cookieKey) === 0) {
-                  result = cookieArr[i].slice(cookieKey.length, cookieArr[i].length);
-                  return result;
-                }
-              }
-              return result;
-            }
-            console.log(getCookieValue("access_token"))
-            window.onload = function () {
-              
-            }
-          </script>
-        </body>
-        <style id="allow-copy_style">
-          #allow-copy_script~body *,
-          *,
-          *::after,
-          *::before,
-          body,
-          html,
-          html body * {
-            -webkit-user-select: initial !important;
-            user-select: initial !important;
-          }
-        </style>
-
-      </html>
+    <!-- {% for post in posts %} <div class="row justify-content-center mt-5"> <div class="col-md-8 col-sm-12 border-bottom"> <div> <a href="{% url 'profile' post.author.profile.pk %}"> <img class="round-circle post-img" height="30" width="30" src="{{ post.author.profile.picture.url }}"/> </a> <p class="post-text"> <a class="text-primary post-link" href="{% url 'profile' post.author.profile.pk %}">@{{ post.author }}</a> {{ post.created_on }} </p> </div> <div class="position-relative"> {% if post.image %} <img src="{{ post.image.url }}" class="post-image"/> {% endif %} <p>{{ post.body }}</p> <a href="{% url 'post-detail' post.pk %}" class="stretched-link"></a> </div> <div class="d-flex flex-row"> <form method="POST" action="{% url 'like' post.pk %}"> {% csrf_token %} <input type="hidden" name="next" value="{{ request.path }}"> <button class="remove-default-btn" type="submit"> <i class="far fa-thumbs-up"> <span>{{ post.likes.all.count }}</span></i> </button> </form> <form method="POST" action="{% url 'dislike' post.pk %}"> {% csrf_token %} <input type="hidden" name="next" value="{{ request.path }}"> <button class="remove-default-btn" type="submit"> <i class="far fa-thumbs-down"> <span>{{ post.dislikes.all.count }}</span></i> </button> </form>-->
+  </div>
+</div>
+</div>
+{% endfor %}
+</div>
+{% endblock contents %}
