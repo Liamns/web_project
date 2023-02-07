@@ -15,7 +15,7 @@ urlpatterns = [
     path('inbox/<int:pk>/CreateMessage/', CreateMessage.as_view(), name='create-message'),
     
     
-    path('profile/<int:pk>/', ProfileView.as_view(), name='profile'),
+    # path('profile/<int:pk>/', ProfileView.as_view(), name='profile'),
     # path('notification/<int:notification_pk>/post/<int:post_pk>', PostNotification.as_view(), name='post-notification'),
     
     path('notification/delete/<int:notification_pk>', RemoveNotification.as_view(), name='notification-delete'),
