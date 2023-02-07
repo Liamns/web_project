@@ -113,33 +113,34 @@ class ThreadView(APIView):
 class CreateMessage(APIView):
     def post(self, request, pk, *args, **kwargs):
         
-        form = MessageForm(request.POST, request.FILES)
+        # form = MessageForm(request.POST, request.FILES)
         thread = ThreadModel.objects.get(pk=pk)
         if thread.receiver == request.user:
             receiver = thread.user
         else:
             receiver = thread.receiver
 
-        if form.is_valid():
-            message = form.save(commit=False)
-            message.thread = thread
-            message.sender_user = request.user,
-            message.receiver_user = receiver
-            message.save()
+        # if form.is_valid():
+        #     message = form.save(commit=False)
+        #     message.thread = thread 
+        #     message.sender_user = request.user,
+        #     message.receiver_user = receiver
+        #     message.save()
             
-        # message = MessageModel(
-        #     thread=thread,
-        #     sender_user=request.user,
-        #     receiver_user=receiver,
-        #     body=request.POST.get('message')
-        # )
+        message = MessageModel(
+            thread=thread,
+            sender_user=request.user,
+            receiver_user=receiver,
+            body=request.POST.get('message')
+        )
+        
+        message.save()
         
         notification = Notification.objects.create(
             notification_type=4,
             from_user=request.user,
             to_user=receiver,
             thread=thread
-            
         )
         
         return redirect('thread', pk=pk)
